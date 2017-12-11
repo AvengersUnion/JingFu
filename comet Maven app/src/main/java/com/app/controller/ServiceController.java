@@ -1,15 +1,24 @@
 package com.app.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.app.entity.Goods;
 import com.app.entity.Image;
 import com.app.entity.Service;
 import com.app.entity.ServiceOrder;
 import com.app.service.ServiceService;
+
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,24 +30,37 @@ import java.util.Map;
  */
 
 @Controller
-@RequestMapping("/service/")
+@RequestMapping("/getService")
 public class ServiceController {
 
-
-    @Resource(name = "serviceService")
+	@Autowired
     private ServiceService serviceService;
-
-
+    /**
+     * 获取所有的一级服务
+     */
+	@RequestMapping(value="/app/getAllService.do",produces="text/html;charset=UTF-8")
+	@ResponseBody
+    public String getAllService(HttpServletRequest request, HttpServletResponse response) {
+    	List<Map<String,String>> list = serviceService.getAllService();
+    	String json = JSON.toJSON(list).toString();
+    	System.out.println(json);
+		return json;
+    }
+    
     /**
      * 功能描述：通过一级服务的类别id 获取对应的子服务列表
      *
      *
      */
-    @RequestMapping("getsublist")
+    @RequestMapping(value="/app/getsublist.do",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
-    public List getsubListById(String type){
+    public String getsubListById(HttpServletRequest request, HttpServletResponse response){
+    	System.out.println("getsublist");
+    	String type = request.getParameter("type");
         List<Service> list=serviceService.getsubListByType(type);
-        return list;
+        String json = JSON.toJSON(list).toString();
+    	System.out.println(json);
+		return json;
     }
 
 
@@ -48,11 +70,14 @@ public class ServiceController {
      *
      *
      */
-    @RequestMapping("getdetaillist")
+    @RequestMapping(value="/app/getdetaillist.do",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
-    public List getDetailListById(String id){
-        List<Service> list=serviceService.getdetailListById(id);
-        return list;
+    public String getDetailListById(HttpServletRequest request, HttpServletResponse response){
+    	String id = request.getParameter("id");
+        Service service=serviceService.getdetailListById(id);
+        String json = JSON.toJSON(service).toString();
+    	System.out.println(json);
+		return json;
     }
 
 
@@ -112,8 +137,6 @@ public class ServiceController {
 
         return state;
     }
-
-
 
 
 }
