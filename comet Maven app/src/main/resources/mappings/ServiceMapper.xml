@@ -11,11 +11,11 @@
 		a.discount as "discount",
 		a.ss as "summary",
 		a.sd as "details",
-		a.region_rc as "region_rc",
-		a.aip as "ad_img_path",
-		a.ain as "ad_img_name",
-		a.dip as "det_img_path",
-		a.din as "det_img_name",
+		a.region_rc as "regionRc",
+		a.aip as "adImgPath",
+		a.ain as "adImgName",
+		a.dip as "detImgPath",
+		a.din as "detImgName",
 		a.tp as "tp",
 		a.stt as "stt",
 		a.od as "od"
@@ -35,8 +35,7 @@
   <!--获取一级服务的子服务列表-->
   <select id="getsubListByType"  resultType="com.app.entity.Service">
     select
-    	a.id as "id",
-		a.sn as "name"
+    	<include refid="serviceColumn"></include>
      from 
      	service a 
      WHERE  TP = #{type}

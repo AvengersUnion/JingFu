@@ -27,9 +27,6 @@
     	commodity a
     <where>
     	1 = 1
-	    <if test="id != null and id != ''">
-	    	and a.id = #{id}
-	    </if>
 	    <if test="regionRc != null and regionRc != ''">
 	    	and a.region_rc = #{regionRc}
 	    </if>
@@ -42,5 +39,12 @@
     </where>
     
   </select>
-
+	<select id="getGoodsById" resultType="com.app.entity.Goods">
+		select 
+    		<include refid="goodsColumn"></include>
+    	from 
+    		commodity a
+    	where
+    		a.id = #{id}
+	</select>
  </mapper>

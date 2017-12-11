@@ -52,7 +52,7 @@ public class ServiceController {
      *
      *
      */
-    @RequestMapping(value="/app/getsublist",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+    @RequestMapping(value="/app/getServiceList",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
     public String getsubListById(HttpServletRequest request, HttpServletResponse response){
     	System.out.println("getsublist");
@@ -70,10 +70,13 @@ public class ServiceController {
      *
      *
      */
-    @RequestMapping(value="/app/getdetaillist",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+    @RequestMapping(value="/app/getServiceDetail",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
     public String getDetailListById(HttpServletRequest request, HttpServletResponse response){
     	String id = request.getParameter("id");
+    	if(id == null || id == "") {
+    		return "[]";
+    	}
         Service service=serviceService.getdetailListById(id);
         String json = JSON.toJSON(service).toString();
     	System.out.println(json);

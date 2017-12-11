@@ -26,7 +26,7 @@ public class GoodsController {
   /**
    * 功能描述：获取商品信息
    */
-  @RequestMapping(value="/getGoodsInfo",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+  @RequestMapping(value="/getGoodsList",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
   @ResponseBody
   public String getAllList(Goods goods,HttpServletRequest request, HttpServletResponse response) {
 	System.out.println("getGoods:" + goods);
@@ -35,7 +35,21 @@ public class GoodsController {
 	System.out.println(json);
 	return json;
   }
-
+  /**
+   * 功能描述：获取商品详情
+   */
+  @RequestMapping(value="/getGoodsDetail",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+  @ResponseBody
+  public String getGoodsDetail(HttpServletRequest request, HttpServletResponse response) {
+	String id = request.getParameter("id");
+	if(id == null || id == "") {
+		return "[]";
+	}
+	Goods goods = goodsService.getGoodsById(id);
+	String json = JSON.toJSON(goods).toString();
+	System.out.println(json);
+	return json;
+  }
 
 
 }
