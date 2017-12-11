@@ -5,11 +5,16 @@ import com.app.entity.Service;
 import com.app.entity.ServiceOrder;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ServiceService {
-
+	/**
+	 * 获取所有的一级服务 
+	 * @return
+	 */
+	List<Map<String,String>> getAllService();
     List<Service> getsubListByType(String type);
-    List<Service> getdetailListById(String id);
+    Service getdetailListById(String id);
     List<Image> loginImage();
     List<Image> advertImage();
     void saveOrder(ServiceOrder serviceOrder);
