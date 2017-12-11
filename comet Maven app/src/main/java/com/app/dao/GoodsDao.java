@@ -5,13 +5,8 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
+
 public interface GoodsDao {
-  List<Goods> getGoodsAll();
+  List<Goods> getGoodsInfo(Goods Goods);
 
-  List<Goods> getGoodsByRc(String regionCode);
-
-  List<Goods> getGoodsByTp(String type);
-
-  List<Goods> getGoodsByStt(String state);
 }

@@ -13,19 +13,8 @@ public class GoodsServiceImpl implements GoodsService {
   @Resource
   private GoodsDao goodsDao;
 
-  public List<Goods> getGoodsAll() {
-    return goodsDao.getGoodsAll();
+  public List<Goods> getGoodsInfo(Goods goods) {
+    return goodsDao.getGoodsInfo(goods);
   }
 
-  public List<Goods> getGoodsByRc(String regionCode) {
-    return goodsDao.getGoodsByRc(regionCode);
-  }
-
-  public List<Goods> getGoodsByTp(String type) {
-    return goodsDao.getGoodsByTp(type);
-  }
-
-  public List<Goods> getGoodsByStt(String state) {
-    return goodsDao.getGoodsByStt(state);
-  }
 }

@@ -38,7 +38,7 @@ public class ServiceController {
     /**
      * 获取所有的一级服务
      */
-	@RequestMapping(value="/app/getAllService.do",produces="text/html;charset=UTF-8")
+	@RequestMapping(value="/app/getAllService",produces="text/html;charset=UTF-8")
 	@ResponseBody
     public String getAllService(HttpServletRequest request, HttpServletResponse response) {
     	List<Map<String,String>> list = serviceService.getAllService();
@@ -52,7 +52,7 @@ public class ServiceController {
      *
      *
      */
-    @RequestMapping(value="/app/getsublist.do",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+    @RequestMapping(value="/app/getsublist",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
     public String getsubListById(HttpServletRequest request, HttpServletResponse response){
     	System.out.println("getsublist");
@@ -70,7 +70,7 @@ public class ServiceController {
      *
      *
      */
-    @RequestMapping(value="/app/getdetaillist.do",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+    @RequestMapping(value="/app/getdetaillist",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
     public String getDetailListById(HttpServletRequest request, HttpServletResponse response){
     	String id = request.getParameter("id");

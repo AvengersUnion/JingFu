@@ -9,7 +9,7 @@ public class Goods {
   private String discount;
   private String cs;
   private String cd;
-  private String region_rc;
+  private String regionRc;
   private String aip;
   private String ain;
   private String dip;
@@ -82,14 +82,6 @@ public class Goods {
     this.cd = cd;
   }
 
-  public String getRegion_rc() {
-    return region_rc;
-  }
-
-  public void setRegion_rc(String region_rc) {
-    this.region_rc = region_rc;
-  }
-
   public String getAip() {
     return aip;
   }
@@ -145,4 +137,22 @@ public class Goods {
   public void setOd(String od) {
     this.od = od;
   }
+
+
+
+public String getRegionRc() {
+	return regionRc;
+}
+
+public void setRegionRc(String regionRc) {
+	this.regionRc = regionRc;
+}
+
+@Override
+public String toString() {
+	return "Goods [id=" + id + ", cn=" + cn + ", ig=" + ig + ", price=" + price + ", prepay=" + prepay + ", discount="
+			+ discount + ", cs=" + cs + ", cd=" + cd + ", regionRc=" + regionRc + ", aip=" + aip + ", ain=" + ain
+			+ ", dip=" + dip + ", din=" + din + ", tp=" + tp + ", stt=" + stt + ", od=" + od + "]";
+}
+  
 }

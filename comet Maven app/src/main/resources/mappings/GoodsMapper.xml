@@ -1,21 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.dao.GoodsDao" >
-  <!--获取全部商品列表-->
-  <select id="getGoodsAll"  resultType="com.app.entity.Goods">
-    select * from commodity
-  </select>
-  <!--根据商品城市获取商品列表 421100000000000-->
-  <select id="getGoodsByRc"  resultType="com.app.entity.Goods">
-    select * from commodity c where c.region_rc=#{regionCode}
-  </select>
-  <!--根据商品类型获取商品列表 SP_YP-->
-  <select id="getGoodsByTp"  resultType="com.app.entity.Goods">
-    select * from commodity c where c.tp=#{type}
-  </select>
-  <!--根据商品状态获取商品列表 CS_ZS-->
-  <select id="getGoodsByStt"  resultType="com.app.entity.Goods">
-    select * from commodity c where c.stt=#{state}
+	<sql id="goodsColumn">
+		a.ID as "id",
+		a.CN as "cn",
+		a.IG as "ig",
+		a.PRICE as "price",
+		a.PREPAY as "prepay",
+		a.DISCOUNT as "discount",
+		a.CS as "cs",
+		a.CD as "cd",
+		a.REGION_RC as "regionRc",
+		a.AIP as "aip",
+		a.AIN as "ain",
+		a.DIP as "dip",
+		a.DIN as "din",
+		a.TP as "tp",
+		a.STT as "stt",
+		a.OD as "od"
+	</sql>
+  <!--获取商品信息-->
+  <select id="getGoodsInfo" resultType="com.app.entity.Goods">
+    select 
+    	<include refid="goodsColumn"></include>
+    from 
+    	commodity a
+    <where>
+    	1 = 1
+	    <if test="id != null and id != ''">
+	    	and a.id = #{id}
+	    </if>
+	    <if test="regionRc != null and regionRc != ''">
+	    	and a.region_rc = #{regionRc}
+	    </if>
+	    <if test="tp != null and tp != ''">
+	    	and a.tp = #{tp}
+	    </if>
+	    <if test="stt != null and stt != ''">
+	    	and a.stt = #{stt}
+	    </if>
+    </where>
+    
   </select>
 
  </mapper>
