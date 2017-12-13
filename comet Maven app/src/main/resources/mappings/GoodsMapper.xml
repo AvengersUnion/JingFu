@@ -17,9 +17,10 @@
 		a.DIN as "din",
 		a.TP as "tp",
 		a.STT as "stt",
-		a.OD as "od"
+		a.OD as "od",
+		a.inventory as "inventory"
 	</sql>
-  <!--获取商品信息-->
+  <!--获取商品列表信息-->
   <select id="getGoodsInfo" resultType="com.app.entity.Goods">
     select 
     	<include refid="goodsColumn"></include>
@@ -39,6 +40,7 @@
     </where>
     
   </select>
+  <!-- 获取商品详情信息 -->
 	<select id="getGoodsById" resultType="com.app.entity.Goods">
 		select 
     		<include refid="goodsColumn"></include>
@@ -47,4 +49,43 @@
     	where
     		a.id = #{id}
 	</select>
+	<insert id="saveGoods">
+		insert into COMMODITY a(
+			a.id,
+			a.cn,
+			a.ig,
+			a.price,
+			a.prepay,
+			a.discount,
+			a.cs,
+			a.cd,
+			a.region_rc,
+			a.aip,
+			a.ain,
+			a.dip,
+			a.din,
+			a.tp,
+			a.stt,
+			a.od,
+			a.inventory
+		) values(
+			#{id},
+			#{cn},
+			#{ig},
+			#{price},
+			#{prepay},
+			#{discount},
+			#{cs},
+			#{cd},
+			#{regionRc},
+			#{aip},
+			#{ain},
+			#{dip},
+			#{din},
+			#{tp},
+			#{stt},
+			#{od},
+			#{inventory}
+		)
+	</insert>
  </mapper>

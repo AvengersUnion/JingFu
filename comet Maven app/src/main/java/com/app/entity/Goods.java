@@ -1,158 +1,171 @@
 package com.app.entity;
 
+/**
+ * 商品实体
+ * 
+ * @author taoxiangfei
+ *
+ */
 public class Goods {
-  private String id;
-  private String cn;
-  private String ig;
-  private String price;
-  private String prepay;
-  private String discount;
-  private String cs;
-  private String cd;
-  private String regionRc;
-  private String aip;
-  private String ain;
-  private String dip;
-  private String din;
-  private String tp;
-  private String stt;
-  private String od;
+	private String id;
+	private String cn;
+	private Integer ig;
+	private Double price;
+	private Double prepay;
+	private Float discount;
+	private String cs;
+	private String cd;
+	private String regionRc;
+	private String aip;
+	private String ain;
+	private String dip;
+	private String din;
+	private String tp;
+	private String stt;
+	private Integer od;
+	private Integer inventory;
 
-  public String getId() {
-    return id;
-  }
+	public Integer getInventory() {
+		return inventory;
+	}
 
-  public void setId(String id) {
-    this.id = id;
-  }
+	public void setInventory(Integer inventory) {
+		this.inventory = inventory;
+	}
 
-  public String getCn() {
-    return cn;
-  }
+	public String getId() {
+		return id;
+	}
 
-  public void setCn(String cn) {
-    this.cn = cn;
-  }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-  public String getIg() {
-    return ig;
-  }
+	public String getCn() {
+		return cn;
+	}
 
-  public void setIg(String ig) {
-    this.ig = ig;
-  }
+	public void setCn(String cn) {
+		this.cn = cn;
+	}
 
-  public String getPrice() {
-    return price;
-  }
+	public String getCs() {
+		return cs;
+	}
 
-  public void setPrice(String price) {
-    this.price = price;
-  }
+	public void setCs(String cs) {
+		this.cs = cs;
+	}
 
-  public String getPrepay() {
-    return prepay;
-  }
+	public String getCd() {
+		return cd;
+	}
 
-  public void setPrepay(String prepay) {
-    this.prepay = prepay;
-  }
+	public void setCd(String cd) {
+		this.cd = cd;
+	}
 
-  public String getDiscount() {
-    return discount;
-  }
+	public String getAip() {
+		return aip;
+	}
 
-  public void setDiscount(String discount) {
-    this.discount = discount;
-  }
+	public void setAip(String aip) {
+		this.aip = aip;
+	}
 
-  public String getCs() {
-    return cs;
-  }
+	public String getAin() {
+		return ain;
+	}
 
-  public void setCs(String cs) {
-    this.cs = cs;
-  }
+	public void setAin(String ain) {
+		this.ain = ain;
+	}
 
-  public String getCd() {
-    return cd;
-  }
+	public String getDip() {
+		return dip;
+	}
 
-  public void setCd(String cd) {
-    this.cd = cd;
-  }
+	public void setDip(String dip) {
+		this.dip = dip;
+	}
 
-  public String getAip() {
-    return aip;
-  }
+	public String getDin() {
+		return din;
+	}
 
-  public void setAip(String aip) {
-    this.aip = aip;
-  }
+	public void setDin(String din) {
+		this.din = din;
+	}
 
-  public String getAin() {
-    return ain;
-  }
+	public String getTp() {
+		return tp;
+	}
 
-  public void setAin(String ain) {
-    this.ain = ain;
-  }
+	public void setTp(String tp) {
+		this.tp = tp;
+	}
 
-  public String getDip() {
-    return dip;
-  }
+	public String getStt() {
+		return stt;
+	}
 
-  public void setDip(String dip) {
-    this.dip = dip;
-  }
+	public void setStt(String stt) {
+		this.stt = stt;
+	}
 
-  public String getDin() {
-    return din;
-  }
+	public String getRegionRc() {
+		return regionRc;
+	}
 
-  public void setDin(String din) {
-    this.din = din;
-  }
+	public void setRegionRc(String regionRc) {
+		this.regionRc = regionRc;
+	}
 
-  public String getTp() {
-    return tp;
-  }
+	public Integer getIg() {
+		return ig;
+	}
 
-  public void setTp(String tp) {
-    this.tp = tp;
-  }
+	public void setIg(Integer ig) {
+		this.ig = ig;
+	}
 
-  public String getStt() {
-    return stt;
-  }
+	public Double getPrice() {
+		return price;
+	}
 
-  public void setStt(String stt) {
-    this.stt = stt;
-  }
+	public void setPrice(Double price) {
+		this.price = price;
+	}
 
-  public String getOd() {
-    return od;
-  }
+	public Double getPrepay() {
+		return prepay;
+	}
 
-  public void setOd(String od) {
-    this.od = od;
-  }
+	public void setPrepay(Double prepay) {
+		this.prepay = prepay;
+	}
 
+	public Float getDiscount() {
+		return discount;
+	}
 
+	public void setDiscount(Float discount) {
+		this.discount = discount;
+	}
 
-public String getRegionRc() {
-	return regionRc;
-}
+	public Integer getOd() {
+		return od;
+	}
 
-public void setRegionRc(String regionRc) {
-	this.regionRc = regionRc;
-}
+	public void setOd(Integer od) {
+		this.od = od;
+	}
 
-@Override
-public String toString() {
-	return "Goods [id=" + id + ", cn=" + cn + ", ig=" + ig + ", price=" + price + ", prepay=" + prepay + ", discount="
-			+ discount + ", cs=" + cs + ", cd=" + cd + ", regionRc=" + regionRc + ", aip=" + aip + ", ain=" + ain
-			+ ", dip=" + dip + ", din=" + din + ", tp=" + tp + ", stt=" + stt + ", od=" + od + "]";
-}
-  
+	@Override
+	public String toString() {
+		return "Goods [id=" + id + ", cn=" + cn + ", ig=" + ig + ", price=" + price + ", prepay=" + prepay
+				+ ", discount=" + discount + ", cs=" + cs + ", cd=" + cd + ", regionRc=" + regionRc + ", aip=" + aip
+				+ ", ain=" + ain + ", dip=" + dip + ", din=" + din + ", tp=" + tp + ", stt=" + stt + ", od=" + od + "]";
+	}
+
 }
