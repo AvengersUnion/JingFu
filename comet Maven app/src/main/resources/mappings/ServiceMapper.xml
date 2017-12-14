@@ -25,12 +25,12 @@
 		left join dict d on a.tp = d.ky
 	</sql>
 	<!-- 首页获取一级服务列表 -->
-	<select id="getAllService" resultType="map">
+	<select id="getAllService" resultType="com.app.entity.Service">
 		select 
-			distinct d.ky,d.vl
+			<include refid="serviceColumn"></include>
 		from 
-			dict d
-		where d.tp = 'SER'
+			service a 
+		where a.tp = 'FW_TOP'
 	</select>
   <!--获取一级服务的子服务列表-->
   <select id="getsubListByType"  resultType="com.app.entity.Service">

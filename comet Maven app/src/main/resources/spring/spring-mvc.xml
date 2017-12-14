@@ -42,9 +42,10 @@
             </list>
         </property>
     </bean>-->
-
+	
     <!-- 对静态资源文件的访问 restful -->
-    <mvc:resources mapping="/statics/**" location="/WEB-INF/statics/" />
+    <mvc:default-servlet-handler/>
+    <mvc:resources mapping="/statics/**" location="/statics/" />
     <!-- 访问拦截 -->
 
     <!-- 定义跳转的文件的前后缀 ，视图模式配置-->

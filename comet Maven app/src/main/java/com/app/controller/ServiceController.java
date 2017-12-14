@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -35,13 +36,20 @@ public class ServiceController {
 
 	@Autowired
     private ServiceService serviceService;
+	
+	@RequestMapping(value = "/listPage")
+    public String list(HttpServletRequest request,HttpServletResponse response,Model model) {
+    	System.out.println("list");
+    	model.addAttribute("name", "20171213222110.png");
+         return "listService";
+    }
     /**
      * 获取所有的一级服务
      */
 	@RequestMapping(value="/app/getAllService",produces="text/html;charset=UTF-8")
 	@ResponseBody
     public String getAllService(HttpServletRequest request, HttpServletResponse response) {
-    	List<Map<String,String>> list = serviceService.getAllService();
+    	List<Service> list = serviceService.getAllService();
     	String json = JSON.toJSON(list).toString();
     	System.out.println(json);
 		return json;
@@ -140,6 +148,8 @@ public class ServiceController {
 
         return state;
     }
+    
+    
 
 
 }

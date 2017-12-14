@@ -12,7 +12,7 @@ public interface ServiceService {
 	 * 获取所有的一级服务 
 	 * @return
 	 */
-	List<Map<String,String>> getAllService();
+	List<Service> getAllService();
     List<Service> getsubListByType(String type);
     Service getdetailListById(String id);
     List<Image> loginImage();

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.app.entity.Goods;
 import com.app.service.GoodsService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,14 +23,18 @@ import java.util.List;
 public class GoodsController {
   @Resource(name = "goodsService")
   private GoodsService goodsService;
-
+  
+  
+  @RequestMapping(value="/list")
+  public String list() {
+	  return "listGoods";
+  }
   /**
    * 功能描述：获取商品信息
    */
   @RequestMapping(value="/getGoodsList",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
   @ResponseBody
-  public String getAllList(Goods goods,HttpServletRequest request, HttpServletResponse response) {
-	System.out.println("getGoods:" + goods);
+  public String getAllList(Goods goods,HttpServletRequest request, HttpServletResponse response,Model model) {
 	List<Goods> goodsList = goodsService.getGoodsInfo(goods);
 	String json = JSON.toJSON(goodsList).toString();
 	System.out.println(json);
@@ -50,6 +55,23 @@ public class GoodsController {
 	System.out.println(json);
 	return json;
   }
+  /**
+   * pc端获取商品列表数据
+   * @param goods
+   * @param request
+   * @param response
+   * @param model
+   * @return
+   */
+  @RequestMapping(value="/listData",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
+  @ResponseBody
+  public String listData(Goods goods,HttpServletRequest request, HttpServletResponse response,Model model) {
+	  
+	  List<Goods> goodsList = goodsService.getGoodsInfo(goods);
+	  String json = JSON.toJSON(goodsList).toString();
+	  System.out.println(json);
+	  return json;
 
+  }
 
 }

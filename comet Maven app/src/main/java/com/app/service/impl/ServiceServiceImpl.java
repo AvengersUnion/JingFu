@@ -21,8 +21,7 @@ public class ServiceServiceImpl implements ServiceService{
     /**
      * 获取所有的一级服务
      */
-    public List<Map<String,String>> getAllService() {
-    	System.out.println(serviceDao);
+    public List<com.app.entity.Service> getAllService() {
     	return serviceDao.getAllService();
     }
     public List<com.app.entity.Service> getsubListByType(String type) {
