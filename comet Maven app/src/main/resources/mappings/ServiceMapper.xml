@@ -1,55 +1,142 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.dao.ServiceDao" >
-	<sql id="serviceColumn">
-		a.id as "id",
-		a.sn as "name",
-		a.ig as "ig",
-		a.period as "period",
-		a.price as "price",
-		a.prepay as "prepay",
-		a.discount as "discount",
-		a.ss as "summary",
-		a.sd as "details",
-		a.region_rc as "regionRc",
-		a.aip as "adImgPath",
-		a.ain as "adImgName",
-		a.dip as "detImgPath",
-		a.din as "detImgName",
-		a.tp as "tp",
-		a.stt as "stt",
-		a.od as "od"
-	</sql>
+<!-- 控制台接口 -->
+	<!-- 获取所有服务列表 -->
+	<select id="getServiceList" resultType="com.app.entity.Service">
+		select
+			a.id as id,
+			a.service_name as serviceName,
+			a.period as period,
+			a.price as price,
+			a.service_detail as serviceDetail,
+			a.ad_img_path as adImgPath,
+			a.pid as pid
+		from 
+			service a
+	</select>
+	<!-- 获取一级服务的详情 -->
+	<select id="getPaDetail" resultType="com.app.entity.Service">
+		select 
+			a.id as id,
+			a.service_name as serviceName,
+			a.ad_img_path as adImgPath,
+			a.detail_img_path as detailImgPath
+		from 
+			service a
+		where 
+			a.id=#{id}
+	</select>
+	<!-- 获取子服务详情 -->
+	<select id="getServiceDetailById" resultType="com.app.entity.Service">
+		select
+			a.id as id,
+			a.service_name as serviceName,
+			a.period as period,
+			a.price as price,
+			a.prepay as prepay,
+			a.summary as summary,
+			a.service_detail as serviceDetail,
+			a.ad_img_path as adImgPath,
+			a.detail_img_path as detailImgPath,
+			a.pid as pid
+		from 
+			service a
+		where a.id=#{id}
+	</select>
+	<!-- 保存一级服务 -->
+	<insert id="savePafuwu">
+		insert into service(
+			id,
+			service_name,
+			ad_img_path,
+			detail_img_path
+		)values(
+			#{id},
+			#{serviceName},
+			#{adImgPath},
+			#{detailImgPath}
+		)
+	</insert>
+	<!-- 保存子服务 -->
+	<insert id="saveFuwu">
+		insert into service(
+			id,
+			pid,
+			service_name,
+			period,
+			price,
+			prepay,
+			summary,
+			service_detail,
+			ad_img_path,
+			detail_img_path
+		)values(
+			#{id},
+			#{pid},
+			#{serviceName},
+			#{period},
+			#{price},
+			#{prepay},
+			#{summary},
+			#{serviceDetail},
+			#{adImgPath},
+			#{detailImgPath}
+		)
+	</insert>
+	<!-- 更新一级服务 -->
+	<update id="updatePafuwu">
+		update service set
+			service_name=#{serviceName},
+			ad_img_path=#{adImgPath},
+			detail_img_path=#{detailImgPath}
+		where
+			id=#{id}
+	</update>
+	<!-- 更新子服务 -->
+	<update id="updateFuwu">
+		update service set
+			pid=#{pid},
+			period=#{period},
+			price=#{price},
+			prepay=#{prepay},
+			service_name=#{serviceName},
+			summary=#{summary},
+			service_detail=#{serviceDetail},
+			ad_img_path=#{adImgPath},
+			detail_img_path=#{detailImgPath}
+		where
+			id=#{id}
+	</update>
+	<!-- 删除服务 -->
+	<delete id="deleteService">
+		delete from service where id=#{id}
+	</delete>
 	
-	<sql id="serviceJoins">
-		left join dict d on a.tp = d.ky
-	</sql>
+	<!-- APP接口 -->
+	
 	<!-- 首页获取一级服务列表 -->
 	<select id="getAllService" resultType="com.app.entity.Service">
 		select 
-			<include refid="serviceColumn"></include>
+			a.id as id,
+			a.service_name as serviceName,
+			a.ad_img_path as adImgPath
 		from 
 			service a 
-		where a.tp = 'FW_TOP'
+		where a.pid = 'FW0000000000'
 	</select>
   <!--获取一级服务的子服务列表-->
-  <select id="getsubListByType"  resultType="com.app.entity.Service">
+  <select id="getServiceListById"  resultType="com.app.entity.Service">
     select
-    	<include refid="serviceColumn"></include>
-     from 
-     	service a 
-     WHERE  TP = #{type}
-
-  </select>
-
-  <!--获取单个服务的详情-->
-  <select id="getdetailListById"  resultType="com.app.entity.Service">
-    select 
-    	<include refid="serviceColumn"></include>
-    from 
-    	service a 
-    WHERE  ID = #{id}
-
+		a.id as id,
+		a.service_name as serviceName,
+		a.period as period,
+		a.price as price,
+		a.detail_img_path as detailImgPath,
+		a.pid as pid
+	from 
+		service a
+	where a.id=#{id} or a.pid=#{id}
   </select>
 
 

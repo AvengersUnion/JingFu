@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.entity.Goods;
+import com.app.util.Page;
 
 import java.util.List;
 /**
@@ -21,4 +22,12 @@ public interface GoodsService {
    * @return
    */
   Goods getGoodsById(String id);
+  /**
+   * 根据分页获取商品
+ * @param <T>
+   * @param pageCode
+   * @param pageSize
+   * @return
+   */
+  Page getGoodsByPage(Integer pageCode, Integer pageSize);
 }

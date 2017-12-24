@@ -49,6 +49,18 @@
     	where
     		a.id = #{id}
 	</select>
+	<!-- 获取商品总记录数 -->
+	<select id="getAllNumber" resultType="int">
+		select COUNT(ID) from commodity
+	</select>
+	<!-- 分页查询商品数据 -->
+	<select id="findByPage" resultType="com.app.entity.Goods">
+		select
+			<include refid="goodsColumn"></include>
+    	from 
+    		commodity a
+    	limit #{0} , #{1}
+	</select>
 	<insert id="saveGoods">
 		insert into COMMODITY a(
 			a.id,

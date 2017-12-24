@@ -1,7 +1,7 @@
 package com.app.service.impl;
 
 import com.app.dao.LoginDao;
-import com.app.entity.Login;
+import com.app.entity.User;
 import com.app.service.LoginService;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class LoginServiceImpl implements LoginService {
     LoginDao loginDao;
 
 
-    public List<Login> getData() {
+    public List<User> getData() {
         return loginDao.getData();
     }
 }

@@ -3,6 +3,8 @@ package com.app.controller;
 import com.alibaba.fastjson.JSON;
 import com.app.entity.Goods;
 import com.app.service.GoodsService;
+import com.app.util.Page;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +31,7 @@ public class GoodsController {
   public String list() {
 	  return "listGoods";
   }
+  
   /**
    * 功能描述：获取商品信息
    */
@@ -66,12 +69,39 @@ public class GoodsController {
   @RequestMapping(value="/listData",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
   @ResponseBody
   public String listData(Goods goods,HttpServletRequest request, HttpServletResponse response,Model model) {
+	  String pageCodeStr = request.getParameter("pageCode");
+	  String pageSizeStr = request.getParameter("pageSize");
+	  Integer pageCode,pageSize;
+	  if(pageCodeStr == null || "".equals(pageCodeStr)) {
+		  pageCode = 1;
+	  }else {
+		  pageCode = Integer.valueOf(pageCodeStr);
+	  }
+	  if(pageSizeStr == null || "".equals(pageSizeStr)) {
+		  pageSize = 20;
+	  }else {
+		  pageSize = Integer.valueOf(pageSizeStr);
+	  }
+	  Page goodsPage = goodsService.getGoodsByPage(pageCode,pageSize);
 	  
-	  List<Goods> goodsList = goodsService.getGoodsInfo(goods);
-	  String json = JSON.toJSON(goodsList).toString();
+	  String json = JSON.toJSON(goodsPage).toString();
 	  System.out.println(json);
 	  return json;
 
   }
-
+  /**
+   * 保存商品
+   * @param goods
+   * @param request
+   * @param response
+   * @param model
+   * @return
+   */
+  @RequestMapping(value="/save")
+  @ResponseBody
+  public String save(Goods goods,HttpServletRequest request, HttpServletResponse response,Model model) {
+	  
+	  return null;
+	  
+  }
 }

@@ -23,4 +23,16 @@ public interface GoodsDao {
    * @return
    */
   Goods getGoodsById(String id);
+  /**
+   * 获取总记录数
+   * @return
+   */
+  int getAllNumber();
+  /**
+   * 分页查询
+   * @param i
+   * @param pageSize
+   * @return
+   */
+  List<Goods> findByPage(int pageCode, Integer pageSize);
 }
