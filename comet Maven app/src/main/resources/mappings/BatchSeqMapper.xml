@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.BatchSeqDao" >
+	<!-- 根据哪个列查询哪个列的id -->
+	<select id="getId" resultType="java.lang.String">
+		select 
+			#{column}
+		from 
+			batch_seq
+	</select>
+	<!-- 根据哪个列插入最新的id -->
+	<insert id="insertId">
+		insert into 
+			batch_seq(#{column}) 
+		values(#{id})
+	</insert>
+	<!-- 根据列名更新id -->
+	<update id="updateId">
+		update batch_seq set #{column}=#{id}
+	</update>
+</mapper>
