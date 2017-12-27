@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -81,10 +82,11 @@ public class ServiceController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/savePaFuwu")
+	@RequestMapping(value = "/savePaFuwu", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody//完全实现接口，不做页面跳转，后期如果做页面跳转再改
-	public String savePaFuwu(Service service, MultipartFile[] picFile, HttpServletRequest request,
+	public String savePaFuwu(Service service,@RequestParam("picFile")MultipartFile[] picFile, HttpServletRequest request,
 			HttpServletResponse response, Model model) {
+		System.out.println("保存父级服务！");
 		JSONObject obj = new JSONObject();
 		boolean temp = false;
 		try {
@@ -217,8 +219,8 @@ public class ServiceController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value = "/saveFuwu")
-	public String save(Service service, MultipartFile[] picFile, HttpServletRequest request, HttpServletResponse response,
+	@RequestMapping(value = "/saveFuwu", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	public String save(Service service, @RequestParam("picFile")MultipartFile[] picFile, HttpServletRequest request, HttpServletResponse response,
 			Model model) {
 		JSONObject obj = new JSONObject();
 		boolean temp = false;

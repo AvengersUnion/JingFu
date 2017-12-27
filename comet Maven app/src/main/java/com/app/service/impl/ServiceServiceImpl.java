@@ -21,6 +21,7 @@ public class ServiceServiceImpl implements ServiceService{
 
 	@Autowired
     ServiceDao serviceDao;
+	
 //------------------控制台接口--------------------------------------------------------------------------
 	public List<com.app.entity.Service> getServiceList() {
 		List<com.app.entity.Service> serviceList = serviceDao.getServiceList();
@@ -80,7 +81,7 @@ public class ServiceServiceImpl implements ServiceService{
 		String id = service.getId();
 		if(id == null || "".equals(id)) {
 			//新增
-			id = BatchSeqUtil.getErjifuwuId();
+			id = BatchSeqUtil.getFuwuId();
 			service.setId(id);
 			result = serviceDao.saveFuwu(service);
 		}else {
