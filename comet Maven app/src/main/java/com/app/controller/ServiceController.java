@@ -98,96 +98,107 @@ public class ServiceController {
 				obj.put("mes", "请输入服务名字");
 				return obj.toString();
 			}
-			MultipartFile file1 = picFile[0];
-			String pic1;
-			// 图片名称
-			String originalFilename1 = file1.getOriginalFilename();
-			// 上传广告图片
-			if (file1 != null && originalFilename1 != null && originalFilename1.length() > 0) {
-				if (originalFilename1.lastIndexOf(".") != -1) {
-					pic1 = originalFilename1.substring(originalFilename1.lastIndexOf("."));
-					// 后缀名不为jpg等格式报错
-					if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic1)) {
-						//model.addAttribute("ImageEror", "请传入正确的主图图片格式");
+			if(picFile != null && picFile.length != 0) {
+				MultipartFile file1 = picFile[0];
+				String pic1;
+				// 图片名称
+				String originalFilename1 = file1.getOriginalFilename();
+				// 上传广告图片
+				if (file1 != null && originalFilename1 != null && originalFilename1.length() > 0) {
+					if (originalFilename1.lastIndexOf(".") != -1) {
+						pic1 = originalFilename1.substring(originalFilename1.lastIndexOf("."));
+						// 后缀名不为jpg等格式报错
+						if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic1)) {
+							//model.addAttribute("ImageEror", "请传入正确的主图图片格式");
+//							temp = true;
+							obj.put("type", "ERROR");
+							obj.put("mes", "请传入正确的主图图片格式");
+							return obj.toString();
+						} else {
+							String pic_path = request.getSession().getServletContext().getRealPath("");
+							// 新的图片名称
+							String newFileName = UUID.randomUUID()
+									+ originalFilename1.substring(originalFilename1.lastIndexOf("."));
+							// 新图片
+							File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
+							if (!newFile.exists()) {
+								newFile.mkdirs();
+							}
+							// 将内存中的数据写入磁盘
+							file1.transferTo(newFile);
+							service.setAdImgPath("/static/images/fuwu/"+newFileName);
+						}
+						// 没有.后缀名报错
+					} else {
+//						model.addAttribute("ImageEror", "请传入正确的主图图片格式");
 //						temp = true;
 						obj.put("type", "ERROR");
 						obj.put("mes", "请传入正确的主图图片格式");
 						return obj.toString();
-					} else {
-						String pic_path = request.getSession().getServletContext().getRealPath("");
-						// 新的图片名称
-						String newFileName = UUID.randomUUID()
-								+ originalFilename1.substring(originalFilename1.lastIndexOf("."));
-						// 新图片
-						File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
-						if (!newFile.exists()) {
-							newFile.mkdirs();
-						}
-						// 将内存中的数据写入磁盘
-						file1.transferTo(newFile);
-						service.setAdImgPath("/static/images/fuwu/"+newFileName);
 					}
-					// 没有.后缀名报错
-				} else {
-//					model.addAttribute("ImageEror", "请传入正确的主图图片格式");
+					// 上传图片为空并且本地没有存储
+				} else if (service.getAdImgPath()==null || "".equals(service.getAdImgPath())) {
+//					model.addAttribute("ImageEror","请传入主图图片");
 //					temp = true;
 					obj.put("type", "ERROR");
-					obj.put("mes", "请传入正确的主图图片格式");
+					obj.put("mes", "请传入主图图片");
 					return obj.toString();
 				}
-				// 上传图片为空并且本地没有存储
-			} else if (service.getAdImgPath()==null || "".equals(service.getAdImgPath())) {
-//				model.addAttribute("ImageEror","请传入主图图片");
-//				temp = true;
-				obj.put("type", "ERROR");
-				obj.put("mes", "请传入主图图片");
-				return obj.toString();
-			}
-			MultipartFile file2 = picFile[1];
-			String pic2;
-			// 图片名称
-			String originalFilename2 = file2.getOriginalFilename();
-			// 上传详情图片
-			if (file2 != null && originalFilename2 != null && originalFilename2.length() > 0) {
-				if (originalFilename2.lastIndexOf(".") != -1) {
-					pic2 = originalFilename2.substring(originalFilename2.lastIndexOf("."));
-					// 后缀名不为jpg等格式报错
-					if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic2)) {
+				MultipartFile file2 = picFile[1];
+				String pic2;
+				// 图片名称
+				String originalFilename2 = file2.getOriginalFilename();
+				// 上传详情图片
+				if (file2 != null && originalFilename2 != null && originalFilename2.length() > 0) {
+					if (originalFilename2.lastIndexOf(".") != -1) {
+						pic2 = originalFilename2.substring(originalFilename2.lastIndexOf("."));
+						// 后缀名不为jpg等格式报错
+						if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic2)) {
+//							model.addAttribute("ImageEror", "请传入正确的详情图片格式");
+//							temp = true;
+							obj.put("type", "ERROR");
+							obj.put("mes", "请传入正确的详情图片格式");
+							return obj.toString();
+						} else {
+							String pic_path = request.getSession().getServletContext().getRealPath("");
+							// 新的图片名称
+							String newFileName = UUID.randomUUID()
+									+ originalFilename2.substring(originalFilename2.lastIndexOf("."));
+							// 新图片
+							File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
+							if (!newFile.exists()) {
+								newFile.mkdirs();
+							}
+							// 将内存中的数据写入磁盘
+							file2.transferTo(newFile);
+							service.setDetailImgPath("/static/images/fuwu/"+newFileName);
+						}
+						// 没有.后缀名报错
+					} else {
 //						model.addAttribute("ImageEror", "请传入正确的详情图片格式");
 //						temp = true;
 						obj.put("type", "ERROR");
 						obj.put("mes", "请传入正确的详情图片格式");
 						return obj.toString();
-					} else {
-						String pic_path = request.getSession().getServletContext().getRealPath("");
-						// 新的图片名称
-						String newFileName = UUID.randomUUID()
-								+ originalFilename2.substring(originalFilename2.lastIndexOf("."));
-						// 新图片
-						File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
-						if (!newFile.exists()) {
-							newFile.mkdirs();
-						}
-						// 将内存中的数据写入磁盘
-						file2.transferTo(newFile);
-						service.setDetailImgPath("/static/images/fuwu/"+newFileName);
 					}
-					// 没有.后缀名报错
-				} else {
-//					model.addAttribute("ImageEror", "请传入正确的详情图片格式");
+					// 上传图片为空并且本地没有存储
+				} else if (service.getDetailImgPath()==null || "".equals(service.getDetailImgPath())) {
+//					model.addAttribute("ImageEror", "请传入详情图片");
 //					temp = true;
 					obj.put("type", "ERROR");
-					obj.put("mes", "请传入正确的详情图片格式");
+					obj.put("mes", "请传入详情图片");
 					return obj.toString();
 				}
-				// 上传图片为空并且本地没有存储
-			} else if (service.getDetailImgPath()==null || "".equals(service.getDetailImgPath())) {
-//				model.addAttribute("ImageEror", "请传入详情图片");
-//				temp = true;
+			}else if (service.getAdImgPath()==null || "".equals(service.getAdImgPath())) {
+				obj.put("type", "ERROR");
+				obj.put("mes", "请传入主图图片");
+				return obj.toString();
+			}else if (service.getDetailImgPath()==null || "".equals(service.getDetailImgPath())) {
 				obj.put("type", "ERROR");
 				obj.put("mes", "请传入详情图片");
 				return obj.toString();
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			obj.put("type", "ERROR");
@@ -249,97 +260,108 @@ public class ServiceController {
 				obj.put("mes", "请输入最低价格！");
 				return obj.toString();
 			}
-			MultipartFile file1 = picFile[0];
-			String pic1;
-			// 图片名称
-			String originalFilename1 = file1.getOriginalFilename();
-			// 上传广告图片
-			if (file1 != null && originalFilename1 != null && originalFilename1.length() > 0) {
-				if (originalFilename1.lastIndexOf(".") != -1) {
-					pic1 = originalFilename1.substring(originalFilename1.lastIndexOf("."));
-					// 后缀名不为jpg等格式报错
-					if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic1)) {
+			if(picFile != null && picFile.length != 0) {
+				MultipartFile file1 = picFile[0];
+				String pic1;
+				// 图片名称
+				String originalFilename1 = file1.getOriginalFilename();
+				// 上传广告图片
+				if (file1 != null && originalFilename1 != null && originalFilename1.length() > 0) {
+					if (originalFilename1.lastIndexOf(".") != -1) {
+						pic1 = originalFilename1.substring(originalFilename1.lastIndexOf("."));
+						// 后缀名不为jpg等格式报错
+						if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic1)) {
+//							model.addAttribute("ImageEror", "请传入正确的广告图片格式");
+//							temp = true;
+							obj.put("type", "ERROR");
+							obj.put("mes", "请传入正确的主图图片格式！");
+							return obj.toString();
+						} else {
+							String pic_path = request.getSession().getServletContext().getRealPath("");
+							// 新的图片名称
+							String newFileName = UUID.randomUUID()
+									+ originalFilename1.substring(originalFilename1.lastIndexOf("."));
+							// 新图片
+							File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
+							if (!newFile.exists()) {
+								newFile.mkdirs();
+							}
+							// 将内存中的数据写入磁盘
+							file1.transferTo(newFile);
+							service.setAdImgPath("/static/images/fuwu/"+newFileName);
+						}
+						// 没有.后缀名报错
+					} else {
 //						model.addAttribute("ImageEror", "请传入正确的广告图片格式");
 //						temp = true;
 						obj.put("type", "ERROR");
 						obj.put("mes", "请传入正确的主图图片格式！");
 						return obj.toString();
-					} else {
-						String pic_path = request.getSession().getServletContext().getRealPath("");
-						// 新的图片名称
-						String newFileName = UUID.randomUUID()
-								+ originalFilename1.substring(originalFilename1.lastIndexOf("."));
-						// 新图片
-						File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
-						if (!newFile.exists()) {
-							newFile.mkdirs();
-						}
-						// 将内存中的数据写入磁盘
-						file1.transferTo(newFile);
-						service.setAdImgPath("/static/images/fuwu/"+newFileName);
 					}
-					// 没有.后缀名报错
-				} else {
-//					model.addAttribute("ImageEror", "请传入正确的广告图片格式");
+					// 上传图片为空并且本地没有存储
+				} else if (service.getAdImgPath()==null || "".equals(service.getAdImgPath())) {
+//					model.addAttribute("ImageEror", "请传入广告图片");
 //					temp = true;
 					obj.put("type", "ERROR");
-					obj.put("mes", "请传入正确的主图图片格式！");
+					obj.put("mes", "请传入主图图片！");
 					return obj.toString();
 				}
-				// 上传图片为空并且本地没有存储
-			} else if (service.getAdImgPath()==null || "".equals(service.getAdImgPath())) {
-//				model.addAttribute("ImageEror", "请传入广告图片");
-//				temp = true;
-				obj.put("type", "ERROR");
-				obj.put("mes", "请传入主图图片！");
-				return obj.toString();
-			}
-			
-			MultipartFile file2 = picFile[1];
-			String pic2;
-			// 图片名称
-			String originalFilename2 = file2.getOriginalFilename();
-			// 上传详情图片
-			if (file2 != null && originalFilename2 != null && originalFilename2.length() > 0) {
-				if (originalFilename2.lastIndexOf(".") != -1) {
-					pic2 = originalFilename2.substring(originalFilename2.lastIndexOf("."));
-					// 后缀名不为jpg等格式报错
-					if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic2)) {
+				
+				MultipartFile file2 = picFile[1];
+				String pic2;
+				// 图片名称
+				String originalFilename2 = file2.getOriginalFilename();
+				// 上传详情图片
+				if (file2 != null && originalFilename2 != null && originalFilename2.length() > 0) {
+					if (originalFilename2.lastIndexOf(".") != -1) {
+						pic2 = originalFilename2.substring(originalFilename2.lastIndexOf("."));
+						// 后缀名不为jpg等格式报错
+						if (!".jpg.jpeg.png.bmp.tif.psd.svg.PNG.JPG.JPEG.BMP.TIF.PSD.SVG".contains(pic2)) {
+//							model.addAttribute("ImageEror", "请传入正确的详情图片格式");
+//							temp = true;
+							obj.put("type", "ERROR");
+							obj.put("mes", "请传入正确的详情图片格式！");
+							return obj.toString();
+						} else {
+							String pic_path = request.getSession().getServletContext().getRealPath("");
+							// 新的图片名称
+							String newFileName = UUID.randomUUID()
+									+ originalFilename2.substring(originalFilename2.lastIndexOf("."));
+							// 新图片
+							File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
+							if (!newFile.exists()) {
+								newFile.mkdirs();
+							}
+							// 将内存中的数据写入磁盘
+							file2.transferTo(newFile);
+							service.setDetailImgPath("/static/images/fuwu/"+newFileName);
+						}
+						// 没有.后缀名报错
+					} else {
 //						model.addAttribute("ImageEror", "请传入正确的详情图片格式");
 //						temp = true;
 						obj.put("type", "ERROR");
 						obj.put("mes", "请传入正确的详情图片格式！");
 						return obj.toString();
-					} else {
-						String pic_path = request.getSession().getServletContext().getRealPath("");
-						// 新的图片名称
-						String newFileName = UUID.randomUUID()
-								+ originalFilename2.substring(originalFilename2.lastIndexOf("."));
-						// 新图片
-						File newFile = new File(pic_path + "/static/images/fuwu/", newFileName);
-						if (!newFile.exists()) {
-							newFile.mkdirs();
-						}
-						// 将内存中的数据写入磁盘
-						file2.transferTo(newFile);
-						service.setDetailImgPath("/static/images/fuwu/"+newFileName);
 					}
-					// 没有.后缀名报错
-				} else {
-//					model.addAttribute("ImageEror", "请传入正确的详情图片格式");
+					// 上传图片为空并且本地没有存储
+				} else if (service.getDetailImgPath()==null || "".equals(service.getDetailImgPath())) {
+//					model.addAttribute("ImageEror", "请传入详情图片");
 //					temp = true;
 					obj.put("type", "ERROR");
-					obj.put("mes", "请传入正确的详情图片格式！");
+					obj.put("mes", "请传入详情图片！");
 					return obj.toString();
 				}
-				// 上传图片为空并且本地没有存储
-			} else if (service.getDetailImgPath()==null || "".equals(service.getDetailImgPath())) {
-//				model.addAttribute("ImageEror", "请传入详情图片");
-//				temp = true;
+			} else if (service.getAdImgPath()==null || "".equals(service.getAdImgPath())) {
+				obj.put("type", "ERROR");
+				obj.put("mes", "请传入主图图片！");
+				return obj.toString();
+			}else if (service.getDetailImgPath()==null || "".equals(service.getDetailImgPath())) {
 				obj.put("type", "ERROR");
 				obj.put("mes", "请传入详情图片！");
 				return obj.toString();
 			}
+			
 
 		} catch (Exception e) {
 			e.printStackTrace();
