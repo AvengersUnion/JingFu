@@ -168,6 +168,15 @@ public class Service {
 	public void setChildService(List<Service> childService) {
 		this.childService = childService;
 	}
+
+	@Override
+	public String toString() {
+		return "Service [id=" + id + ", serviceName=" + serviceName + ", period=" + period + ", price=" + price
+				+ ", prepay=" + prepay + ", discount=" + discount + ", spec=" + spec + ", summary=" + summary
+				+ ", serviceDetail=" + serviceDetail + ", regionRc=" + regionRc + ", adImgPath=" + adImgPath
+				+ ", detailImgPath=" + detailImgPath + ", pid=" + pid + ", status=" + status + ", vl=" + vl
+				+ ", childService=" + childService + "]";
+	}
     
     
 
