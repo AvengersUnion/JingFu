@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="kindeditor/themes/default/default.css" />
+		<script src="kindeditor/kindeditor-all-min.js"></script>
+		<script src="kindeditor/lang/zh_CN.js"></script>
+	</head>
+	<body>
+		<textarea id="text"></textarea>
+	   <script>
+	   	KindEditor.ready(function(K) {
+        K.create('#text', {
+                uploadJson : 'http://localhost:9080/advisory/addDetails',
+                
+                allowFileManager : true
+        });
+});
+	   </script>
+	</body>
+</html>

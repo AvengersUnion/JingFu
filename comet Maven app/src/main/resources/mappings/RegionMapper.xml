@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.RegionDao" >
+	<resultMap type="com.app.entity.Region" id="BaseGegionMap">
+		<id  property="postcode" column="RC"/>
+		<result property="regionName" column="RN"/>
+		<result  property="uname" column="un"/>
+		<result property="passWord" column="pw"/>
+		<result property="managerId" column="id"/>
+	</resultMap>
+	<!-- 查询所有的地区 -->
+	<select id="getRegionList" resultMap="BaseGegionMap">
+		SELECT region.rc,region.RN FROM region 
+	</select>
+	<!--查询地区管理员  -->
+	<select id="getManagersByPostcode" parameterType="String" resultMap="BaseGegionMap">
+		SELECT id,manager.UN,manager.PW FROM manager
+		where manager.REGION_RC=#{postcode}
+	</select>
+	<!-- 根据管理员的名字查询 -->
+	<select id="getManangerByName" parameterType="String" resultMap="BaseGegionMap">
+		SELECT id,manager.UN,manager.PW FROM manager
+		where manager.un=#{name}
+	</select>
+	<!-- 根据邮编查询地区 -->
+	<select id="getRegionById" parameterType="String" resultMap="BaseGegionMap">
+		SELECT region.rc,region.RN FROM region where RC=#{postcode}
+	</select>
+	<!-- 更新地区 -->
+	<update id="updateRegion" parameterType="com.app.entity.Region">
+		update region 
+		<set>
+		<if test="regionName != null">RN=#{regionName}</if>
+      	</set>
+		WHERE RC=#{postcode}
+	</update>
+	<!-- 添加地区 -->
+	<insert id="addRegion" parameterType="com.app.entity.Region">
+		insert into region (rc,rn)
+		values (#{postcode},#{regionName})
+	</insert>
+	<!-- 删除地区 -->
+	<delete id="deleteRegion" parameterType="String">
+		DELETE FROM region WHERE region.RC=#{postcode}
+	</delete>
+	
+		
+	<!-- 根据地址的id查询manager的id -->
+	<select id="getManagerId" parameterType="String" resultType="String">
+		SELECT ID FROM manager WHERE manager.REGION_RC=#{region_rc}
+	</select>
+	<!-- 添加manager -->
+	<insert id="addManager" parameterType="com.app.entity.Manager">
+		insert into manager (id,un,pw,region_rc)
+		values (#{id},#{uname},#{passWord},#{region_rc})
+	</insert>
+	<!-- 修改manager -->
+	<update id="updateManagerAll" parameterType="com.app.entity.Manager">
+		UPDATE manager 
+		<set>
+		<if test="uname != null and uname !=''">UN=#{uname},</if>
+      	<if test="passWord != null and passWord !=''">pw=#{passWord}</if>
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 删除manager -->
+	<delete id="deleteManagerById" parameterType="String">
+		DELETE FROM manager WHERE manager.id=#{id}
+	</delete>
+	<!-- 根据id查询manger -->
+	<select id="getManagerById" parameterType="String" resultMap="BaseGegionMap">
+		SELECT ID,UN,PW FROM manager WHERE ID=#{id}
+	</select>
+</mapper>

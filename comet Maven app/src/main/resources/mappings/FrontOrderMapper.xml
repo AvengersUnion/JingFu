@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.FrontOrderDao" >
+	<resultMap type="com.app.entity.FrontOrder" id="BaseFrontOrderMap">
+		<id  property="serviceId" column="id"/>
+		<result property="serviceName" column="SN"/>
+		<result property="serviceTime" column="serviceTime"/>
+		<result property="serviceState" column="sc"/>
+	</resultMap>
+	<!-- 查询单次的订单 -->
+	<select id="getFrontOrdersOnce" resultMap="BaseFrontOrderMap">
+		SELECT a.ID,b.service_name,a.serviceTime,a.serviceState FROM service_order a
+		LEFT JOIN service b ON a.SERVICE_ID=b.ID
+		WHERE a.SC=1
+	</select>
+	
+	<!-- 查询多次的订单 -->
+	<select id="getFrontOrdersMore" resultMap="BaseFrontOrderMap">
+		SELECT a.ID,b.service_name,a.serviceTime,a.serviceState FROM service_order a
+		LEFT JOIN service b ON a.SERVICE_ID=b.ID
+		WHERE a.SC>1
+	</select>
+</mapper>

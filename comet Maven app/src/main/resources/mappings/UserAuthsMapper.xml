@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.UserAuthsDao" >
+	<!-- 根据登陆手机查找user_id -->
+	<select id="getUserIdByPhone" resultType="string">
+		select user_id as userId from user_auths where identifier = #{identifier}	
+	</select>
+	
+	<!-- 保存第三方登陆信息 -->
+	<insert id="saveUserAuths" parameterType="com.app.entity.UserAuths">
+		insert into user_auths(
+			user_id,
+			identity_type,
+			identifier,
+			credential,
+			nettime
+		)values(
+			#{userId},
+			#{identityType},
+			#{identifier},
+			#{credential},
+			#{nettime}
+		)
+	</insert>
+	
+	<!-- 通过登录名更新登录凭证 -->
+	<update id="updateInfoByIdentifier" parameterType="com.app.entity.UserAuths">
+		update user_auths set 
+			identity_type=#{identityType},
+			credential=#{credential},
+			nettime=#{nettime}
+		where
+			identifier=#{identifier}
+	</update>
+</mapper>

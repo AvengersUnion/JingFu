@@ -223,6 +223,7 @@ public class ServiceController {
 	 * @return
 	 */
 	@RequestMapping(value = "/saveFuwu", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
 	public String save(Service service, @RequestParam("adImgFile")MultipartFile adImgFile,@RequestParam("detailImgFile")MultipartFile detailImgFile, HttpServletRequest request, HttpServletResponse response,
 			Model model) {
 		JSONObject obj = new JSONObject();

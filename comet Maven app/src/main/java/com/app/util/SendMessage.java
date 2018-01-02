@@ -110,7 +110,7 @@ public class SendMessage {
 			// 设置手机号码 此处只能设置一个手机号码
 			message.setMobile(phone);
 			// 设置内容
-			String mes = "您的验证码是"+code+"，在10分钟内有效。如非本人操作请忽略本短信。";
+			String mes = "您的验证码是"+code+"，在2分钟内有效。如非本人操作请忽略本短信。";
 			message.setContent(mes);
 //			// 设置扩展号
 //			message.setExno("11");

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.AllOrderDao" >
+	<resultMap type="com.app.entity.AllOrder" id="BaseAllOrderMap">
+		<id  property="id" column="id"/>
+		<result property="userName" column="UN"/>
+		<result property="userIphone" column="PN"/>
+		<result property="orderType" column="sc"/>
+		<result property="serviceAddress" column="serviceAddress"/>
+		<result property="price" column="price"/>
+		<result property="orderTime" column="ct"/>
+		<result property="serviceTime" column="serviceTime"/>
+		<result property="serviceStatus" column="vl"/>
+		<result property="period" column="period"/>
+		<result property="prepay" column="prepay"/>
+		<result property="discount" column="discount"/>
+		<result property="stt" column="stt"/>
+		
+	</resultMap>
+	<!-- 获取服务订单的一些列数据 -->
+	<select id="getAllOrdersAll" resultMap="BaseAllOrderMap">
+		select a.id,b.UN,a.SC, b.PN,a.serviceAddress,c.price,a.ct,a.serviceTime,d.vl
+		from service_order a
+		left join consumer b on a.CUSTOMER_ID = b.id
+		left join service c on a.service_id = c.id
+		LEFT JOIN dict d ON  a.STT=d.KY
+		order by a.ct DESC
+	</select>
+	<!-- 查找所有的地址 -->
+	<select id="getAddressesAll" resultType="String">
+		SELECT region.RN FROM region
+	</select>
+	<!-- 查询服务次数 -->
+	<select id="getServiceCount" resultType="int">
+		SELECT SC FROM service_order
+	</select>
+	<!-- 获取服务类型 -->
+	<select id="getServiceType" resultType="String">
+		SELECT DISTINCT vl FROM service
+		LEFT JOIN dict ON service.TP=dict.KY
+	</select>
+	<!-- 获取服务时间 -->
+	<select id="getServiceTime" resultType="com.app.entity.ServiceOrder">
+		SELECT CT FROM service_order
+	</select>
+	<!-- 根据条件获取数据 -->
+	<select id="getServiceOrders" parameterType="com.app.entity.AllOrder"  resultMap="BaseAllOrderMap">
+		select a.id,b.UN,a.SC, b.PN,a.serviceAddress,c.price,a.ct,a.serviceTime,d.vl
+		from service_order a
+		left join consumer b on a.CUSTOMER_ID = b.id
+		left join service c on a.service_id = c.id
+		LEFT JOIN dict d ON  a.STT=d.KY
+		<where>
+		    <if test="city != null and city != ''">
+				and a.serviceAddress like '%${city}%'
+			</if>
+			<if test="orderType ==1">
+				and a.SC=1
+			</if>
+			<if test="orderType >1">
+				and a.Sc >1
+			</if>
+			
+			<if test="serviceStatus != null and serviceStatus != ''">
+				and d.VL=#{serviceStatus}
+			</if>
+		</where>
+		order by a.ct DESC
+	</select>
+	
+	<!-- 更新订单状态 -->
+	<update id="updateOrderState" parameterType="com.app.entity.AllOrder">
+		UPDATE service_order SET service_order.STT = #{stt} WHERE service_order.ID = #{id} 
+	</update>
+	
+	<!-- 根据订单的id查询 -->
+	<select id="getServiceOrderById" parameterType="String" resultMap="BaseAllOrderMap">
+		select a.id,b.UN,a.SC, b.PN,a.serviceAddress,c.price,a.ct,a.serviceTime,d.vl
+		from service_order a
+		left join consumer b on a.CUSTOMER_ID = b.id
+		left join service c on a.service_id = c.id
+		LEFT JOIN dict d ON  a.STT=d.KY
+		WHERE a.ID = #{id} 
+	</select>
+
+	
+	<!-- 根据订单的id修改订单 -->
+	<update id="updateOrderById" parameterType="com.app.entity.AllOrder">
+		UPDATE service_order 
+		<set>
+	      	<if test="stt != null">stt=#{stt}</if>
+      	</set>
+		WHERE id=#{id} 
+	</update>
+	
+	<!-- 根据订单id修改用户部分信息(在订单中的用户信息) -->
+	<update id="updateOrderUserById" parameterType="com.app.entity.AllOrder">
+		UPDATE consumer 
+		<set>
+		<if test="userName != null">UN=#{userName},</if>
+      	<if test="userIphone != null">PN=#{userIphone}</if>
+      	</set>
+      	where 
+		id=(SELECT service_order.CUSTOMER_ID from service_order WHERE service_order.ID=#{id})
+	</update>
+	
+	<!-- 根据订单id删除该订单  -->
+	<delete id="deleteOrderById" parameterType="String">
+		DELETE FROM service_order where id=#{id}
+	</delete>
+</mapper>

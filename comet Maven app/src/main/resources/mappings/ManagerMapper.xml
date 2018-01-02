@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.ManagerDao" >
+	<resultMap type="com.app.entity.Manager" id="BaseManagerMap">
+		<id  property="id" column="id"/>
+		<result property="fn" column="fn"/>
+		<result property="uname" column="un"/>
+		<result property="passWord" column="pw"/>
+		<result property="region_rc" column="region_rc"/>
+		<result property="grade" column="grade"/>
+		<result property="parent_id" column="parent_id"/>
+		<result property="city" column="rn"/>
+	</resultMap>
+	<!-- 根据用户的用户名和密码登录 -->
+	<select id="login" parameterType="com.app.entity.Manager" resultMap="BaseManagerMap">
+		select id,region.RN,superadmin,un,pw from manager LEFT JOIN region 
+		ON manager.REGION_RC=region.RC where un=#{uname} and pw=#{passWord}
+	</select>
+	<!-- 根据用户的用户名去修改密码 -->
+	<update id="updateManager" parameterType="com.app.entity.Manager">
+		UPDATE manager SET manager.PW=#{passWord} WHERE manager.UN=#{uname}
+	</update>
+	
+	<!-- 根据地址的id查询manager的id -->
+	<select id="getManagerId" parameterType="String" resultType="String">
+		SELECT ID FROM manager WHERE manager.REGION_RC=#{region_rc}
+	</select>
+	<!-- 添加manager -->
+	<insert id="addManager" parameterType="com.app.entity.Manager">
+		insert into manager (id,un,pw,region_rc)
+		values (#{id},#{uname},#{passWord},#{region_rc})
+	</insert>
+	<!-- 修改manager -->
+	<update id="updateManagerAll" parameterType="com.app.entity.Manager">
+		UPDATE manager 
+		<set>
+		<if test="uname != null and uname !=''">UN=#{uname},</if>
+      	<if test="passWord != null and passWord !=''">pw=#{passWord},</if>
+      	<if test="region_rc !=null and region_rc !=''">REGION_RC=#{region_rc}</if>
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 删除manager -->
+	<delete id="deleteManagerById" parameterType="String">
+		DELETE FROM manager WHERE manager.id=#{id}
+	</delete>
+	<!-- 根据id查询manger -->
+	<select id="getManagerById" parameterType="String" resultType="com.app.entity.Manager">
+		SELECT * FROM manager WHERE ID=#{id}
+	</select>
+</mapper>

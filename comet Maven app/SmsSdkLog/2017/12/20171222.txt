@@ -1,0 +1,610 @@
+2017-12-22 00:03:24.614 设置发送账号[E101JQ]信息时,通过主域名[localhost]获取到主IP[127.0.0.1],端口:8080
+2017-12-22 00:03:35.893 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:907)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1302)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1255)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:397)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:109)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 00:03:35.894 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:35.894 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:415)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:109)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 00:03:35.895 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:35.932 长连接,使用账号[E101JQ]的主IP信息[127.0.0.1:8080]第一次请求网关或者主IP恢复正常，使用主IP请求网关。
+2017-12-22 00:03:37.214 向网关请求失败！
+org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:8080 refused
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:127)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:147)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:108)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:415)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:641)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:597)
+	at com.montnets.mwgate.smsutil.HttpPostBiz.executeKeepAliveNotUrlEncodePost(HttpPostBiz.java:202)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:154)
+	at com.montnets.mwgate.smsutil.SmsSendConn.singleSend(SmsSendConn.java:167)
+	at com.app.util.SDKDemo.singleSend(SDKDemo.java:180)
+	at com.app.util.SDKDemo.main(SDKDemo.java:45)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:123)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:123)
+	... 10 more
+
+2017-12-22 00:03:38.226 向网关请求失败！
+org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:8080 refused
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:127)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:147)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:108)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:415)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:641)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:597)
+	at com.montnets.mwgate.smsutil.HttpPostBiz.executeKeepAliveNotUrlEncodePost(HttpPostBiz.java:202)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:207)
+	at com.montnets.mwgate.smsutil.SmsSendConn.singleSend(SmsSendConn.java:167)
+	at com.app.util.SDKDemo.singleSend(SDKDemo.java:180)
+	at com.app.util.SDKDemo.main(SDKDemo.java:45)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:123)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:123)
+	... 10 more
+
+2017-12-22 00:03:38.227 长连接,账号[E101JQ]的主IP[127.0.0.1],端口：8080异常,将添加到异常主IP集合中检测。该账号有备IP,备IP信息为192.169.1.189:8086,null:80,null:80,将切换到备IP。待主IP恢复正常后，再切换回主IP。
+2017-12-22 00:03:38.230 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:03:38.231 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:03:38.232 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.233 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.batchSend(SmsSendConn.java:320)
+	at com.app.util.SDKDemo.batchSend(SDKDemo.java:228)
+	at com.app.util.SDKDemo.main(SDKDemo.java:48)
+
+2017-12-22 00:03:38.234 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.235 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.236 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.batchSend(SmsSendConn.java:320)
+	at com.app.util.SDKDemo.batchSend(SDKDemo.java:228)
+	at com.app.util.SDKDemo.main(SDKDemo.java:48)
+
+2017-12-22 00:03:38.236 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.237 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:38.247 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:03:38.247 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:03:38.249 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.249 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.multiSend(SmsSendConn.java:507)
+	at com.app.util.SDKDemo.multiSend(SDKDemo.java:298)
+	at com.app.util.SDKDemo.main(SDKDemo.java:51)
+
+2017-12-22 00:03:38.250 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.251 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.252 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.multiSend(SmsSendConn.java:507)
+	at com.app.util.SDKDemo.multiSend(SDKDemo.java:298)
+	at com.app.util.SDKDemo.main(SDKDemo.java:51)
+
+2017-12-22 00:03:38.252 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.253 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:38.254 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:03:38.255 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:03:38.256 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.256 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getBalance(SmsSendConn.java:610)
+	at com.app.util.SDKDemo.getBalance(SDKDemo.java:328)
+	at com.app.util.SDKDemo.main(SDKDemo.java:54)
+
+2017-12-22 00:03:38.257 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.258 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.259 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getBalance(SmsSendConn.java:610)
+	at com.app.util.SDKDemo.getBalance(SDKDemo.java:328)
+	at com.app.util.SDKDemo.main(SDKDemo.java:54)
+
+2017-12-22 00:03:38.259 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.260 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:38.261 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:03:38.261 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:03:38.262 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.263 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getRemains(SmsSendConn.java:946)
+	at com.app.util.SDKDemo.getRemains(SDKDemo.java:350)
+	at com.app.util.SDKDemo.main(SDKDemo.java:57)
+
+2017-12-22 00:03:38.264 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.265 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.265 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getRemains(SmsSendConn.java:946)
+	at com.app.util.SDKDemo.getRemains(SDKDemo.java:350)
+	at com.app.util.SDKDemo.main(SDKDemo.java:57)
+
+2017-12-22 00:03:38.266 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.266 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:38.269 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:03:38.270 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:03:38.273 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.274 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getMo(SmsSendConn.java:721)
+	at com.app.util.RecvMoThread.run(RecvMoThread.java:56)
+
+2017-12-22 00:03:38.274 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.275 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:03:38.276 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getMo(SmsSendConn.java:721)
+	at com.app.util.RecvMoThread.run(RecvMoThread.java:56)
+
+2017-12-22 00:03:38.276 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:03:38.277 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:43.278 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:48.278 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:53.279 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:03:58.279 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:03.279 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:08.280 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:13.281 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:18.282 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:23.283 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:28.283 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:33.284 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:38.285 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:43.286 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:48.287 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:53.288 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:04:58.289 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:05:03.289 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:08:30.693 设置发送账号[E101JQ]信息时,通过主域名[localhost]获取到主IP[127.0.0.1],端口:8080
+2017-12-22 00:08:41.987 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:907)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1302)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1255)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:397)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:109)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 00:08:41.994 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:08:42.007 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:415)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:109)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 00:08:42.014 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:09:39.988 长连接,使用账号[E101JQ]的主IP信息[127.0.0.1:8080]第一次请求网关或者主IP恢复正常，使用主IP请求网关。
+2017-12-22 00:09:45.773 向网关请求失败！
+org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:8080 refused
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:127)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:147)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:108)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:415)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:641)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:597)
+	at com.montnets.mwgate.smsutil.HttpPostBiz.executeKeepAliveNotUrlEncodePost(HttpPostBiz.java:202)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:154)
+	at com.montnets.mwgate.smsutil.SmsSendConn.singleSend(SmsSendConn.java:167)
+	at com.app.util.SDKDemo.singleSend(SDKDemo.java:180)
+	at com.app.util.SDKDemo.main(SDKDemo.java:45)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:123)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:123)
+	... 10 more
+
+2017-12-22 00:09:46.829 向网关请求失败！
+org.apache.http.conn.HttpHostConnectException: Connection to http://127.0.0.1:8080 refused
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:127)
+	at org.apache.http.impl.conn.AbstractPoolEntry.open(AbstractPoolEntry.java:147)
+	at org.apache.http.impl.conn.AbstractPooledConnAdapter.open(AbstractPooledConnAdapter.java:108)
+	at org.apache.http.impl.client.DefaultRequestDirector.execute(DefaultRequestDirector.java:415)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:641)
+	at org.apache.http.impl.client.AbstractHttpClient.execute(AbstractHttpClient.java:597)
+	at com.montnets.mwgate.smsutil.HttpPostBiz.executeKeepAliveNotUrlEncodePost(HttpPostBiz.java:202)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:207)
+	at com.montnets.mwgate.smsutil.SmsSendConn.singleSend(SmsSendConn.java:167)
+	at com.app.util.SDKDemo.singleSend(SDKDemo.java:180)
+	at com.app.util.SDKDemo.main(SDKDemo.java:45)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.waitForConnect(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:85)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:345)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:589)
+	at org.apache.http.conn.scheme.PlainSocketFactory.connectSocket(PlainSocketFactory.java:123)
+	at org.apache.http.impl.conn.DefaultClientConnectionOperator.openConnection(DefaultClientConnectionOperator.java:123)
+	... 10 more
+
+2017-12-22 00:09:46.838 长连接,账号[E101JQ]的主IP[127.0.0.1],端口：8080异常,将添加到异常主IP集合中检测。该账号有备IP,备IP信息为192.169.1.189:8086,null:80,null:80,将切换到备IP。待主IP恢复正常后，再切换回主IP。
+2017-12-22 00:09:54.554 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:09:54.555 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:09:54.557 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.833 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:907)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1302)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1255)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.batchSend(SmsSendConn.java:320)
+	at com.app.util.SDKDemo.batchSend(SDKDemo.java:228)
+	at com.app.util.SDKDemo.main(SDKDemo.java:48)
+
+2017-12-22 00:10:05.835 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.837 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.838 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.batchSend(SmsSendConn.java:320)
+	at com.app.util.SDKDemo.batchSend(SDKDemo.java:228)
+	at com.app.util.SDKDemo.main(SDKDemo.java:48)
+
+2017-12-22 00:10:05.838 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.839 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:10:05.852 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:10:05.852 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:10:05.856 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.857 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.multiSend(SmsSendConn.java:507)
+	at com.app.util.SDKDemo.multiSend(SDKDemo.java:298)
+	at com.app.util.SDKDemo.main(SDKDemo.java:51)
+
+2017-12-22 00:10:05.857 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.859 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.860 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.sendSmsByKeepAlive(SmsSendBiz.java:71)
+	at com.montnets.mwgate.smsutil.SmsSendConn.multiSend(SmsSendConn.java:507)
+	at com.app.util.SDKDemo.multiSend(SDKDemo.java:298)
+	at com.app.util.SDKDemo.main(SDKDemo.java:51)
+
+2017-12-22 00:10:05.860 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.861 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:10:05.864 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:10:05.865 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:10:05.866 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.866 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getBalance(SmsSendConn.java:610)
+	at com.app.util.SDKDemo.getBalance(SDKDemo.java:328)
+	at com.app.util.SDKDemo.main(SDKDemo.java:54)
+
+2017-12-22 00:10:05.867 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.868 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.868 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getBalance(SmsSendConn.java:610)
+	at com.app.util.SDKDemo.getBalance(SDKDemo.java:328)
+	at com.app.util.SDKDemo.main(SDKDemo.java:54)
+
+2017-12-22 00:10:05.869 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.870 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 00:10:05.871 检测账号[E101JQ]备IP是否可用时,检测出备IP[192.169.1.189]不可用，端口:8086
+2017-12-22 00:10:05.872 检测账号[E101JQ]备IP是否可用时,备IP[192.169.1.189]不可用,该备IP没有对应的域名,不通过域名获取IP进行检测。
+2017-12-22 00:10:05.873 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.873 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getRemains(SmsSendConn.java:946)
+	at com.app.util.SDKDemo.getRemains(SDKDemo.java:350)
+	at com.app.util.SDKDemo.main(SDKDemo.java:57)
+
+2017-12-22 00:10:05.874 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.875 检测账号[E101JQ]备IP是否可用时,检测出备IP[null]不可用，端口:80
+2017-12-22 00:10:05.875 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.CheckAccount.getIpByDomain(CheckAccount.java:431)
+	at com.montnets.mwgate.smsutil.CheckAccount.checkAddress(CheckAccount.java:188)
+	at com.montnets.mwgate.smsutil.ConnManager.getConnByUserID(ConnManager.java:80)
+	at com.montnets.mwgate.smsutil.SmsSendBiz.getMoRptFeeByKeepAlive(SmsSendBiz.java:418)
+	at com.montnets.mwgate.smsutil.SmsSendConn.getRemains(SmsSendConn.java:946)
+	at com.app.util.SDKDemo.getRemains(SDKDemo.java:350)
+	at com.app.util.SDKDemo.main(SDKDemo.java:57)
+
+2017-12-22 00:10:05.876 检测账号[E101JQ]备IP是否可用时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 00:10:05.876 账号不存在或者账号不可用,错误码:-310008,账号:E101JQ
+2017-12-22 17:54:07.079 设置发送账号[E101JQ]信息时,通过主域名[api01.monyun.cn]获取到主IP[114.67.62.211],端口:7901
+2017-12-22 17:54:07.100 设置发送账号[E101JQ]信息时,通过备域名[api01.monyun.cn]获取到备IP[114.67.62.211],端口:7901
+2017-12-22 17:54:18.376 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:907)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1302)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1255)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:397)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:108)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 17:54:18.378 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 17:54:18.379 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:415)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:108)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 17:54:18.380 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 17:54:18.419 长连接,使用账号[E101JQ]的主IP信息[114.67.62.211:7901]第一次请求网关或者主IP恢复正常，使用主IP请求网关。
+2017-12-22 17:54:18.806 长连接请求失败：HTTP/1.1 403 Forbidden
+2017-12-22 17:54:18.889 长连接请求失败：HTTP/1.1 403 Forbidden
+2017-12-22 17:54:18.890 长连接,账号[E101JQ]的主IP[114.67.62.211],端口：7901异常,将添加到异常主IP集合中检测。该账号有备IP,备IP信息为114.67.62.211:7901,null:80,null:80,将切换到备IP。待主IP恢复正常后，再切换回主IP。
+2017-12-22 19:24:54.563 设置发送账号[E101JQ]信息时,通过主域名[api01.monyun.cn]获取到主IP[114.67.62.211],端口:7901
+2017-12-22 19:24:54.564 设置发送账号[E101JQ]信息时,通过备域名[api01.monyun.cn]获取到备IP[114.67.62.211],端口:7901
+2017-12-22 19:25:05.841 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:907)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1302)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1255)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:397)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:108)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 19:25:05.841 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 19:25:05.842 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:415)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:108)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 19:25:05.843 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 19:25:05.885 长连接,使用账号[E101JQ]的主IP信息[114.67.62.211:7901]第一次请求网关或者主IP恢复正常，使用主IP请求网关。
+2017-12-22 19:36:09.174 设置发送账号[E101JQ]信息时,通过主域名[api01.monyun.cn]获取到主IP[114.67.62.211],端口:7901
+2017-12-22 19:36:09.176 设置发送账号[E101JQ]信息时,通过备域名[api01.monyun.cn]获取到备IP[114.67.62.211],端口:7901
+2017-12-22 19:36:20.452 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:907)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1302)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1255)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:397)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:108)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 19:36:20.452 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 19:36:20.453 通过域名获取IP失败,域名:null
+java.net.UnknownHostException: null
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1259)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1171)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1105)
+	at java.net.InetAddress.getByName(InetAddress.java:1055)
+	at com.montnets.mwgate.smsutil.ConfigManager.getIpByDomain(ConfigManager.java:543)
+	at com.montnets.mwgate.smsutil.ConfigManager.setBakAddress(ConfigManager.java:503)
+	at com.montnets.mwgate.smsutil.ConfigManager.validateIpAndPortBak(ConfigManager.java:415)
+	at com.montnets.mwgate.smsutil.ConfigManager.setAccountInfo(ConfigManager.java:196)
+	at com.app.util.SDKDemo.setAccountInfo(SDKDemo.java:108)
+	at com.app.util.SDKDemo.main(SDKDemo.java:37)
+
+2017-12-22 19:36:20.454 设置发送账号[E101JQ]信息时,通过备域名[null]获取备IP失败,端口:80
+2017-12-22 19:36:20.495 长连接,使用账号[E101JQ]的主IP信息[114.67.62.211:7901]第一次请求网关或者主IP恢复正常，使用主IP请求网关。
