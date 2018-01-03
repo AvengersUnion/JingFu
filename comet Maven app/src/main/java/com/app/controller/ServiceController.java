@@ -65,7 +65,7 @@ public class ServiceController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/getServiceList")
+	@RequestMapping(value = "/getServiceList",produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getServiceList(HttpServletRequest request, HttpServletResponse response) {
 		List<Service> list = serviceService.getServiceList();

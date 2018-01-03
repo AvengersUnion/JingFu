@@ -8,7 +8,7 @@ import java.util.Date;
  */
 public class UserAuths {
 	private Integer id;		//第三方登陆id
-	private String userId;	//用户id
+	private String phone;	//用户手机号
 	private String identityType;	//登陆类型
 	private String identifier;		//登陆标识
 	private String credential;		//第三方登录凭证
@@ -19,11 +19,12 @@ public class UserAuths {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getUserId() {
-		return userId;
+
+	public String getPhone() {
+		return phone;
 	}
-	public void setUserId(String userId) {
-		this.userId = userId;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	public String getIdentityType() {
 		return identityType;
@@ -51,7 +52,7 @@ public class UserAuths {
 	}
 	@Override
 	public String toString() {
-		return "UserAuths [id=" + id + ", userId=" + userId + ", identityType=" + identityType + ", identifier="
+		return "UserAuths [id=" + id + ", phone=" + phone + ", identityType=" + identityType + ", identifier="
 				+ identifier + ", credential=" + credential + ", nettime=" + nettime + "]";
 	}
 	

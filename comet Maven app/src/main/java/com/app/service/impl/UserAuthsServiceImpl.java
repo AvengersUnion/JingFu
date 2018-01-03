@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.UserAuthsDao;
 import com.app.dao.UserDao;
-import com.app.entity.BackUser;
 import com.app.entity.UserAuths;
 import com.app.service.UserAuthsService;
 @Service("userAuthsService")

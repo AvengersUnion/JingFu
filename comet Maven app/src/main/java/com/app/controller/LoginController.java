@@ -52,7 +52,7 @@ public class LoginController {
      * 手机短信获取验证码
      * @return
      */
-    @RequestMapping(value="/getPhoneCode",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+    @RequestMapping(value="/getPhoneCode.do",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     public String phoneLogin(HttpServletRequest request,HttpServletResponse response) {
     	String phone = request.getParameter("phone");
@@ -62,7 +62,7 @@ public class LoginController {
     		obj.put("mes", "手机号不能为空！");
     		return obj.toJSONString();
     	}
-    	String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";  
+    	String regExp = "^((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\\d{8}$";  
         Pattern p = Pattern.compile(regExp);  
         Matcher m = p.matcher(phone);
         boolean ismatch = m.matches();
@@ -101,7 +101,7 @@ public class LoginController {
      * 手机短信验证码登陆
      * @return
      */
-    @RequestMapping(value="/loginByPhone",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+    @RequestMapping(value="/loginByPhone.do",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
     @ResponseBody
     public String loginByPhone(HttpServletRequest request,HttpServletResponse response) {
     	String phone = request.getParameter("phone");
@@ -117,7 +117,7 @@ public class LoginController {
     		obj.put("mes", "验证码不能为空！");
     		return obj.toJSONString();
     	}
-    	String regExp = "^((13[0-9])|(15[^4])|(18[0,2,3,5-9])|(17[0-8])|(147))\\d{8}$";  
+    	String regExp = "^((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\\d{8}$";  
         Pattern p = Pattern.compile(regExp);  
         Matcher m = p.matcher(phone);
         boolean ismatch = m.matches();
@@ -153,7 +153,8 @@ public class LoginController {
         		return obj.toJSONString();
 			}else {
 	            HttpSession session = request.getSession();
-	            session.setAttribute(user.getId(), user);
+	            session.setAttribute("user", user);
+	            request.setAttribute("user", user);
 	            obj.put("type", "0");
         		obj.put("mes", "登陆成功！");
         		return obj.toJSONString();

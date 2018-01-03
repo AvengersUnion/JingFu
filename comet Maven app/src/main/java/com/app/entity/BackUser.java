@@ -19,7 +19,8 @@ public class BackUser {
 	//最后返回到页面的地址
 	private String address;
 	private List<BackUser> backUserList;
-	 
+	//第三方登陆信息
+	private List<UserAuths> userAuthsList;
 	/**
 	 * @return the id
 	 */
@@ -153,13 +154,20 @@ public class BackUser {
 	public void setNettime(Date nettime) {
 		this.nettime = nettime;
 	}
+	public List<UserAuths> getUserAuthsList() {
+		return userAuthsList;
+	}
+	public void setUserAuthsList(List<UserAuths> userAuthsList) {
+		this.userAuthsList = userAuthsList;
+	}
 	@Override
 	public String toString() {
 		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
 				+ ", nettime=" + nettime + ", country=" + country + ", province=" + province + ", city=" + city
 				+ ", county=" + county + ", village=" + village + ", address=" + address + ", backUserList="
-				+ backUserList + "]";
+				+ backUserList + ", userAuthsList=" + userAuthsList + "]";
 	}
+	
 	
 	
 	

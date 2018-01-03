@@ -13,6 +13,9 @@ public class Application {
     public static String mwyIpAddress2 = get("mwyIpAddress2");		//备用IP1
     public static String mwyIpAddress3 = get("mwyIpAddress3");		//备用IP2
     public static String mwyIpAddress4 = get("mwyIpAddress4");		//备用IP3
+    
+    public static String wxAPPID = get("wxAPPID"); //微信appid
+    public static String wxAPPSECRET = get("wxAPPSECRET");	//微信appsecret
     private static Properties props;
 
     private static String get(String key) {

@@ -1,9 +1,9 @@
-<%@ page language="java" import="java.util.*" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -18,9 +18,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   </head>
   
   <body>
-    This is my JSP page. <br>
+    <form action="login/loginByPhone.do" method="post">
+			<input type="text" name="phone" id="phone"/>
+			<input type="text" name="code" id="code"/><span id="getCode">获取验证码</span>
+			<input type="submit"></input>
+	</form>
   </body>
+  <script type="text/javascript">
+  	$("#getCode").click(function(){
+  		var phone = $("#phone").val();
+  		 $.post("login/getPhoneCode.do",
+		  {
+		    phone:phone
+		  },
+		  function(data,status){
+		    alert("Data: " + data + "\nStatus: " + status);
+		  });
+  	})
+  </script>
 </html>
