@@ -1,5 +1,6 @@
 package com.app.entity;
 
+import java.util.Date;
 import java.util.List;
 
 public class BackUser {
@@ -8,6 +9,7 @@ public class BackUser {
 	private String uName;
 	private String userIphone;
 	private String passWord;
+	private Date nettime;
 	//address表中的country，province，city，county，village
 	private String country;
 	private String province;
@@ -145,5 +147,20 @@ public class BackUser {
 	public void setBackUserList(List<BackUser> backUserList) {
 		this.backUserList = backUserList;
 	}
+	public Date getNettime() {
+		return nettime;
+	}
+	public void setNettime(Date nettime) {
+		this.nettime = nettime;
+	}
+	@Override
+	public String toString() {
+		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
+				+ ", nettime=" + nettime + ", country=" + country + ", province=" + province + ", city=" + city
+				+ ", county=" + county + ", village=" + village + ", address=" + address + ", backUserList="
+				+ backUserList + "]";
+	}
+	
+	
 	
 }

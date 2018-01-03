@@ -17,4 +17,21 @@ public interface UserDao {
 	void updateUser(BackUser user);
 	void deleteUser(String id);
 	List<BackUser> getUserAddress(String userId);
+	/**
+	 * 根据手机号查找userid
+	 * @param userIphone
+	 * @return
+	 */
+	String getUserIdByPhone(String userIphone);
+	/**
+	 * 更新手机验证码
+	 * @param user
+	 */
+	void updateCodeByPhone(BackUser user);
+	/**
+	 * 根据手机号查找用户信息
+	 * @param phone
+	 * @return
+	 */
+	BackUser getUserByPhone(String phone);
 }

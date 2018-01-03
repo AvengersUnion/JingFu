@@ -6,6 +6,7 @@
 		<result property="uName" column="un"/>
 		<result property="userIphone" column="pn"/>
 		<result property="passWord" column="pw"/> 
+		<result property="nettime" column="nettime"/>
 		
 		<result property="country" column="country"/>
 		<result property="province" column="province"/>
@@ -54,8 +55,8 @@
 	</select>
 	<!-- 添加用户 -->
 	<insert id="addUser" parameterType="com.app.entity.BackUser">
-		INSERT INTO consumer (ID,UN,PN,PW,PROVINCE,CITY,COUNTY)
-		VALUES(#{id},#{uName},#{userIphone},#{passWord},#{province},#{city},#{county})
+		INSERT INTO consumer (ID,UN,PN,PW,PROVINCE,CITY,COUNTY,nettime)
+		VALUES(#{id},#{uName},#{userIphone},#{passWord},#{province},#{city},#{county},#{nettime})
 	</insert>
 	<!-- 修改用户 -->
 	<update id="updateUser" parameterType="com.app.entity.BackUser">
@@ -74,4 +75,24 @@
 	<delete id="deleteUser" parameterType="String">
 		DELETE FROM consumer where consumer.ID=#{id}
 	</delete>
+	
+	<!-- 根据登陆手机查找user_id -->
+	<select id="getUserIdByPhone" resultType="string">
+		select id as userId from consumer where PN = #{userIphone}	
+	</select>
+	
+	<!-- 更新手机验证码 -->
+	<update id="updateCodeByPhone" parameterType="com.app.entity.BackUser">
+		update consumer set 
+			pw=#{passWord},
+			nettime=#{nettime}
+		where
+			PN = #{userIphone}
+	</update>
+	
+	<!-- 根据用户的手机号查询用户 -->
+	<select id="getUserByPhone" parameterType="String" resultMap="BaseUserMap">
+		SELECT ID,UN,PN,PW,nettime,PROVINCE,CITY,COUNTY FROM consumer
+		where PN=#{phone}
+	</select>
 </mapper>

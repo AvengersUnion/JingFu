@@ -17,4 +17,15 @@ public interface UserService {
 	void updateUser(BackUser user);
 	void deleteUser(String id);
 	List<BackUser> getUserAddress(String userId);
+	/**
+	 * 手机登陆时保存用户
+	 * @param user
+	 */
+	void saveUserPhone(BackUser user);
+	/**
+	 * 根据手机号查找用户
+	 * @param phone
+	 * @return
+	 */
+	BackUser getUserByPhone(String phone);
 }

@@ -32,5 +32,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/JavaSmsSdk.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/httpclient-4.2.5.jar"/>
+	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/httpcore-4.2.4.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

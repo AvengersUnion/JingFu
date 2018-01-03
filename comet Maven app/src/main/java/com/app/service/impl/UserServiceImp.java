@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
 
@@ -59,6 +60,38 @@ public class UserServiceImp implements UserService{
 	public List<BackUser> getUserAddress(String userId) {
 		// TODO Auto-generated method stub
 		return userDao.getUserAddress(userId);
+	}
+	/**
+	 * 手机登陆时保存用户
+	 */
+	public void saveUserPhone(BackUser user) {
+		String userId = userDao.getUserIdByPhone(user.getUserIphone());
+		if(userId != null && !"".equals(userId)) {
+			//不是新用户
+			userDao.updateCodeByPhone(user);
+			return;
+		}
+		//新用户
+		//创建系统账户
+		UUID uuid=UUID.randomUUID();
+		if (null!=userDao.getUserById(uuid.toString())) {
+			uuid=UUID.randomUUID();
+		}
+		String chars = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
+		String str = "";
+		for(int i = 0;i<10;i++) {
+			str = str + chars.charAt((int)(Math.random() * 52));
+		}
+		user.setId(uuid.toString());
+		user.setuName(str);
+		userDao.addUser(user);
+	}
+	/**
+	 * 根据手机号查找用户
+	 */
+	public BackUser getUserByPhone(String phone) {
+		
+		return userDao.getUserByPhone(phone);
 	}
 
 }
