@@ -1,1 +1,1 @@
-<%--<jsp:forward page="/comet"/>--%>hello world
+<%--<jsp:forward page="/comet"/>--%>hello 
