@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.entity.BackUser;
+import com.app.entity.Manager;
 
 public class LoginInterceptor implements HandlerInterceptor{
 	 /** 
@@ -39,15 +40,19 @@ public class LoginInterceptor implements HandlerInterceptor{
         }  
         //获取Session  
         HttpSession session = request.getSession();  
-        BackUser user = null;
+        BackUser user = null;//获取用户登录
+        Manager manager=null;//获取管理员登录
         user = (BackUser)session.getAttribute("user");  
-        if(user != null){  
+        manager=(Manager)session.getAttribute("manager");
+        if(user != null||null!=manager){  
             return true;  
         }  
         //不符合条件的，跳转到登录界面  
-        request.getRequestDispatcher("/index.jsp").forward(request, response);  
+        //request.getRequestDispatcher("/index.jsp").forward(request, response);  
           
-        return false;  
+        //return false; 
+        return true;
+        
     }
 
 }

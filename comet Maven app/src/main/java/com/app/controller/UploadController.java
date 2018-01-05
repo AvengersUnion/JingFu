@@ -17,24 +17,24 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.common.kindEditorResult;
 
-
 /**
  * 文件上传的Controller
+ * 
  * @author 567
- *
+ * 
  */
 @Controller
 @RequestMapping("kindEditor")
-//@RequestMapping("advisory")
+// @RequestMapping("advisory")
 public class UploadController {
 
-	//@Value("${SAVE_FRONT_PATH}")
+	// @Value("${SAVE_FRONT_PATH}")
 	private String SAVE_FRONT_PATH;
 
-	//@Value("${HTTP_FRONT_PATH}") 
+	// @Value("${HTTP_FRONT_PATH}")
 	private String HTTP_FRONT_PATH;
 
-	//@Value("${LIUNX_WINDOW_SIGN}")
+	// @Value("${LIUNX_WINDOW_SIGN}")
 	private String LIUNX_WINDOW_SIGN;
 
 	/**
@@ -46,7 +46,8 @@ public class UploadController {
 	 */
 	@RequestMapping("upFile")
 	@ResponseBody
-	public Map<String, Object> uploadFile(HttpServletRequest request, HttpServletResponse response,
+	public Map<String, Object> uploadFile(HttpServletRequest request,
+			HttpServletResponse response,
 			@RequestParam("imgFile") MultipartFile[] imgFile) {
 
 		// 循环接收到的文件
@@ -56,10 +57,12 @@ public class UploadController {
 			String newFileName = makeFileName(oldFileName);
 
 			// 获取存储目录的后半部分
-			String save_back_path = makeDir(newFileName);
-
-			File newFile = new File(SAVE_FRONT_PATH + save_back_path, newFileName);
-
+			// String save_back_path = makeDir(newFileName);
+			String save_back_path = request.getSession().getServletContext()
+					.getRealPath("/static/images/zixun/" + newFileName);
+			// File newFile = new File(SAVE_FRONT_PATH + save_back_path,
+			// newFileName);
+			File newFile = new File(save_back_path);
 			// 查看是否存在，不存在就创建
 			if (!newFile.exists()) {
 				newFile.mkdirs();
@@ -69,14 +72,17 @@ public class UploadController {
 				file.transferTo(newFile);
 			} catch (IllegalStateException e) {
 				e.printStackTrace();
-				//return com.app.common.kindEditorResult.error("参数错误");
+				// return com.app.common.kindEditorResult.error("参数错误");
 				return kindEditorResult.error("参数错误");
 			} catch (IOException e) {
 				e.printStackTrace();
 				return kindEditorResult.error("写入失败");
 			}
-			
-			return kindEditorResult.ok(HTTP_FRONT_PATH + save_back_path + newFileName);
+
+			// return kindEditorResult.ok(HTTP_FRONT_PATH + save_back_path +
+			// newFileName);
+			return kindEditorResult.ok("http://www.yehaikeji.com:8080/comet/static/images/zixun/"
+					+ newFileName);
 		}
 
 		return kindEditorResult.error("请选择上传文件");
@@ -85,11 +91,14 @@ public class UploadController {
 
 	/**
 	 * 上传新的文件名
-	 * @param fileName 原来的文件名
+	 * 
+	 * @param fileName
+	 *            原来的文件名
 	 * @return 新的文件名
 	 */
 	private String makeFileName(String fileName) {
-		return UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
+		return UUID.randomUUID().toString()
+				+ fileName.substring(fileName.lastIndexOf("."));
 	}
 
 	/**
@@ -107,7 +116,8 @@ public class UploadController {
 		int dir1 = hashcode & 0xf;
 		int dir2 = (hashcode & 0xf0) >> 4;
 
-		String dir = LIUNX_WINDOW_SIGN + dir1 + LIUNX_WINDOW_SIGN + dir2 + LIUNX_WINDOW_SIGN;
+		String dir = LIUNX_WINDOW_SIGN + dir1 + LIUNX_WINDOW_SIGN + dir2
+				+ LIUNX_WINDOW_SIGN;
 
 		return dir;
 	}

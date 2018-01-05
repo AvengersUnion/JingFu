@@ -10,34 +10,40 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.app.entity.FrontOrder;
 import com.app.service.FrontOrderService;
+
 /**
  * 前台的服务订单
+ * 
  * @author 李洋
- *
+ * 
  */
 @Controller
 @RequestMapping("/frontOrder/")
 public class FrontOrderController {
-	@Resource(name="frontOrderService")
+	@Resource(name = "frontOrderService")
 	private FrontOrderService frontOrderService;
+
 	/**
 	 * 查询用户的单次订单
+	 * 
 	 * @return
 	 */
 	@RequestMapping("once")
-    @ResponseBody
+	@ResponseBody
 	public List frontOrderOnce() {
-		List<FrontOrder> fList=frontOrderService.getFrontOrdersOnce();
+		List<FrontOrder> fList = frontOrderService.getFrontOrdersOnce();
 		return fList;
 	}
+
 	/**
 	 * 查询用户的多次订单
+	 * 
 	 * @return
 	 */
 	@RequestMapping("more")
-    @ResponseBody
+	@ResponseBody
 	public List frontOrderMore() {
-		List<FrontOrder> fList=frontOrderService.getFrontOrdersMore();
+		List<FrontOrder> fList = frontOrderService.getFrontOrdersMore();
 		return fList;
 	}
 }
