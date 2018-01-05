@@ -35,15 +35,38 @@ public class AdvisoryController {
 	 */
 	@RequestMapping("all")
 	@ResponseBody
-	public List<Advisory> getAdvisorieList(int pageNumber) {
+	public List<Advisory> getAdvisorieList(Integer pageNumber) {
+		//查询出所有的咨询
 		List<Advisory> advisories=advisoryService.getAdvisorieList();
 		Advisory advisory=new Advisory();
 		PagingUtils<Advisory> pagingUtils=new PagingUtils<Advisory>(advisory);
-		
+		//避免空指针异常
+		if (null==pageNumber) {
+			pageNumber=0;
+		}
+		//分页
 		List<Advisory> advisorieList=pagingUtils.pageingDate(pageNumber, advisories);
 		return advisorieList;
 	}
 
+	/**
+	 * 查询所有的咨询(前台用)
+	 * @return
+	 */
+	@RequestMapping("forntAll")
+	@ResponseBody
+	public List<Advisory> getAdvisories(){
+		return advisoryService.getAdvisorieList();
+	}
+	/**
+	 * 返回咨询的总条数
+	 * @return
+	 */
+	@RequestMapping("getNumber")
+	@ResponseBody
+	public int getAdvisoriesNumber() {
+		return advisoryService.getAdvisorieList().size();
+	}
 	/**
 	 * 根据id查询咨询详情
 	 * 
@@ -75,7 +98,7 @@ public class AdvisoryController {
 		// 实例化咨询类
 		Advisory advisory = new Advisory();
 		// 上传文件
-		BaseResult result = UpdateFile.upload(request, file);
+		BaseResult result = UpdateFile.upload(request, file,"zixun/");
 		// 判断是否上传成功
 		if (result.getCode() == 200) {
 			// 上传成功 得到文件路径
@@ -134,7 +157,7 @@ public class AdvisoryController {
 		Map<String, Object> obj = new HashMap<String, Object>();
 		String message = "上传失败";
 		// 上传文件
-		BaseResult result = UpdateFile.upload(request, imgFile);
+		BaseResult result = UpdateFile.upload(request, imgFile,"zixun");
 		// 判断是否上传成功
 		if (result.getCode() == 200) {
 			// 上传成功 得到文件路径

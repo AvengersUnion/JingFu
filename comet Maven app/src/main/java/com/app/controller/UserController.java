@@ -30,7 +30,7 @@ public class UserController {
 	 */
 	@RequestMapping("all")
     @ResponseBody
-	public List<BackUser> getUserList(int pageNumber) {
+	public List<BackUser> getUserList(Integer pageNumber) {
 		//获取所有用户的信息
 		List<BackUser> userList=userService.getUserList();
 		//获取所有用户对应的用户和地址信息
@@ -59,6 +59,10 @@ public class UserController {
 			System.out.println(users.get(i).getId());
 		}
 		//return users;
+		//避免空指针
+		if (null==pageNumber) {
+			pageNumber=0;
+		}
 		BackUser backUser=new BackUser();
 		PagingUtils<BackUser> pagingUtils=new PagingUtils<BackUser>(backUser); 
 		getUsers=pagingUtils.pageingDate(pageNumber, users);
@@ -147,6 +151,9 @@ public class UserController {
 			*/
 			//userCity.setAddress(userList.get(i).getAddress());
 			users.add(userCity);
+		}
+		if (null==pageNumber){
+			pageNumber=0;
 		}
 		BackUser backUser=new BackUser();
 		PagingUtils<BackUser> pagingUtils=new PagingUtils<BackUser>(backUser); 

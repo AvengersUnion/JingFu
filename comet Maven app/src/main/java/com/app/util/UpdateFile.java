@@ -27,7 +27,7 @@ public class UpdateFile {
 	 * @return
 	 */
 	public static BaseResult upload(HttpServletRequest request,
-			MultipartFile file) {
+			MultipartFile file,String imagePath) {
 		try {
 			// 1.得到文件名
 			String fileName = file.getOriginalFilename();
@@ -42,12 +42,12 @@ public class UpdateFile {
 				String lastFileName = uuid + fileSuffixName;
 				// 6.获得上传文件新路径
 				String realPath = request.getSession().getServletContext()
-						.getRealPath("/static/images/zixun/" + lastFileName);
+						.getRealPath("/static/images/" +imagePath + lastFileName);
 				// 7.上传文件
 				file.transferTo(new File(realPath));
 				// fileUri="/pics/"+fileLastName;
 
-				String fileUri = "http://120.27.247.68:8080/image/" + lastFileName;
+				String fileUri = "http://120.27.247.68:8080/image/" +imagePath + lastFileName;
 				return BaseResult.ok(fileUri);
 			}
 		} catch (IOException e) {
