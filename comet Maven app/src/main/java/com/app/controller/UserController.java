@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.app.entity.Address;
 import com.app.entity.BackUser;
 import com.app.service.UserService;
+import com.app.util.PagingUtils;
 
 @Controller
 @RequestMapping("/user/")
@@ -29,17 +30,21 @@ public class UserController {
 	 */
 	@RequestMapping("all")
     @ResponseBody
-	public List getUserList(int pageNumber) {
+	public List<BackUser> getUserList(Integer pageNumber) {
+		//获取所有用户的信息
 		List<BackUser> userList=userService.getUserList();
+		//获取所有用户对应的用户和地址信息
 		List<BackUser> users=new ArrayList<BackUser>();
+		//分页后所得的用户信息
 		List<BackUser> getUsers=new ArrayList<BackUser>();
-		int userNumber=userService.userNumber(null);
+		//int userNumber=userService.userNumber(null);
 		for (int i = 0; i < userList.size(); i++) {
 			BackUser user=new BackUser();
 			user.setId(userList.get(i).getId());
 			user.setuName(userList.get(i).getuName());
 			user.setUserIphone(userList.get(i).getUserIphone());
 			user.setPassWord(userList.get(i).getPassWord());
+			//根据用户的id去查询该用户的所有地址信息，并存储到用户
 			user.setBackUserList(userService.getUserAddress(userList.get(i).getId()));
 			/*
 			user.setCountry(userList.get(i).getCountry());
@@ -54,7 +59,14 @@ public class UserController {
 			System.out.println(users.get(i).getId());
 		}
 		//return users;
-		if (0==pageNumber) {
+		//避免空指针
+		if (null==pageNumber) {
+			pageNumber=0;
+		}
+		BackUser backUser=new BackUser();
+		PagingUtils<BackUser> pagingUtils=new PagingUtils<BackUser>(backUser); 
+		getUsers=pagingUtils.pageingDate(pageNumber, users);
+		/*if (0==pageNumber) {
 			if (users.size()<10) {
 				for (int i = 0; i < users.size(); i++) {
 					getUsers.add(users.get(i));
@@ -78,7 +90,8 @@ public class UserController {
 			}
 			return getUsers;
 		}
-		return null;
+		*/
+		return getUsers;
 	}
 	/**
 	 * 返回用户的数量
@@ -108,13 +121,13 @@ public class UserController {
 	 */
 	@RequestMapping("cityUser")
     @ResponseBody
-	public List getUserListByCity(String city,Integer pageNumber) {
+	public List<BackUser> getUserListByCity(String city,Integer pageNumber) {
 		BackUser user=new BackUser();
 		user.setCity(city);
 		List<BackUser> users=new ArrayList<BackUser>();
 		List<BackUser> userList=null;
 		List<BackUser> getUsers=new ArrayList<BackUser>();
-		int userNumber=userService.userNumber(user);
+		//int userNumber=userService.userNumber(user);
 		if (null==userService.getUserListByCity(user)) {
 			return null;
 		}
@@ -139,6 +152,13 @@ public class UserController {
 			//userCity.setAddress(userList.get(i).getAddress());
 			users.add(userCity);
 		}
+		if (null==pageNumber){
+			pageNumber=0;
+		}
+		BackUser backUser=new BackUser();
+		PagingUtils<BackUser> pagingUtils=new PagingUtils<BackUser>(backUser); 
+		getUsers=pagingUtils.pageingDate(pageNumber, users);
+		/*
 		if (0==pageNumber) {
 			if (users.size()<10) {
 				for (int i = 0; i < users.size(); i++) {
@@ -163,7 +183,8 @@ public class UserController {
 			}
 			return getUsers;
 		}
-		return null;
+		*/
+		return getUsers;
 		//return users;
 	}
 	/**
@@ -257,8 +278,7 @@ public class UserController {
 	public int deleteUser(String id) {
 		
 		if (null==userService.getUserById(id)) {
-			List<String> strList=new ArrayList<String>();
-			
+			//List<String> strList=new ArrayList<String>();
 			return 0;
 			
 		}else {

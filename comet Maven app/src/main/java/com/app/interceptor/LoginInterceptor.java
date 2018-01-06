@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.app.entity.BackUser;
+import com.app.entity.Manager;
 
 public class LoginInterceptor implements HandlerInterceptor{
 	 /** 
@@ -49,6 +50,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 //          
 //        return false;  
     	return true;
+
     }
 
 }

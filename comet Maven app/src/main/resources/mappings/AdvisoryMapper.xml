@@ -10,7 +10,7 @@
 	</resultMap>
 	<!-- 查询所有的咨询 -->
 	<select id="getAdvisorieList" resultMap="BaseAdvisoryMap">
-		SELECT id,advisoryImage,advisoryTitle,advisoryTime FROM advisory
+		SELECT id,advisoryImage,advisoryTitle,advisoryTime FROM advisory ORDER BY advisoryTime DESC
 	</select>
 	<!-- 根据咨询的id查询单个的咨询 -->
 	<select id="getAdvisoryById" parameterType="int" resultMap="BaseAdvisoryMap">
