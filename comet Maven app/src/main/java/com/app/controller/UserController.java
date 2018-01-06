@@ -173,7 +173,7 @@ public class UserController {
 	 */
 	@RequestMapping("find")
     @ResponseBody
-	public BackUser getUserById(String id) {
+	public BackUser getUserById(Integer id) {
 		
 		return userService.getUserById(id);
 	}
