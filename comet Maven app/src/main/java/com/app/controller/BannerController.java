@@ -154,22 +154,39 @@ public class BannerController {
 	 */
 	@RequestMapping(value = "update", method = RequestMethod.POST)
 	@ResponseBody
-	public BaseResult updateBanner(@RequestParam("file") MultipartFile file,
+	public BaseResult updateBanner(@RequestParam("file") MultipartFile file,String path,
 			String title,String content,Integer id, HttpServletRequest request){
 		if (null==id||id<1) {
 			return BaseResult.build(500, "操作失败");
 		}
+		BaseResult result=new BaseResult();
 		// 实例化banner类
 		Banner banner = new Banner();
-		// 上传文件
-		BaseResult result = UpdateFile.upload(request, file,"banner/");
-		// 判断是否上传成功
-		if (result.getCode() == 200) {
-			// 上传成功 得到文件路径
-			String filePath = result.getData().toString();
+		if (null!=file) {
+			// 上传文件
+			result = UpdateFile.upload(request, file,"banner/");
+			// 判断是否上传成功
+			if (result.getCode() == 200) {
+				// 上传成功 得到文件路径
+				String filePath = result.getData().toString();
+				// 将路径名上传到数据库
+				// 1.上传路径
+				banner.setImagePath(filePath);
+				// 2.上传标题
+				banner.setTitle(title);
+				// 3.上传详情
+				banner.setBannerDetails(content);
+				// 4.上传id
+				banner.setId(id);
+				// 将数据上传到数据库
+				bannerService.updateBanner(banner);
+				//bannerService.addBanner(banner);
+			}
+			return result;
+		}else if (null==file&&null!=path)  {
 			// 将路径名上传到数据库
 			// 1.上传路径
-			banner.setImagePath(filePath);
+			banner.setImagePath(path);
 			// 2.上传标题
 			banner.setTitle(title);
 			// 3.上传详情
@@ -178,9 +195,9 @@ public class BannerController {
 			banner.setId(id);
 			// 将数据上传到数据库
 			bannerService.updateBanner(banner);
-			//bannerService.addBanner(banner);
+			return result;
 		}
-		return result;
+		return BaseResult.build(500, "操作错误");
 	}
 	/**
 	 * 咨询详情图路径
