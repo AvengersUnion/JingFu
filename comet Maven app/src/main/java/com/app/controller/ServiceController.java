@@ -7,6 +7,7 @@ import com.app.entity.Image;
 import com.app.entity.Service;
 import com.app.entity.ServiceOrder;
 import com.app.service.ServiceService;
+import com.app.util.Application;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,7 +130,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							adImgFile.transferTo(newFile);
-							service.setAdImgPath("/static/images/fuwu/"+newFileName);
+							service.setAdImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -173,7 +174,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							detailImgFile.transferTo(newFile);
-							service.setDetailImgPath("/static/images/fuwu/"+newFileName);
+							service.setDetailImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -282,7 +283,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							adImgFile.transferTo(newFile);
-							service.setAdImgPath("/static/images/fuwu/"+newFileName);
+							service.setAdImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -326,7 +327,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							detailImgFile.transferTo(newFile);
-							service.setDetailImgPath("/static/images/fuwu/"+newFileName);
+							service.setDetailImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {

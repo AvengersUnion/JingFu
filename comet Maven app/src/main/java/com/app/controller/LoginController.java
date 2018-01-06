@@ -7,8 +7,11 @@ import com.app.entity.UserAuths;
 import com.app.service.LoginService;
 import com.app.service.UserAuthsService;
 import com.app.service.UserService;
+import com.app.util.Application;
+import com.app.util.AuthUtil;
 import com.app.util.SendMessage;
 
+import org.apache.http.client.ClientProtocolException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +22,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -76,7 +82,8 @@ public class LoginController {
     		
     		if(code == null) {
     			obj.put("type", "1");
-    			obj.put("mes", "服务器错误，请稍后再试！");
+    			obj.put("mes", "系统异常，请稍后再试！");
+    			return obj.toJSONString();
     		}
     		BackUser user = new BackUser();
     		user.setUserIphone(phone);
@@ -106,6 +113,7 @@ public class LoginController {
     public String loginByPhone(HttpServletRequest request,HttpServletResponse response) {
     	String phone = request.getParameter("phone");
     	String code = request.getParameter("code");
+    	String openid = request.getParameter("openid");
     	JSONObject obj = new JSONObject();
     	if(phone == null  || "".equals(phone)) {
     		obj.put("type", "1");
@@ -152,13 +160,82 @@ public class LoginController {
         		obj.put("mes", "验证码不正确，请重新输入！");
         		return obj.toJSONString();
 			}else {
+				if(openid != null && !"".equals(openid)) {
+					userAuthsService.updatePhone(phone,openid);
+				}
 	            HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
-	            request.setAttribute("user", user);
 	            obj.put("type", "0");
         		obj.put("mes", "登陆成功！");
+        		obj.put("phone", phone);
+        		obj.put("id", user.getId());
         		return obj.toJSONString();
 			}
 		}
     }
+    /**
+     * 微信登陆
+     * @return
+     * @throws UnsupportedEncodingException 
+     */
+    @RequestMapping(value="/loginByWX.do")
+    public void loginByWX(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+    	String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+Application.wxAPPID
+    			+ "&redirect_uri="+URLEncoder.encode(Application.wxBackUrl,"UTF-8")
+    			+ "&response_type=code"
+    			+ "&scope=snsapi_userinfo"
+    			+ "&state=STATE#wechat_redirect";
+    	try {
+			response.sendRedirect(url);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	System.out.println(URLEncoder.encode(Application.wxBackUrl,"UTF-8"));
+    }
+    /**
+     * 微信回调方法
+     * @param request
+     * @param response
+     * @throws IOException 
+     * @throws ClientProtocolException 
+     */
+    @RequestMapping(value="/wxCallBack.do",produces = "text/html;charset=UTF-8")
+    @ResponseBody
+    public String wxCallBack(HttpServletRequest request,HttpServletResponse response) throws ClientProtocolException, IOException {
+    	JSONObject result = new JSONObject();
+    	String code = request.getParameter("code");
+    	String url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid="+Application.wxAPPID
+    			+ "&secret="+Application.wxAPPSECRET
+    			+ "&code="+code
+    			+ "&grant_type=authorization_code";
+		JSONObject jsonObj = AuthUtil.doGetJson(url);
+		String openid = jsonObj.getString("openid");
+		String token = jsonObj.getString("access_token");
+    	String infoUrl = "https://api.weixin.qq.com/sns/userinfo?access_token="+token
+    			+ "&openid="+openid
+    			+ "&lang=zh_CN";
+    	JSONObject userInfo = AuthUtil.doGetJson(infoUrl);
+    	System.out.println(userInfo.toString());
+    	//将微信与当前系统手机号进行绑定
+    	String phone = userAuthsService.getPhonebyIdentifier(openid);
+    	if(phone != null && !phone.equals("")) {
+    		//已经绑定的
+    		BackUser user = userService.getUserByPhone(phone);
+    		HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            result.put("type", "0");
+    		result.put("mes", "登陆成功！");
+    		result.put("phone",phone);
+    		result.put("id", user.getId());
+    	}else {
+    		//未绑定的
+    		userAuthsService.saveOpenid("WX",openid);
+    		result.put("type", "1");
+    		result.put("mes", "未绑定手机号！");
+    		result.put("openid",openid);
+    	}
+    	return result.toString();
+    }
+    
 }

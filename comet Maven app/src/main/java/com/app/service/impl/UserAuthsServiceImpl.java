@@ -23,5 +23,31 @@ public class UserAuthsServiceImpl implements UserAuthsService{
 	public void saveUserAuthsService(UserAuths userAuths) {
 		
 	}
+	/**
+	 * 通过第三方登陆名获取绑定手机号
+	 */
+	public String getPhonebyIdentifier(String openid) {
+		
+		return userAuthsDao.getPhoneByIdentifier(openid);
+	}
+	/**
+	 * 根据手机号获取userAuths对象
+	 */
+	public UserAuths getUserAuthsByphone(String phone) {
+		return userAuthsDao.getUserAuthsByphone(phone);
+	}
+	/**
+	 * 保存微信的openid
+	 */
+	public void saveOpenid(String type,String openid) {
+		 userAuthsDao.saveOpenid(type,openid);
+		
+	}
+	/**
+	 * 更新手机号
+	 */
+	public void updatePhone(String phone, String openid) {
+		userAuthsDao.updatePhone(phone,openid);
+	}
 
 }
