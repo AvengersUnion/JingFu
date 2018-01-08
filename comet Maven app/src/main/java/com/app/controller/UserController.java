@@ -194,7 +194,7 @@ public class UserController {
 	 */
 	@RequestMapping("find")
     @ResponseBody
-	public BackUser getUserById(String id) {
+	public BackUser getUserById(int id) {
 		
 		return userService.getUserById(id);
 	}
@@ -220,11 +220,13 @@ public class UserController {
 		}else if (""==uName||""==userIphone||""==passWord) {
 			return "0";
 		}else {
+			/*
 			if (null!=userService.getUserById(uuid.toString())) {
 				uuid=UUID.randomUUID();
 			}
+			*/
 			BackUser user=new BackUser();
-			user.setId(uuid.toString());
+			//user.setId(uuid.toString());
 			user.setuName(uName);
 			user.setUserIphone(userIphone);
 			user.setPassWord(passWord);
@@ -250,9 +252,9 @@ public class UserController {
 	 */
 	@RequestMapping(value="update",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
     @ResponseBody
-	public String updateUser(String id,String uName,String userIphone,String province,
+	public String updateUser(int id,String uName,String userIphone,String province,
 			String city,String county,String passWord) {
-		if (null==id||id=="") {
+		if (id<1||null==userService.getUserById(id)) {
 			return "0";
 		}else {
 			BackUser user=new BackUser();
@@ -275,7 +277,7 @@ public class UserController {
 	 */
 	@RequestMapping("delete")
     @ResponseBody
-	public int deleteUser(String id) {
+	public int deleteUser(int id) {
 		
 		if (null==userService.getUserById(id)) {
 			//List<String> strList=new ArrayList<String>();
@@ -299,19 +301,21 @@ public class UserController {
 			return "0";
 		}
 		if (!ids.contains(",")) {
-			if (null==userService.getUserById(ids)) {
+			if (null==userService.getUserById(Integer.parseInt(ids))) {
 				return "0";
 			}
-			userService.getUserById(ids);
+			userService.getUserById(Integer.parseInt(ids));
 		}else {
 			userIds=ids.split(",");
 			for (int i = 0; i < userIds.length; i++) {
-				if (null==userService.getUserById(userIds[i])) {
+				int id = Integer.parseInt(userIds[i]);
+				if (null==userService.getUserById(id)) {
 					return "0";
 				}
 			}
 			for (int i = 0; i < userIds.length; i++) {
-				userService.getUserById(userIds[i]);
+				int id = Integer.parseInt(userIds[i]);
+				userService.getUserById(id);
 			}
 		}
 		return "1";

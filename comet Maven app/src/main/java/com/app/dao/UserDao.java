@@ -12,11 +12,11 @@ public interface UserDao {
 	List<String> getRegionList();
 	List<BackUser> getUserListByCity(BackUser user);
 	
-	BackUser getUserById(String id);
+	BackUser getUserById(int id);
 	void addUser(BackUser user);
 	void updateUser(BackUser user);
-	void deleteUser(String id);
-	List<BackUser> getUserAddress(String userId);
+	void deleteUser(int id);
+	List<BackUser> getUserAddress(int userId);
 	/**
 	 * 根据手机号查找userid
 	 * @param userIphone

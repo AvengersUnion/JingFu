@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BackUser {
 	//用户表中的id,uName,userIphone,passWord
-	private String id;
+	private int id;
 	private String uName;
 	private String userIphone;
 	private String passWord;
@@ -21,18 +21,7 @@ public class BackUser {
 	private List<BackUser> backUserList;
 	//第三方登陆信息
 	private List<UserAuths> userAuthsList;
-	/**
-	 * @return the id
-	 */
-	public String getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	/**
 	 * @return the uName
 	 */
@@ -166,6 +155,18 @@ public class BackUser {
 				+ ", nettime=" + nettime + ", country=" + country + ", province=" + province + ", city=" + city
 				+ ", county=" + county + ", village=" + village + ", address=" + address + ", backUserList="
 				+ backUserList + ", userAuthsList=" + userAuthsList + "]";
+	}
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	

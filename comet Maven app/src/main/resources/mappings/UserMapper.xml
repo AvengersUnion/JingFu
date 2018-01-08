@@ -29,7 +29,7 @@
 		SELECT consumer.ID,UN,consumer.PN,PW FROM consumer 
 	</select>
 	<!-- 根据用户的id查询用户的地址 -->
-	<select id="getUserAddress" parameterType="String" resultMap="BaseUserMap">
+	<select id="getUserAddress" parameterType="int" resultMap="BaseUserMap">
 		SELECT address.COUNTRY,
 		address.PROVINCE,address.CITY,address.COUNTY,address.VILLAGE FROM address
 		WHERE address.CUSTOMER_ID=#{userId}
@@ -49,7 +49,7 @@
 		</where>
 	</select>
 	<!-- 根据用户的id查询用户 -->
-	<select id="getUserById" parameterType="String" resultMap="BaseUserMap">
+	<select id="getUserById" parameterType="int" resultMap="BaseUserMap">
 		SELECT ID,UN,PN,PROVINCE,CITY,COUNTY FROM consumer
 		where id=#{id}
 	</select>
@@ -72,7 +72,7 @@
       	where id=#{id}
 	</update>
 	<!-- 删除用户 -->
-	<delete id="deleteUser" parameterType="String">
+	<delete id="deleteUser" parameterType="int">
 		DELETE FROM consumer where consumer.ID=#{id}
 	</delete>
 	

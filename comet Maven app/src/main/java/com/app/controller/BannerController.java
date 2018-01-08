@@ -162,7 +162,7 @@ public class BannerController {
 		BaseResult result=new BaseResult();
 		// 实例化banner类
 		Banner banner = new Banner();
-		if (null!=file) {
+		if (null!=file.getOriginalFilename()) {
 			// 上传文件
 			result = UpdateFile.upload(request, file,"banner/");
 			// 判断是否上传成功
