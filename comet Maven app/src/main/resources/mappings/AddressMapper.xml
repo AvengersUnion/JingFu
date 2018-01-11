@@ -6,9 +6,10 @@
 		<result property="userName" column="UN"/>
 		<result property="userIphone" column="PN"/>
 		<result property="customer_id" column="customer_id"/>
-		<result property="country" column="country"/>
 		<result property="province" column="province"/> 
 		
+		<result property="community" column="community"/>
+		<result property="houseNumber" column="houseNumber"/>
 		<result property="city" column="city"/>
 		<result property="county" column="county"/>
 		<result property="village" column="village"/>
@@ -26,34 +27,39 @@
 	
 	<!-- 根据用户的id查询所有的地址 -->
 	<select id="getAddressList" parameterType="String" resultMap="BaseAddrMap">
-		SELECT address.ID,consumer.UN,consumer.PN,address.COUNTRY,address.PROVINCE,
-		address.CITY,address.COUNTY,address.VILLAGE FROM address LEFT JOIN consumer ON 
+		SELECT address.ID,consumer.UN,consumer.PN,address.PROVINCE,
+		address.CITY,address.COUNTY,address.VILLAGE,address.community,address.houseNumber 
+		FROM address LEFT JOIN consumer ON 
 		consumer.ID=address.CUSTOMER_ID
 		WHERE consumer.ID=#{userId}
 	</select>
 	
 	<!-- 添加地址 -->
 	<insert id="addAddress" parameterType="com.app.entity.Address">
-		INSERT INTO address (ID,customer_id,COUNTRY,PROVINCE,CITY,COUNTY,VILLAGE,pn)
-		VALUES(#{id},#{customer_id},#{country},#{province},#{city},#{county},#{village},#{pn})
+		INSERT INTO address (ID,customer_id,PROVINCE,CITY,COUNTY,VILLAGE,pn,community,houseNumber)
+		VALUES(#{id},#{customer_id},#{province},#{city},#{county},#{village},#{pn},#{community},#{houseNumber})
 	</insert>
 	
 	<!-- 根据地址的id查询地址的信息 -->
 	<select id="getAddressById" parameterType="String" resultType="com.app.entity.Address">
-		SELECT ID,COUNTRY,PROVINCE,CITY,COUNTY,VILLAGE,PN  FROM address 
-		WHERE ID=#{id}
+		SELECT address.ID,consumer.UN,consumer.PN,address.PROVINCE,
+		address.CITY,address.COUNTY,address.VILLAGE,address.community,address.houseNumber 
+		FROM address LEFT JOIN consumer ON 
+		consumer.ID=address.CUSTOMER_ID
+		WHERE address.ID=#{id}
 	</select>
 	
 	<!-- 更新地址 -->
 	<update id="updateAddr" parameterType="com.app.entity.Address">
 		UPDATE address 
 		<set>
-		<if test="country != null and country !=''">country=#{country},</if>
       	<if test="province != null and province !=''">province=#{province},</if>
       	<if test="city !=null and city !=''">city=#{city},</if>
       	<if test="county !=null and county !=''">county=#{county},</if>
       	<if test="village !=null and village != ''">village=#{village},</if>
-      	<if test="pn !=null and pn != ''">pn=#{pn}</if>
+      	<if test="pn !=null and pn != ''">pn=#{pn},</if>
+      	      	<if test="community !=null and community != ''">community=#{community},</if>
+      	<if test="houseNumber !=null and houseNumber != ''">houseNumber=#{houseNumber}</if>
       	</set>
       	where id=#{id}
 	</update>
