@@ -62,22 +62,14 @@ public class AddressController {
 	 */
 	@RequestMapping(value = "add", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String addAddress(String customerId, String country,
-			String province, String city, String county, String village,
-			String pn) {
-		if (null != customerId && null != country && null != province
-				&& null != city && null != county && null != village
-				&& null != pn) {
+	public String addAddress(String customerId,String community, String houseNumber) {
+		if (null != customerId && null != community && null != houseNumber) {
 			Address address = new Address();
 			UUID uuid = UUID.randomUUID();
 			address.setId(uuid.toString());
 			address.setCustomer_id(customerId);
-			address.setCountry(country);
-			address.setProvince(province);
-			address.setCity(city);
-			address.setCounty(county);
-			address.setVillage(village);
-			address.setPn(pn);
+			address.setCommunity(community);
+			address.setHouseNumber(houseNumber);
 			addressService.addAddress(address);
 			return "1";
 		} else {
@@ -98,17 +90,13 @@ public class AddressController {
 	 */
 	@RequestMapping(value = "update", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateAddr(String id, String country, String province,
-			String city, String county, String village, String pn) {
+	public String updateAddr(String id,String community, String houseNumber) {
 		if (null != id && null != addressService.getAddressById(id)) {
 			Address address = new Address();
 			address.setId(id);
-			address.setCountry(country);
-			address.setProvince(province);
-			address.setCity(city);
-			address.setCounty(county);
-			address.setVillage(village);
-			address.setPn(pn);
+			
+			address.setCommunity(community);
+			address.setHouseNumber(houseNumber);
 			addressService.updateAddr(address);
 			return "1";
 		} else {

@@ -5,13 +5,14 @@ public class Address {
 	private String customer_id;
 	private String userName;
 	private String userIphone;
-	private String country;
 	private String province;
 	private String city;
 	private String county;
 	private String village;
 	private String pn;
 	private String zp;
+	private String community;
+	private String houseNumber;
 	private String userAddress;
 	/**
 	 * @return the id
@@ -36,18 +37,6 @@ public class Address {
 	 */
 	public void setCustomer_id(String customer_id) {
 		this.customer_id = customer_id;
-	}
-	/**
-	 * @return the country
-	 */
-	public String getCountry() {
-		return country;
-	}
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(String country) {
-		this.country = country;
 	}
 	/**
 	 * @return the province
@@ -125,7 +114,7 @@ public class Address {
 	 * @return the userAddress
 	 */
 	public String getUserAddress() {
-		userAddress=this.country+this.province+this.city+this.county+this.village;
+		userAddress=this.community+this.houseNumber;
 		return userAddress;
 	}
 	/**
@@ -151,5 +140,29 @@ public class Address {
 	 */
 	public void setUserIphone(String userIphone) {
 		this.userIphone = userIphone;
+	}
+	/**
+	 * @return the community
+	 */
+	public String getCommunity() {
+		return community;
+	}
+	/**
+	 * @param community the community to set
+	 */
+	public void setCommunity(String community) {
+		this.community = community;
+	}
+	/**
+	 * @return the houseNumber
+	 */
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+	/**
+	 * @param houseNumber the houseNumber to set
+	 */
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
 	}
 }

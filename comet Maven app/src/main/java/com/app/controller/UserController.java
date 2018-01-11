@@ -198,76 +198,7 @@ public class UserController {
 		
 		return userService.getUserById(id);
 	}
-	/**
-	 * 添加用户
-	 * @param uName
-	 * @param userIphone
-	 * @param province
-	 * @param city
-	 * @param county
-	 * @param address
-	 * @param passWord
-	 * @return
-	 */
-	@RequestMapping(value="add",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
-    @ResponseBody
-	public String addUser(String uName,String userIphone,String province,
-			String city,String county,String address,String passWord) {
-		
-		UUID uuid=UUID.randomUUID();
-		if (null==uName||null==userIphone||null==passWord) {
-			return "0";
-		}else if (""==uName||""==userIphone||""==passWord) {
-			return "0";
-		}else {
-			if (null!=userService.getUserById(uuid.toString())) {
-				uuid=UUID.randomUUID();
-			}
-			BackUser user=new BackUser();
-			user.setId(uuid.toString());
-			user.setuName(uName);
-			user.setUserIphone(userIphone);
-			user.setPassWord(passWord);
-			
-			user.setProvince(province);
-			user.setCity(city);
-			user.setCounty(county);
-			userService.addUser(user);
-			return "1";
-		}
-	}
-	/**
-	 * 修改用户
-	 * @param id
-	 * @param uName
-	 * @param userIphone
-	 * @param province
-	 * @param city
-	 * @param county
-	 * @param address
-	 * @param passWord
-	 * @return
-	 */
-	@RequestMapping(value="update",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
-    @ResponseBody
-	public String updateUser(String id,String uName,String userIphone,String province,
-			String city,String county,String passWord) {
-		if (null==id||id=="") {
-			return "0";
-		}else {
-			BackUser user=new BackUser();
-			user.setId(id);
-			user.setuName(uName);
-			user.setUserIphone(userIphone);
-			user.setPassWord(passWord);
-			user.setProvince(province);
-			user.setCity(city);
-			user.setCounty(county);
-			userService.updateUser(user);
-			return "1";
-		}
-		
-	}
+	
 	/**
 	 * 删除用户，先查询地址，在删除用户的地址
 	 * @param id
@@ -275,8 +206,10 @@ public class UserController {
 	 */
 	@RequestMapping("delete")
     @ResponseBody
-	public int deleteUser(String id) {
-		
+	public int deleteUser(Integer id) {
+		if (null==id) {
+			id=0;
+		}
 		if (null==userService.getUserById(id)) {
 			//List<String> strList=new ArrayList<String>();
 			return 0;
@@ -299,19 +232,26 @@ public class UserController {
 			return "0";
 		}
 		if (!ids.contains(",")) {
-			if (null==userService.getUserById(ids)) {
+			Integer id=Integer.parseInt(ids);
+			if(null==id){
+				id=0;
+			}
+			if (null==userService.getUserById(id)) {
 				return "0";
 			}
-			userService.getUserById(ids);
+			userService.deleteUser(id);
 		}else {
 			userIds=ids.split(",");
+			
 			for (int i = 0; i < userIds.length; i++) {
-				if (null==userService.getUserById(userIds[i])) {
+				int id=Integer.parseInt(userIds[i]);
+				if (null==userService.getUserById(id)) {
 					return "0";
 				}
 			}
 			for (int i = 0; i < userIds.length; i++) {
-				userService.getUserById(userIds[i]);
+				int id=Integer.parseInt(userIds[i]);
+				userService.deleteUser(id);
 			}
 		}
 		return "1";

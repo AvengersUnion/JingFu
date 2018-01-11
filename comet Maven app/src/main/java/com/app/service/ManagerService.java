@@ -12,4 +12,5 @@ public interface ManagerService {
 	void deleteManagerById(String id);
 	void addManager(Manager manager);
 	void updateManagerAll(Manager manager);
+	Manager getManagerById(String id);
 }

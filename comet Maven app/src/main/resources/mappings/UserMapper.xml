@@ -8,7 +8,8 @@
 		<result property="passWord" column="pw"/> 
 		<result property="nettime" column="nettime"/>
 		
-		<result property="country" column="country"/>
+		<result property="community" column="community"/>
+		<result property="houseNumber" column="houseNumber"/>
 		<result property="province" column="province"/>
 		<result property="city" column="city"/>
 		<result property="county" column="county"/>
@@ -30,8 +31,8 @@
 	</select>
 	<!-- 根据用户的id查询用户的地址 -->
 	<select id="getUserAddress" parameterType="Integer" resultMap="BaseUserMap">
-		SELECT address.COUNTRY,
-		address.PROVINCE,address.CITY,address.COUNTY,address.VILLAGE FROM address
+		SELECT 
+		address.PROVINCE,address.CITY,address.COUNTY,address.VILLAGE,address.community,houseNumber FROM address
 		WHERE address.CUSTOMER_ID=#{userId}
 	</select>
 	<!-- 查询用户所在地的地址 -->
@@ -44,7 +45,7 @@
 		LEFT JOIN address ON consumer.ID=address.CUSTOMER_ID
 		<where>
 			<if test="city !=null and city !=''">
-				address.CITY = #{city}
+				address.community like '%${city}%'
 			</if>
 		</where>
 	</select>

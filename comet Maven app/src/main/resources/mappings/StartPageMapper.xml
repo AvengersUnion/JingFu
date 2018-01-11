@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.StartPageDao" >
+	<resultMap type="com.app.entity.StartPage" id="BasePageMap">
+		<id  property="id" column="id"/>
+		<result property="startPagePath" column="startPagePath"/>
+		<result property="creatTime" column="creatTime"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	<!-- 查询所有启动图片 -->
+	<select id="getStartPageList" resultMap="BasePageMap">
+		SELECT id,startPagePath,creatTime,state FROM startpage
+	</select>
+	<!-- 根据id查询 -->
+	<select id="getStartPageById" parameterType="Integer" resultMap="BasePageMap">
+		SELECT id,startPagePath,creatTime,state FROM startpage WHERE id=#{id}
+	</select>
+	<!-- 根据state状态查询 -->
+	<select id="getStartPageByState" resultMap="BasePageMap">
+		SELECT id,startPagePath,creatTime,state FROM startpage WHERE state=1
+	</select>
+	<!-- 添加 -->
+	<insert id="addStartPage" parameterType="com.app.entity.StartPage">
+		insert into startpage (startpage.startPagePath,startpage.creatTime,startpage.state)
+		values (#{startPagePath},#{creatTime},#{state})
+	</insert>
+	<!-- 更新图片路径 -->
+	<update id="updateStartPage" parameterType="com.app.entity.StartPage">
+		UPDATE startpage 
+		<set>
+		<if test="startPagePath != null and startPagePath !=''">startPagePath=#{startPagePath}</if>
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 更新状态 -->
+	<update id="updateStartPageState" parameterType="com.app.entity.StartPage">
+		UPDATE startpage 
+		<set>
+			state=#{state}
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 删除 -->
+	<delete id="deleteStartPageById" parameterType="Integer"> 
+		DELETE  from startpage where id=#{id}
+	</delete>
+</mapper>
