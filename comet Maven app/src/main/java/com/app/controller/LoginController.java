@@ -3,7 +3,6 @@ package com.app.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.app.entity.BackUser;
 import com.app.entity.User;
-import com.app.entity.UserAuths;
 import com.app.service.LoginService;
 import com.app.service.UserAuthsService;
 import com.app.service.UserService;
@@ -237,5 +236,42 @@ public class LoginController {
     	}
     	return result.toString();
     }
+    
+    /**
+     * QQ登陆
+     * @return
+     * @throws IOException 
+     */
+    @RequestMapping(value="/loginByQQ.do",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginByQQ(HttpServletRequest request,HttpServletResponse response){
+    	JSONObject result = new JSONObject();
+    	String openid = request.getParameter("openid");
+        if(openid == null || "".equals(openid)) {
+        	result.put("type", "1");
+        	result.put("mes", "验证码不能为空！");
+    		return result.toJSONString();
+        }
+      //将QQ与当前系统手机号进行绑定
+    	String phone = userAuthsService.getPhonebyIdentifier(openid);
+    	if(phone != null && !phone.equals("")) {
+    		//已经绑定的
+    		BackUser user = userService.getUserByPhone(phone);
+    		HttpSession session = request.getSession();
+            session.setAttribute("user", user);
+            result.put("type", "0");
+    		result.put("mes", "登陆成功！");
+    		result.put("phone",phone);
+    		result.put("id", user.getId());
+    	}else {
+    		//未绑定的
+    		userAuthsService.saveOpenid("QQ",openid);
+    		result.put("type", "1");
+    		result.put("mes", "未绑定手机号！");
+    		result.put("openid",openid);
+    	}
+    	return result.toString();
+    }
+
     
 }
