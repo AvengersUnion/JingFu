@@ -47,7 +47,7 @@ public class LoginInterceptor implements HandlerInterceptor{
         }  
         response.setContentType("application/json");
         JSONObject obj = new JSONObject();
-        obj.put("type", "0");
+        obj.put("type", "1");
         obj.put("mes", "未登录");
         response.getWriter().print(obj.toJSONString());
         response.getWriter().flush();
