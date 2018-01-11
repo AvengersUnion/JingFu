@@ -15,6 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
@@ -27,6 +28,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<input type="text" name="code" id="code"/><span id="getCode">获取验证码</span>
 			<input type="submit"></input>
 	</form>
+	
+	
+<div style="font-size: 40px;text-align: center;">
+	<a href="login/loginByWX.do">微信公众号授权登陆</a>
+</div>
   </body>
   <script type="text/javascript">
   	$("#getCode").click(function(){

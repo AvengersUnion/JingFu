@@ -37,7 +37,7 @@ public class UserServiceImp implements UserService{
 		return userDao.getUserListByCity(user);
 	}
 
-	public BackUser getUserById(int id) {
+	public BackUser getUserById(Integer id) {
 		// TODO Auto-generated method stub
 		return userDao.getUserById(id);
 	}
@@ -52,12 +52,12 @@ public class UserServiceImp implements UserService{
 		userDao.updateUser(user);
 	}
 
-	public void deleteUser(int id) {
+	public void deleteUser(Integer id) {
 		// TODO Auto-generated method stub
 		userDao.deleteUser(id);
 	}
 
-	public List<BackUser> getUserAddress(int userId) {
+	public List<BackUser> getUserAddress(Integer userId) {
 		// TODO Auto-generated method stub
 		return userDao.getUserAddress(userId);
 	}
@@ -73,18 +73,11 @@ public class UserServiceImp implements UserService{
 		}
 		//新用户
 		//创建系统账户
-		/*
-		UUID uuid=UUID.randomUUID();
-		if (null!=userDao.getUserById(uuid.toString())) {
-			uuid=UUID.randomUUID();
-		}
-		*/
 		String chars = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ";
 		String str = "";
 		for(int i = 0;i<10;i++) {
 			str = str + chars.charAt((int)(Math.random() * 52));
 		}
-		//user.setId(uuid.toString());
 		user.setuName(str);
 		userDao.addUser(user);
 	}

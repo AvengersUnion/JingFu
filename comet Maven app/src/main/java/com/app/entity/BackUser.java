@@ -5,7 +5,7 @@ import java.util.List;
 
 public class BackUser {
 	//用户表中的id,uName,userIphone,passWord
-	private int id;
+	private Integer id;
 	private String uName;
 	private String userIphone;
 	private String passWord;
@@ -20,8 +20,19 @@ public class BackUser {
 	private String address;
 	private List<BackUser> backUserList;
 	//第三方登陆信息
-	private List<UserAuths> userAuthsList;
-	
+	private UserAuths wxAuths;
+	/**
+	 * @return the id
+	 */
+	public Integer getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	/**
 	 * @return the uName
 	 */
@@ -143,32 +154,21 @@ public class BackUser {
 	public void setNettime(Date nettime) {
 		this.nettime = nettime;
 	}
-	public List<UserAuths> getUserAuthsList() {
-		return userAuthsList;
+	public UserAuths getWxAuths() {
+		return wxAuths;
 	}
-	public void setUserAuthsList(List<UserAuths> userAuthsList) {
-		this.userAuthsList = userAuthsList;
+	public void setWxAuths(UserAuths wxAuths) {
+		this.wxAuths = wxAuths;
 	}
 	@Override
 	public String toString() {
 		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
 				+ ", nettime=" + nettime + ", country=" + country + ", province=" + province + ", city=" + city
 				+ ", county=" + county + ", village=" + village + ", address=" + address + ", backUserList="
-				+ backUserList + ", userAuthsList=" + userAuthsList + "]";
-	}
-	/**
-	 * @return the id
-	 */
-	public int getId() {
-		return id;
-	}
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
+				+ backUserList + ", wxAuths=" + wxAuths + "]";
 	}
 	
+
 	
 	
 	

@@ -7,6 +7,7 @@ import com.app.entity.Image;
 import com.app.entity.Service;
 import com.app.entity.ServiceOrder;
 import com.app.service.ServiceService;
+import com.app.util.Application;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,7 +130,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							adImgFile.transferTo(newFile);
-							service.setAdImgPath("/static/images/fuwu/"+newFileName);
+							service.setAdImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -173,7 +174,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							detailImgFile.transferTo(newFile);
-							service.setDetailImgPath("/static/images/fuwu/"+newFileName);
+							service.setDetailImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -282,7 +283,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							adImgFile.transferTo(newFile);
-							service.setAdImgPath("/static/images/fuwu/"+newFileName);
+							service.setAdImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -326,7 +327,7 @@ public class ServiceController {
 							}
 							// 将内存中的数据写入磁盘
 							detailImgFile.transferTo(newFile);
-							service.setDetailImgPath("/static/images/fuwu/"+newFileName);
+							service.setDetailImgPath(Application.serverUrl+"/fuwu/"+newFileName);
 						}
 						// 没有.后缀名报错
 					} else {
@@ -373,7 +374,7 @@ public class ServiceController {
 	 *
 	 *
 	 */
-	@RequestMapping(value = "/app/getServiceDetail", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/getServiceDetail", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String getServiceDetailById(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
@@ -438,7 +439,7 @@ public class ServiceController {
 	/**
 	 * 获取所有的一级服务
 	 */
-	@RequestMapping(value = "/app/getAllService", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/app/getAllService.do", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getAllService(HttpServletRequest request, HttpServletResponse response) {
 		List<Service> list = serviceService.getAllService();
@@ -452,7 +453,7 @@ public class ServiceController {
 	 *
 	 *
 	 */
-	@RequestMapping(value = "/app/getServiceList", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/app/getServiceList.do", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String getServiceListById(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("getServiceListById");
@@ -463,7 +464,23 @@ public class ServiceController {
 		return json;
 	}
 
-
+	/**
+	 * 根据子服务的id获取单个子服务详情
+	 *
+	 *
+	 */
+	@RequestMapping(value = "/app/getServiceDetail.do", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String getServiceDetail(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		if (id == null || "".equals(id)) {
+			return "[]";
+		}
+		Service service = serviceService.getServiceDetailById(id);
+		String json = JSON.toJSON(service).toString();
+		System.out.println(json);
+		return json;
+	}
 	/**
 	 * 功能描述：获取登陆图片
 	 *

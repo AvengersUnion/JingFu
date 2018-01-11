@@ -10,7 +10,6 @@ public class Manager {
 	private String parent_id;
 	private String superadmin;
 	private String city;
-	//private String superAdmin;
 	/**
 	 * @return the id
 	 */

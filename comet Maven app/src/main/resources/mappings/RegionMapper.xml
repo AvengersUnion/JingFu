@@ -51,8 +51,8 @@
 	</select>
 	<!-- 添加manager -->
 	<insert id="addManager" parameterType="com.app.entity.Manager">
-		insert into manager (id,un,pw,region_rc,superadmin)
-		values (#{id},#{uname},#{passWord},#{region_rc},#{superadmin})
+		insert into manager (id,un,pw,region_rc)
+		values (#{id},#{uname},#{passWord},#{region_rc})
 	</insert>
 	<!-- 修改manager -->
 	<update id="updateManagerAll" parameterType="com.app.entity.Manager">

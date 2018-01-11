@@ -10,7 +10,6 @@
 		<result property="grade" column="grade"/>
 		<result property="parent_id" column="parent_id"/>
 		<result property="city" column="rn"/>
-		<result property="superadmin" column="superadmin"/>
 	</resultMap>
 	<!-- 根据用户的用户名和密码登录 -->
 	<select id="login" parameterType="com.app.entity.Manager" resultMap="BaseManagerMap">
@@ -28,8 +27,8 @@
 	</select>
 	<!-- 添加manager -->
 	<insert id="addManager" parameterType="com.app.entity.Manager">
-		insert into manager (id,un,pw,region_rc,superadmin)
-		values (#{id},#{uname},#{passWord},#{region_rc},#{superadmin})
+		insert into manager (id,un,pw,region_rc)
+		values (#{id},#{uname},#{passWord},#{region_rc})
 	</insert>
 	<!-- 修改manager -->
 	<update id="updateManagerAll" parameterType="com.app.entity.Manager">

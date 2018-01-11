@@ -12,11 +12,11 @@ public interface UserService {
 	List<String> getRegionList();
 	List<BackUser> getUserListByCity(BackUser user);
 	
-	BackUser getUserById(int id);
+	BackUser getUserById(Integer id);
 	void addUser(BackUser user);
 	void updateUser(BackUser user);
-	void deleteUser(int id);
-	List<BackUser> getUserAddress(int userId);
+	void deleteUser(Integer id);
+	List<BackUser> getUserAddress(Integer userId);
 	/**
 	 * 手机登陆时保存用户
 	 * @param user

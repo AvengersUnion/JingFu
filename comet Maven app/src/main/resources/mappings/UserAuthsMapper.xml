@@ -1,11 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.dao.UserAuthsDao" >
-	<!-- 根据登陆手机查找user_id -->
-	<select id="getUserIdByPhone" resultType="string">
-		select user_id as userId from user_auths where identifier = #{identifier}	
+	<!-- 根据第三方登录凭证查找手机号 -->
+	<select id="getPhoneByIdentifier" resultType="string">
+		select b.pn as phone from user_auths a 
+		LEFT JOIN consumer b ON a.phone=b.PN
+		where a.identifier=#{openid}
 	</select>
+	<!-- 根据手机号查找对象 -->
 	
+	<select id="getUserAuthsByphone" resultType="com.app.entity.UserAuths">
+		select 
+			id as id,
+			phone as phone,
+			identity_type as identityType,
+			identifier as identifier,
+			credential as credential,
+			nettime as nettime
+		from
+			user_auths
+		where phone=#{phone}
+	
+	</select>
+	<!-- 保存第三方登陆凭证 -->
+	<insert id="saveOpenid" parameterType="String">
+		insert into user_auths(
+			identity_type,
+			identifier
+		)values(
+			#{0},
+			#{1}
+		)
+	</insert>
+	<!-- 更新手机号 -->
+	<update id="updatePhone" parameterType="String">
+		update user_auths
+			set phone=#{0}
+		where
+			identifier=#{1}
+	</update>
 	<!-- 保存第三方登陆信息 -->
 	<insert id="saveUserAuths" parameterType="com.app.entity.UserAuths">
 		insert into user_auths(

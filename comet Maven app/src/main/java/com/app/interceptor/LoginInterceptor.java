@@ -32,27 +32,25 @@ public class LoginInterceptor implements HandlerInterceptor{
      */  
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,  
             Object handler) throws Exception {  
-        //获取请求的URL  
-        String url = request.getRequestURI();  
-        //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制  
-        if(url.indexOf(".do")>=0){  
-            return true;  
-        }  
-        //获取Session  
-        HttpSession session = request.getSession();  
-        BackUser user = null;//获取用户登录
-        Manager manager=null;//获取管理员登录
-        user = (BackUser)session.getAttribute("user");  
-        manager=(Manager)session.getAttribute("manager");
-        if(user != null||null!=manager){  
-            return true;  
-        }  
-        //不符合条件的，跳转到登录界面  
-        //request.getRequestDispatcher("/login.html").forward(request, response);  
-          
-        //return false; 
-        return true;
-        
+//        //获取请求的URL  
+//        String url = request.getRequestURI();  
+//        //URL:login.jsp是公开的;这个demo是除了login.jsp是可以公开访问的，其它的URL都进行拦截控制  
+//        if(url.indexOf(".do")>=0){  
+//            return true;  
+//        }  
+//        //获取Session  
+//        HttpSession session = request.getSession();  
+//        BackUser user = null;
+//        user = (BackUser)session.getAttribute("user");  
+//        if(user != null){  
+//            return true;  
+//        }  
+//        //不符合条件的，跳转到登录界面  
+//        request.getRequestDispatcher("/index.jsp").forward(request, response);  
+//          
+//        return false;  
+    	return true;
+
     }
 
 }

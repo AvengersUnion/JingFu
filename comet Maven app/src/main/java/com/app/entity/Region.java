@@ -9,7 +9,6 @@ public class Region {
 	private String passWord;
 	private String managerId;
 	private List<Region> managerList;
-	
 	/**
 	 * @return the postcode
 	 */
