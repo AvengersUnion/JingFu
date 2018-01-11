@@ -39,5 +39,9 @@ public class ManagerServiceImp implements ManagerService{
 		// TODO Auto-generated method stub
 		managerDao.updateManager(manager);
 	}
+	public Manager getManagerById(String id) {
+		// TODO Auto-generated method stub
+		return managerDao.getManagerById(id);
+	}
 
 }

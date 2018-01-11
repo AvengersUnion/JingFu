@@ -1,18 +1,17 @@
 package com.app.controller;
 
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.app.entity.Manager;
 import com.app.service.ManagerService;
 
@@ -30,19 +29,23 @@ public class ManagerController {
 	 */
 	@RequestMapping("login")
 	@ResponseBody
-	public Manager managerLogin(String uname, String passWord,HttpServletRequest request) {
+	public Map<String, String> managerLogin(String uname, String passWord,HttpServletRequest request) {
 		Manager managerboss = new Manager();
 		managerboss.setUname(uname);
 		managerboss.setPassWord(passWord);
+		Map<String, String> manMap=new HashMap<String, String>();
 		if (null == managerService.login(managerboss)) {
-			return null;
+			manMap.put("code", "0");
+			manMap.put("message", "登录失败");
+			return manMap;
 		}
 		
 		Manager manager=managerService.login(managerboss);
-		
+		manMap.put("code", "1");
+		manMap.put("id", manager.getId());
 		HttpSession session = request.getSession();
         session.setAttribute("manager", manager);
-		return manager ;
+		return manMap ;
 	}
 
 	/**
@@ -77,11 +80,26 @@ public class ManagerController {
 			HttpServletResponse response) {
 		request.getSession().invalidate();
 		try {
-			response.sendRedirect(request.getContextPath() + "/login.html");
-		} catch (IOException e) {
+			System.out.println(1);
+			request.getSession().removeAttribute("manager");
+			//request.session.removeAttribute("uiUsers")；
+			//response.sendRedirect("http://www.yehaikeji.com:8080/comet/login.html");
+			//System.out.println(request.getContextPath()+"/login.html");
+			return "1";
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "1";
+		return "0";
+	}
+	/**
+	 * 根据mananger的id查询
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("find")
+	@ResponseBody
+	public Manager getManagerById(String id) {
+		return managerService.getManagerById(id);
 	}
 }

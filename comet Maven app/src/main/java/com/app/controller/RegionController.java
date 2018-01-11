@@ -161,6 +161,7 @@ public class RegionController {
 			manager.setUname(uname);
 			manager.setPassWord(passWord);
 			manager.setRegion_rc(postcode);
+			manager.setSuperadmin("0");
 			regionService.addManager(manager);
 			return "1";
 		}

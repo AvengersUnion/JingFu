@@ -45,7 +45,8 @@
 		DELETE FROM manager WHERE manager.id=#{id}
 	</delete>
 	<!-- 根据id查询manger -->
-	<select id="getManagerById" parameterType="String" resultType="com.app.entity.Manager">
-		SELECT * FROM manager WHERE ID=#{id}
+	<select id="getManagerById" parameterType="String" resultMap="BaseManagerMap">
+		select id,region.RN,superadmin,un,pw from manager LEFT JOIN region 
+		ON manager.REGION_RC=region.RC where ID=#{id}
 	</select>
 </mapper>
