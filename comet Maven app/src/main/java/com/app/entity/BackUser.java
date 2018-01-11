@@ -11,7 +11,8 @@ public class BackUser {
 	private String passWord;
 	private Date nettime;
 	//address表中的country，province，city，county，village
-	private String country;
+	private String community;
+	private String houseNumber;
 	private String province;
 	private String city;
 	private String county;
@@ -97,7 +98,7 @@ public class BackUser {
 	 * @return the address
 	 */
 	public String getAddress() {
-		address=this.country+this.province+this.city+this.county+this.village;
+		address=this.community+this.houseNumber;
 		return address;
 	}
 	/**
@@ -111,18 +112,6 @@ public class BackUser {
 	 */
 	public void setPassWord(String passWord) {
 		this.passWord = passWord;
-	}
-	/**
-	 * @return the country
-	 */
-	public String getCountry() {
-		return country;
-	}
-	/**
-	 * @param country the country to set
-	 */
-	public void setCountry(String country) {
-		this.country = country;
 	}
 	/**
 	 * @return the village
@@ -163,13 +152,33 @@ public class BackUser {
 	@Override
 	public String toString() {
 		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
-				+ ", nettime=" + nettime + ", country=" + country + ", province=" + province + ", city=" + city
+				+ ", nettime=" + nettime  + ", province=" + province + ", city=" + city
 				+ ", county=" + county + ", village=" + village + ", address=" + address + ", backUserList="
 				+ backUserList + ", wxAuths=" + wxAuths + "]";
 	}
-	
-
-	
-	
+	/**
+	 * @return the community
+	 */
+	public String getCommunity() {
+		return community;
+	}
+	/**
+	 * @param community the community to set
+	 */
+	public void setCommunity(String community) {
+		this.community = community;
+	}
+	/**
+	 * @return the houseNumber
+	 */
+	public String getHouseNumber() {
+		return houseNumber;
+	}
+	/**
+	 * @param houseNumber the houseNumber to set
+	 */
+	public void setHouseNumber(String houseNumber) {
+		this.houseNumber = houseNumber;
+	}
 	
 }

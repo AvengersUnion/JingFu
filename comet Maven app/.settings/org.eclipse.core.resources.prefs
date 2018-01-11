@@ -1,7 +1,6 @@
 eclipse.preferences.version=1
 encoding//WebRoot/index.jsp=UTF-8
 encoding//src/main/java/com/app/controller/GoodsController.java=UTF-8
-encoding//src/main/java/com/app/controller/LoginController.java=UTF-8
 encoding//src/main/java/com/app/controller/ServiceController.java=UTF-8
 encoding//src/main/java/com/app/dao/ServiceDao.java=UTF-8
 encoding//src/main/java/com/app/entity/Goods.java=UTF-8

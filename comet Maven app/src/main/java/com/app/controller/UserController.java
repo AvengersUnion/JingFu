@@ -198,74 +198,7 @@ public class UserController {
 		
 		return userService.getUserById(id);
 	}
-	/**
-	 * 添加用户
-	 * @param uName
-	 * @param userIphone
-	 * @param province
-	 * @param city
-	 * @param county
-	 * @param address
-	 * @param passWord
-	 * @return
-	 */
-	@RequestMapping(value="add",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
-    @ResponseBody
-	public String addUser(String uName,String userIphone,String province,
-			String city,String county,String address,String passWord) {
-		
-		UUID uuid=UUID.randomUUID();
-		if (null==uName||null==userIphone||null==passWord) {
-			return "0";
-		}else if (""==uName||""==userIphone||""==passWord) {
-			return "0";
-		}else {
-			
-			BackUser user=new BackUser();
-			//user.setId(uuid.toString());
-			user.setuName(uName);
-			user.setUserIphone(userIphone);
-			user.setPassWord(passWord);
-			
-			user.setProvince(province);
-			user.setCity(city);
-			user.setCounty(county);
-			userService.addUser(user);
-			return "1";
-		}
-	}
-	/**
-	 * 修改用户
-	 * @param id
-	 * @param uName
-	 * @param userIphone
-	 * @param province
-	 * @param city
-	 * @param county
-	 * @param address
-	 * @param passWord
-	 * @return
-	 */
-	@RequestMapping(value="update",produces="text/html;charset=UTF-8",method=RequestMethod.POST)
-    @ResponseBody
-	public String updateUser(Integer id,String uName,String userIphone,String province,
-			String city,String county,String passWord) {
-		if (null==id||id<1) {
-			return "0";
-		}else {
-			BackUser user=new BackUser();
-			user.setId(id);
-			user.setuName(uName);
-			user.setUserIphone(userIphone);
-			user.setPassWord(passWord);
-			user.setProvince(province);
-			user.setCity(city);
-			user.setCounty(county);
-			userService.updateUser(user);
-			return "1";
-		}
-		
-	}
+	
 	/**
 	 * 删除用户，先查询地址，在删除用户的地址
 	 * @param id
