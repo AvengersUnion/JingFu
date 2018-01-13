@@ -88,5 +88,17 @@ public class UserServiceImp implements UserService{
 		
 		return userDao.getUserByPhone(phone);
 	}
+	/**
+	 * 用户登录后更新token
+	 */
+	public void updateToken(String token, String phone) {
+		userDao.updateToken(token,phone);
+		
+	}
+
+	public BackUser getUserByToken(String token) {
+		// TODO Auto-generated method stub
+		return userDao.getUserByToken(token);
+	}
 
 }

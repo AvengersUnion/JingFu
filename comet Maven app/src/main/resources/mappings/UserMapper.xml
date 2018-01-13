@@ -7,7 +7,7 @@
 		<result property="userIphone" column="pn"/>
 		<result property="passWord" column="pw"/> 
 		<result property="nettime" column="nettime"/>
-		
+		<result property="token" column="token"/>
 		<result property="community" column="community"/>
 		<result property="houseNumber" column="houseNumber"/>
 		<result property="province" column="province"/>
@@ -93,7 +93,16 @@
 	
 	<!-- 根据用户的手机号查询用户 -->
 	<select id="getUserByPhone" parameterType="String" resultMap="BaseUserMap">
-		SELECT ID,UN,PN,PW,nettime,PROVINCE,CITY,COUNTY FROM consumer
+		SELECT ID,UN,PN,PW,nettime,PROVINCE,CITY,COUNTY,token FROM consumer
 		where PN=#{phone}
+	</select>
+	
+	<update id="updateToken">
+		update consumer set token=#{0} where pn=#{1}
+	</update>
+	<!-- 根据token查询用户 -->
+	<select id="getUserByToken" parameterType="String" resultMap="BaseUserMap">
+		SELECT ID,UN,PN,PW,nettime,PROVINCE,CITY,COUNTY,token FROM consumer
+		where token=#{token}
 	</select>
 </mapper>

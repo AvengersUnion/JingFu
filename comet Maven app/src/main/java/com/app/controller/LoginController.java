@@ -8,6 +8,7 @@ import com.app.service.UserAuthsService;
 import com.app.service.UserService;
 import com.app.util.Application;
 import com.app.util.AuthUtil;
+import com.app.util.MD5Util;
 import com.app.util.SendMessage;
 
 import org.apache.http.client.ClientProtocolException;
@@ -27,7 +28,9 @@ import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,6 +48,7 @@ public class LoginController {
     UserAuthsService userAuthsService;
     @Resource(name = "userService")
     UserService userService;
+    
     
     @RequestMapping("/doLogin")
     @ResponseBody
@@ -162,12 +166,16 @@ public class LoginController {
 				if(openid != null && !"".equals(openid)) {
 					userAuthsService.updatePhone(phone,openid);
 				}
+				String token = MD5Util.MD5(phone+code+new Date().getTime());
+				user.setToken(token);
+				userService.updateToken(token,phone);
 	            HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
 	            obj.put("type", "0");
         		obj.put("mes", "登陆成功！");
         		obj.put("phone", phone);
-        		obj.put("id", user.getId());
+        		obj.put("id", String.valueOf(user.getId()));
+        		obj.put("token", token);
         		return obj.toJSONString();
 			}
 		}
@@ -227,6 +235,7 @@ public class LoginController {
     		result.put("mes", "登陆成功！");
     		result.put("phone",phone);
     		result.put("id", user.getId());
+    		result.put("token", user.getToken());
     	}else {
     		//未绑定的
     		userAuthsService.saveOpenid("WX",openid);
@@ -249,7 +258,7 @@ public class LoginController {
     	String openid = request.getParameter("openid");
         if(openid == null || "".equals(openid)) {
         	result.put("type", "1");
-        	result.put("mes", "验证码不能为空！");
+        	result.put("mes", "openid不能为空！");
     		return result.toJSONString();
         }
       //将QQ与当前系统手机号进行绑定
@@ -263,6 +272,7 @@ public class LoginController {
     		result.put("mes", "登陆成功！");
     		result.put("phone",phone);
     		result.put("id", user.getId());
+    		result.put("token", user.getToken());
     	}else {
     		//未绑定的
     		userAuthsService.saveOpenid("QQ",openid);

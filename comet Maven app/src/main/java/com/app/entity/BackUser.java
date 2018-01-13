@@ -10,6 +10,7 @@ public class BackUser {
 	private String userIphone;
 	private String passWord;
 	private Date nettime;
+	private String token;
 	//address表中的country，province，city，county，village
 	private String community;
 	private String houseNumber;
@@ -149,13 +150,6 @@ public class BackUser {
 	public void setWxAuths(UserAuths wxAuths) {
 		this.wxAuths = wxAuths;
 	}
-	@Override
-	public String toString() {
-		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
-				+ ", nettime=" + nettime  + ", province=" + province + ", city=" + city
-				+ ", county=" + county + ", village=" + village + ", address=" + address + ", backUserList="
-				+ backUserList + ", wxAuths=" + wxAuths + "]";
-	}
 	/**
 	 * @return the community
 	 */
@@ -179,6 +173,19 @@ public class BackUser {
 	 */
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
+	}
+	@Override
+	public String toString() {
+		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
+				+ ", nettime=" + nettime + ", token=" + token + ", community=" + community + ", houseNumber="
+				+ houseNumber + ", province=" + province + ", city=" + city + ", county=" + county + ", village="
+				+ village + ", address=" + address + ", backUserList=" + backUserList + ", wxAuths=" + wxAuths + "]";
 	}
 	
 }

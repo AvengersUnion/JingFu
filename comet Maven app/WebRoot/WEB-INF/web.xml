@@ -54,8 +54,10 @@
 		<servlet-name>default</servlet-name>
 		<url-pattern>*.js</url-pattern>
 		<url-pattern>*.css</url-pattern>
+		<url-pattern>*.html</url-pattern>
 		<url-pattern>/assets/*"</url-pattern>
 		<url-pattern>/static/images/*</url-pattern>
+		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
 
 

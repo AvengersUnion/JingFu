@@ -34,4 +34,16 @@ public interface UserDao {
 	 * @return
 	 */
 	BackUser getUserByPhone(String phone);
+	/**
+	 * 用户登录后更新token
+	 * @param token
+	 * @param phone
+	 */
+	void updateToken(String token, String phone);
+	/**
+	 * 根据token获取user
+	 * @param token
+	 * @return
+	 */
+	BackUser getUserByToken(String token);
 }

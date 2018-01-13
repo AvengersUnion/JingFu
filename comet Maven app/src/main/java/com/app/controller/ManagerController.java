@@ -27,7 +27,7 @@ public class ManagerController {
 	 * @param loginJson
 	 * @return
 	 */
-	@RequestMapping("login")
+	@RequestMapping("login.do")
 	@ResponseBody
 	public Map<String, String> managerLogin(String uname, String passWord,HttpServletRequest request) {
 		Manager managerboss = new Manager();
