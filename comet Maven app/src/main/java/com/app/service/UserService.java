@@ -28,4 +28,16 @@ public interface UserService {
 	 * @return
 	 */
 	BackUser getUserByPhone(String phone);
+	/**
+	 * 用户登陆成功后更新token
+	 * @param token
+	 * @param phone
+	 */
+	void updateToken(String token, String phone);
+	/**
+	 * 根据token查找用户
+	 * @param token
+	 * @return
+	 */
+	BackUser getUserByToken(String token);
 }

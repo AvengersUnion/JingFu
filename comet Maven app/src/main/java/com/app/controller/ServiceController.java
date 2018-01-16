@@ -439,7 +439,7 @@ public class ServiceController {
 	/**
 	 * 获取所有的一级服务
 	 */
-	@RequestMapping(value = "/app/getAllService.do", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/app/getAllService.action", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getAllService(HttpServletRequest request, HttpServletResponse response) {
 		List<Service> list = serviceService.getAllService();
