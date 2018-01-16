@@ -88,14 +88,16 @@ public class LoginInterceptor implements HandlerInterceptor{
         if(user != null || manager != null){  
             return true;  
         }  
-        response.setContentType("application/json");
-        JSONObject obj = new JSONObject();
-        obj.put("type", "1");
-        obj.put("mes", "未登录");
-        response.getWriter().print(obj.toJSONString());
-        response.getWriter().flush();
-        response.getWriter().close();
-        return false;  
+//        response.setContentType("application/json");
+//        JSONObject obj = new JSONObject();
+//        obj.put("type", "1");
+//        obj.put("mes", "未登录");
+//        response.getWriter().print(obj.toJSONString());
+//        response.getWriter().flush();
+//        response.getWriter().close();
+//        request.getRequestDispatcher("login.html").forward(request,response);
+        response.sendRedirect("http://www.yehaikeji.com:8080/comet/login.html");
+        return true;  
 
     }
 
