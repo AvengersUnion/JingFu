@@ -97,7 +97,7 @@ public class LoginInterceptor implements HandlerInterceptor{
 //        response.getWriter().close();
 //        request.getRequestDispatcher("login.html").forward(request,response);
         response.sendRedirect("http://www.yehaikeji.com:8080/comet/login.html");
-        return true;  
+        return false;  
 
     }
 
