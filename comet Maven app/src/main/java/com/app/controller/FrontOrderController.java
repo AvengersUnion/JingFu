@@ -28,7 +28,7 @@ public class FrontOrderController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("once")
+	@RequestMapping("once.action")
 	@ResponseBody
 	public List frontOrderOnce() {
 		List<FrontOrder> fList = frontOrderService.getFrontOrdersOnce();
@@ -40,7 +40,7 @@ public class FrontOrderController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("more")
+	@RequestMapping("more.action")
 	@ResponseBody
 	public List frontOrderMore() {
 		List<FrontOrder> fList = frontOrderService.getFrontOrdersMore();

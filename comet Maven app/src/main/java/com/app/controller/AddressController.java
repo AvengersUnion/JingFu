@@ -25,7 +25,7 @@ public class AddressController {
 	 * @param addrId
 	 * @return
 	 */
-	@RequestMapping("delete")
+	@RequestMapping("delete.action")
 	@ResponseBody
 	public String deleteAddrById(String id) {
 		if (null != id && null != addressService.getAddressById(id)) {
@@ -42,7 +42,7 @@ public class AddressController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping("all")
+	@RequestMapping("all.action")
 	@ResponseBody
 	public List<Address> getAddressList(String userId) {
 
@@ -60,7 +60,7 @@ public class AddressController {
 	 * @param pn
 	 * @return
 	 */
-	@RequestMapping(value = "add", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "add.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String addAddress(String customerId,String community, String houseNumber) {
 		if (null != customerId && null != community && null != houseNumber) {
@@ -88,7 +88,7 @@ public class AddressController {
 	 * @param village
 	 * @param pn
 	 */
-	@RequestMapping(value = "update", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "update.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAddr(String id,String community, String houseNumber) {
 		if (null != id && null != addressService.getAddressById(id)) {
@@ -110,7 +110,7 @@ public class AddressController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("find")
+	@RequestMapping("find.action")
 	@ResponseBody
 	public Address getAddressById(String id) {
 

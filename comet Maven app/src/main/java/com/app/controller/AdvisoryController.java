@@ -53,7 +53,7 @@ public class AdvisoryController {
 	 * 查询所有的咨询(前台用)
 	 * @return
 	 */
-	@RequestMapping("forntAll")
+	@RequestMapping("forntAll.do")
 	@ResponseBody
 	public List<Advisory> getAdvisories(){
 		return advisoryService.getAdvisorieList();
@@ -73,7 +73,7 @@ public class AdvisoryController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("findById")
+	@RequestMapping("findById.do")
 	@ResponseBody
 	public Advisory getAdvisoryById(int id) {
 		if (id < 1) {

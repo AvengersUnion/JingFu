@@ -107,6 +107,7 @@ public class AllOrder {
 	 * @param orderTime the orderTime to set
 	 */
 	public void setOrderTime(String orderTime) {
+		orderTime=orderTime.substring(0,orderTime.lastIndexOf("."));
 		this.orderTime = orderTime;
 	}
 	/**
@@ -120,6 +121,7 @@ public class AllOrder {
 	 * @param serviceTime the serviceTime to set
 	 */
 	public void setServiceTime(String serviceTime) {
+		serviceTime=serviceTime.substring(0,serviceTime.lastIndexOf("."));
 		this.serviceTime = serviceTime;
 	}
 	/**

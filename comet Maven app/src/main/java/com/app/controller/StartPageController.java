@@ -53,7 +53,7 @@ public class StartPageController {
 	 * 根据状态查询
 	 * @return
 	 */
-	@RequestMapping("findByState")
+	@RequestMapping("findByState.do")
 	@ResponseBody
 	public StartPage getStartPageByState() {
 		List<StartPage> list=null;
