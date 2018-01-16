@@ -36,7 +36,7 @@ public interface ServiceDao {
     List<Service> getServiceListById(String id);
     List<Image> loginImage();
     List<Image> advertImage();
-    void saveOrder(ServiceOrder serviceOrder);
+    int saveOrder(ServiceOrder serviceOrder);
 	
 	
 }

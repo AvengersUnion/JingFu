@@ -1,6 +1,7 @@
 package com.app.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -21,6 +22,10 @@ public class FrontOrderServiceImp implements FrontOrderService{
 	public List<FrontOrder> getFrontOrdersMore() {
 		// TODO Auto-generated method stub
 		return frontOrderDao.getFrontOrdersMore();
+	}
+	public Map getOrderByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		return frontOrderDao.getOrderByOrderId(orderId);
 	}
 
 }

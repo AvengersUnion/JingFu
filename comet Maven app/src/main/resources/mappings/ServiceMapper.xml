@@ -157,14 +157,14 @@
 
 
   <!--保存服务订单-->
-  <insert id="saveOrder" parameterType="com.app.entity.Service" >
+  <insert id="saveOrder" parameterType="com.app.entity.ServiceOrder" >
     INSERT INTO service_order
     (
-    ID,CUSTOMER_ID,ADDRESS_ID,SERVICE_ID,SC,DISCOUNT,CT,STT
+    order_id,CUSTOMER_ID,ADDRESS_ID,SERVICE_ID,createtime,money,remark
     )
     VALUES
     (
-    #{serviceOrder.ID},#{serviceOrder.CUSTOMER_ID},#{serviceOrder.ADDRESS_ID},#{serviceOrder.SERVICE_ID},#{serviceOrder.SC},#{serviceOrder.DISCOUNT},#{serviceOrder.CT},#{serviceOrder.STT}
+    #{orderId},#{customerId},#{addressId},#{serviceId},#{createtime},#{money},#{remark}
     )
   </insert>
 

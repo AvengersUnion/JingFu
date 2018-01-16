@@ -2,12 +2,16 @@ package com.app.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.app.entity.BackUser;
 import com.app.entity.Goods;
 import com.app.entity.Image;
 import com.app.entity.Service;
 import com.app.entity.ServiceOrder;
+import com.app.service.FrontOrderService;
 import com.app.service.ServiceService;
+import com.app.service.UserService;
 import com.app.util.Application;
+import com.app.util.SendMessage;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -42,6 +47,12 @@ public class ServiceController {
 
 	@Autowired
 	private ServiceService serviceService;
+	
+	@Resource(name = "userService")
+	UserService userService;
+	
+	@Resource(name = "frontOrderService")
+	private FrontOrderService frontOrderService;
 
 	@RequestMapping(value = "/listPage")
 	public String list(HttpServletRequest request, HttpServletResponse response, Model model) {
@@ -439,7 +450,7 @@ public class ServiceController {
 	/**
 	 * 获取所有的一级服务
 	 */
-	@RequestMapping(value = "/app/getAllService.action", produces = "text/html;charset=UTF-8")
+	@RequestMapping(value = "/app/getAllService.do", produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String getAllService(HttpServletRequest request, HttpServletResponse response) {
 		List<Service> list = serviceService.getAllService();
@@ -507,28 +518,52 @@ public class ServiceController {
 
 	/**
 	 * 功能描述：下达服务订单
+	 * @throws ParseException 
 	 *
 	 *
 	 */
-	@RequestMapping("serviceOrder")
+	@RequestMapping(value = "/serviceOrder.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String saveOrder(ServiceOrder serviceOrder) {
-
+	public String saveOrder(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+		ServiceOrder serviceOrder = new ServiceOrder();
+		JSONObject obj = new JSONObject();
+		//用户id
+		String userId = request.getParameter("userId");
+//		if(userId == null || "".equals(userId)) {
+//			obj.put("type", "0");
+//			obj.put("mes", "未登录，请重新登陆！");
+//			return obj.toString();
+//		}else {
+//			BackUser user = null;
+//			user = userService.getUserById(Integer.valueOf(userId));
+//			if(user == null) {
+//				obj.put("type", "0");
+//				obj.put("mes", "用户不存在，请重新登陆！");
+//				return obj.toString();
+//			}
+//		}
+		//服务id
+		String serviceId = request.getParameter("serviceId");
+		//订单价格
+		String money = request.getParameter("money");
+		//地址id
+		String addressId = request.getParameter("addressId");
+		//备注
+		String remark = request.getParameter("remark");
 		Date date = new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		String datetime = sdf.format(date); // 订单下达时间
-		serviceOrder.setSC(datetime);
-
-		String state = "false";
-
-		try {
-			serviceService.saveOrder(serviceOrder);
-			state = "success";
-		} catch (Exception excpetion) {
-			excpetion.printStackTrace();
-		}
-
-		return state;
+		Date datetime = sdf.parse(sdf.format(date)); // 订单下达时间
+		serviceOrder.setCreatetime(datetime);
+		serviceOrder.setOrderId(userId+SendMessage.createCode()+date.getTime());
+		serviceOrder.setCustomerId(userId);
+		serviceOrder.setAddressId(addressId);
+		serviceOrder.setServiceId(serviceId);
+		serviceOrder.setMoney(Double.valueOf(money));
+		serviceOrder.setRemark(remark);
+		int num = serviceService.saveOrder(serviceOrder);
+		Map map = frontOrderService.getOrderByOrderId(serviceOrder.getOrderId());
+		
+		return JSONObject.toJSONString(map);
 	}
 
 }

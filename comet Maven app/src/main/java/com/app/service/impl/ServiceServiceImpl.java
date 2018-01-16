@@ -148,8 +148,8 @@ public class ServiceServiceImpl implements ServiceService{
     }
 
 
-    public void saveOrder(ServiceOrder serviceOrder) {
-        serviceDao.saveOrder(serviceOrder);
+    public int saveOrder(ServiceOrder serviceOrder) {
+        return serviceDao.saveOrder(serviceOrder);
     }
 
 

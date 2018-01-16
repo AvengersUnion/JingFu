@@ -1,5 +1,7 @@
 package com.app.entity;
 
+import java.util.Date;
+
 /**
  * 服务订单
  */
@@ -7,83 +9,117 @@ public class ServiceOrder {
 
 
     //服务订单 id
-    private String ID;
+    private Integer id;
+    //订单id
+    private String orderId;
     // 服务id
-    private String SERVICE_ID;
+    private String serviceId;
     //下单用户编码
-    private String CUSTOMER_ID;
+    private String customerId;
     // 订单种类
-    private String ADDRESS_ID;
+    private String addressId;
     //服务数量SERVICE_COUNT
-    private String SC;
+    private String sc;
     //满一定额度后总体折扣比例
-    private String DISCOUNT;
-    //下单时间CREATETIME
-    private String CT;
-    //订单状态STATE
-    private String STT;
-
-    public String getID() {
-        return ID;
-    }
-
-    public String getSERVICE_ID() {
-        return SERVICE_ID;
-    }
-
-    public String getCUSTOMER_ID() {
-        return CUSTOMER_ID;
-    }
-
-    public String getADDRESS_ID() {
-        return ADDRESS_ID;
-    }
-
-    public String getSC() {
-        return SC;
-    }
-
-    public String getDISCOUNT() {
-        return DISCOUNT;
-    }
-
-    public String getCT() {
-        return CT;
-    }
-
-    public String getSTT() {
-        return STT;
-    }
-
-    public void setID(String ID) {
-        this.ID = ID;
-    }
-
-    public void setSERVICE_ID(String SERVICE_ID) {
-        this.SERVICE_ID = SERVICE_ID;
-    }
-
-    public void setCUSTOMER_ID(String CUSTOMER_ID) {
-        this.CUSTOMER_ID = CUSTOMER_ID;
-    }
-
-    public void setADDRESS_ID(String ADDRESS_ID) {
-        this.ADDRESS_ID = ADDRESS_ID;
-    }
-
-    public void setSC(String SC) {
-        this.SC = SC;
-    }
-
-    public void setDISCOUNT(String DISCOUNT) {
-        this.DISCOUNT = DISCOUNT;
-    }
-
-    public void setCT(String CT) {
-        this.CT = CT;
-    }
-
-    public void setSTT(String STT) {
-        this.STT = STT;
-    }
+    private String discount;
+    //订单创建时间
+    private Date createtime;
+    //订单状态
+    private String state;
+    //支付类型
+    private Integer flag;
+    //支付金额
+    private Double money;
+    //服务时间
+    private Date serviceTime;
+    //用户备注
+    private String remark;
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public String getOrderId() {
+		return orderId;
+	}
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
+	public String getServiceId() {
+		return serviceId;
+	}
+	public void setServiceId(String serviceId) {
+		this.serviceId = serviceId;
+	}
+	public String getCustomerId() {
+		return customerId;
+	}
+	public void setCustomerId(String customerId) {
+		this.customerId = customerId;
+	}
+	public String getAddressId() {
+		return addressId;
+	}
+	public void setAddressId(String addressId) {
+		this.addressId = addressId;
+	}
+	public String getSc() {
+		return sc;
+	}
+	public void setSc(String sc) {
+		this.sc = sc;
+	}
+	public String getDiscount() {
+		return discount;
+	}
+	public void setDiscount(String discount) {
+		this.discount = discount;
+	}
+	public Date getCreatetime() {
+		return createtime;
+	}
+	public void setCreatetime(Date createtime) {
+		this.createtime = createtime;
+	}
+	public String getState() {
+		return state;
+	}
+	public void setState(String state) {
+		this.state = state;
+	}
+	public Double getMoney() {
+		return money;
+	}
+	public void setMoney(Double money) {
+		this.money = money;
+	}
+	public Date getServiceTime() {
+		return serviceTime;
+	}
+	public void setServiceTime(Date serviceTime) {
+		this.serviceTime = serviceTime;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public Integer getFlag() {
+		return flag;
+	}
+	public void setFlag(Integer flag) {
+		this.flag = flag;
+	}
+	@Override
+	public String toString() {
+		return "ServiceOrder [id=" + id + ", orderId=" + orderId + ", serviceId=" + serviceId + ", customerId="
+				+ customerId + ", addressId=" + addressId + ", sc=" + sc + ", discount=" + discount + ", createtime="
+				+ createtime + ", state=" + state + ", flag=" + flag + ", money=" + money + ", serviceTime="
+				+ serviceTime + ", remark=" + remark + "]";
+	}
+	
+    
+    
 }

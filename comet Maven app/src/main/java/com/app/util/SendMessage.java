@@ -48,7 +48,7 @@ public class SendMessage {
 		removeAccount(userid);
 		return code;
 	}
-	private static String createCode() {
+	public static String createCode() {
         String vcode = "";
         for (int i = 0; i < 6; i++) {
             vcode = vcode + (int)(Math.random() * 9);
