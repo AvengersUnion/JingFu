@@ -33,6 +33,11 @@ public interface ServiceService {
     List<Image> loginImage();
     List<Image> advertImage();
     int saveOrder(ServiceOrder serviceOrder);
+    /**
+     * 获取所有的一级服务列表
+     * @return
+     */
+    List<Map> getFuService();
 	
 
     

@@ -71,6 +71,23 @@ public class ServiceController {
 		return "paServiceForm";
 	}
 //-------------------------控制台接口--------------------------------------------------------------------------------------------
+	
+	/**
+	 * 获取所有服务的列表
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@RequestMapping(value = "/getFuService",produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getFuService(HttpServletRequest request, HttpServletResponse response) {
+		List<Map> list = serviceService.getFuService();
+		String json = JSON.toJSON(list).toString();
+		System.out.println(json);
+		return json;
+	}
+	
+	
 	/**
 	 * 获取所有服务的列表
 	 * @param request

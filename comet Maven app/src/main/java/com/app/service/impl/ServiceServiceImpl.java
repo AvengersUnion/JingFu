@@ -23,6 +23,14 @@ public class ServiceServiceImpl implements ServiceService{
     ServiceDao serviceDao;
 	
 //------------------控制台接口--------------------------------------------------------------------------
+	/**
+	 * 获取所有的一级服务
+	 */
+	public List<Map> getFuService() {
+		
+		return serviceDao.getFuService();
+	}
+
 	public List<com.app.entity.Service> getServiceList() {
 		List<com.app.entity.Service> serviceList = serviceDao.getServiceList();
 		List<com.app.entity.Service> resultList = new ArrayList<com.app.entity.Service>(); 
