@@ -26,6 +26,7 @@
 		select 
 			a.order_id as orderId,
 			b.service_name as serviceName,
+			b.ad_img_path as adImgPath,
 			a.money,
 			a.sc
 		from service_order a
