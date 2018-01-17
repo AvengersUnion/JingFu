@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.ServiceContractDao" >
+	<resultMap type="com.app.entity.ServiceContracts" id="BaseContractMap">
+		<id  property="id" column="id"/>
+		<result property="contractTitle" column="contractTitle"/>
+		<result property="contractDetails" column="contractDetails"/>
+		<result property="createTime" column="createTime"/>
+		<result property="state" column="state"/>
+	</resultMap>
+	<!-- 返回所有协议 -->
+	<select id="getContractList" resultMap="BaseContractMap">
+		SELECT id,contractTitle,createTime,state FROM servicecontract
+	</select>
+	<!-- 根据id返回协议 -->
+	<select id="getContractById" parameterType="int" resultMap="BaseContractMap">
+		SELECT id,contractTitle,contractDetails,createTime,state FROM servicecontract WHERE id=#{id}
+	</select>
+	<!-- 根据状态返回协议 -->
+	<select id="getContractByState" parameterType="int" resultMap="BaseContractMap">
+		SELECT id,contractDetails,createTime,state FROM servicecontract WHERE state=#{state}
+	</select>
+	<!-- 添加协议 -->
+	<insert id="addContracts" parameterType="com.app.entity.ServiceContracts">
+		insert into servicecontract (contractTitle,contractDetails,createTime,state)
+		values (#{contractTitle},#{contractDetails},#{createTime},#{state})
+	</insert>
+	<!-- 修改协议类容 -->
+	<update id="updateContract" parameterType="com.app.entity.ServiceContracts">
+		UPDATE servicecontract 
+		<set>
+			<if test="contractDetails != null and contractDetails !=''">contractDetails=#{contractDetails},</if>
+			<if test="contractTitle != null and contractTitle !=''">contractTitle=#{contractTitle}</if>
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 修改协议状态 -->
+	<update id="updateContractByState" parameterType="com.app.entity.ServiceContracts">
+		UPDATE servicecontract 
+		<set>
+			state=#{state}
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 删除协议 -->
+	<delete id="deleteContractById" parameterType="int" >
+		DELETE  from servicecontract where id=#{id}
+	</delete>
+</mapper>

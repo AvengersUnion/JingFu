@@ -72,6 +72,7 @@ public class Advisory {
 	 * @param advisoryTime the advisoryTime to set
 	 */
 	public void setAdvisoryTime(String advisoryTime) {
+		advisoryTime=advisoryTime.substring(0,advisoryTime.lastIndexOf("."));
 		this.advisoryTime = advisoryTime;
 	}
 	

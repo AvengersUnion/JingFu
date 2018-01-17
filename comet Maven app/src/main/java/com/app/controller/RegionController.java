@@ -28,7 +28,7 @@ public class RegionController {
 	 */
 	@RequestMapping("all")
 	@ResponseBody
-	public List getRegionList() {
+	public List<Region> getRegionList() {
 		// Map<String, String> =new HashMap<K, V>();
 		Map<String, List<Region>> regionMap = new HashMap<String, List<Region>>();
 		List<Region> listRegions = regionService.getRegionList();

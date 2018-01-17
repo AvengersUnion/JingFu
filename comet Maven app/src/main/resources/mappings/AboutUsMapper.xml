@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.AboutUsDao" >
+	<resultMap type="com.app.entity.AboutUs" id="BaseAboutUsMap">
+		<id  property="id" column="id"/>
+		<result property="ourTitle" column="ourTitle"/>
+		<result property="ourDetails" column="ourDetails"/>
+		<result property="createTime" column="createTime"/>
+	</resultMap>
+	<!-- 返回所有关于我们-->
+	<select id="getAboutUsList" resultMap="BaseAboutUsMap">
+		SELECT id,ourTitle,ourDetails,createTime FROM aboutus
+	</select>
+	<!-- 根据id返回关于我们 -->
+	<select id="getAboutUsById" parameterType="int" resultMap="BaseAboutUsMap">
+		SELECT id,ourTitle,ourDetails,createTime FROM aboutus WHERE id=#{id}
+	</select>
+	<!-- 添加我们的信息 -->
+	<insert id="addAboutUs" parameterType="com.app.entity.AboutUs">
+		insert into aboutus (ourTitle,ourDetails,createTime)
+		values (#{ourTitle},#{ourDetails},#{createTime})
+	</insert>
+	<!-- 修改我们的信息 -->
+	<update id="updateAboutUs" parameterType="com.app.entity.AboutUs">
+		UPDATE aboutus 
+		<set>
+			<if test="ourTitle != null and ourTitle !=''">ourTitle=#{ourTitle},</if>
+			<if test="ourDetails != null and ourDetails !=''">ourDetails=#{ourDetails}</if>
+      	</set>
+      	where id=#{id}
+	</update>
+	<!-- 删除协议 -->
+	<delete id="deleteAboutUsById" parameterType="int" >
+		DELETE from aboutus where id=#{id}
+	</delete>
+</mapper>

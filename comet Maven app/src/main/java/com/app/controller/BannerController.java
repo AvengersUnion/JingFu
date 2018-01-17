@@ -32,7 +32,7 @@ public class BannerController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping("all")
+	@RequestMapping("all.do")
 	@ResponseBody
 	public List<Banner> getBannerList(){
 		return bannerService.getBannerList();
@@ -42,7 +42,7 @@ public class BannerController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("findById")
+	@RequestMapping("findById.do")
 	@ResponseBody
 	public Banner getBannerById(int id){
 		return bannerService.getBannerById(id);
