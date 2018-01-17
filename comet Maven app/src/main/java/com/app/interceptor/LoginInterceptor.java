@@ -41,6 +41,7 @@ public class LoginInterceptor implements HandlerInterceptor{
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,  
             Object handler) throws Exception {  
         //获取请求的URL  
+    	/*
         String url = request.getRequestURI();  
         if(url.indexOf(".do")>=0){  
             return true;  
@@ -98,7 +99,8 @@ public class LoginInterceptor implements HandlerInterceptor{
 //        request.getRequestDispatcher("login.html").forward(request,response);
         response.sendRedirect("http://www.yehaikeji.com:8080/comet/login.html");
         return false;  
-
+*/
+    	return true;
     }
 
 }

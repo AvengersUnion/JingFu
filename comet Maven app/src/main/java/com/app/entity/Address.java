@@ -12,6 +12,8 @@ public class Address {
 	private String pn;
 	private String zp;
 	private String community;
+	private String uName;
+	private String uIphone;
 	private String houseNumber;
 	private String userAddress;
 	/**
@@ -164,5 +166,29 @@ public class Address {
 	 */
 	public void setHouseNumber(String houseNumber) {
 		this.houseNumber = houseNumber;
+	}
+	/**
+	 * @return the uName
+	 */
+	public String getuName() {
+		return uName;
+	}
+	/**
+	 * @param uName the uName to set
+	 */
+	public void setuName(String uName) {
+		this.uName = uName;
+	}
+	/**
+	 * @return the uIphone
+	 */
+	public String getuIphone() {
+		return uIphone;
+	}
+	/**
+	 * @param uIphone the uIphone to set
+	 */
+	public void setuIphone(String uIphone) {
+		this.uIphone = uIphone;
 	}
 }

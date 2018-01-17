@@ -62,11 +62,13 @@ public class AddressController {
 	 */
 	@RequestMapping(value = "add.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String addAddress(String customerId,String community, String houseNumber) {
+	public String addAddress(String customerId,String uName,String uIphone,String community, String houseNumber) {
 		if (null != customerId && null != community && null != houseNumber) {
 			Address address = new Address();
 			UUID uuid = UUID.randomUUID();
 			address.setId(uuid.toString());
+			address.setuName(uName);
+			address.setuIphone(uIphone);
 			address.setCustomer_id(customerId);
 			address.setCommunity(community);
 			address.setHouseNumber(houseNumber);
@@ -90,11 +92,12 @@ public class AddressController {
 	 */
 	@RequestMapping(value = "update.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String updateAddr(String id,String community, String houseNumber) {
+	public String updateAddr(String id,String uName,String uIphone,String community, String houseNumber) {
 		if (null != id && null != addressService.getAddressById(id)) {
 			Address address = new Address();
 			address.setId(id);
-			
+			address.setuName(uName);
+			address.setuIphone(uIphone);
 			address.setCommunity(community);
 			address.setHouseNumber(houseNumber);
 			addressService.updateAddr(address);

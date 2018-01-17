@@ -90,10 +90,11 @@ public class AllOrderController {
 		// 订单时间
 		Set<String> setTime = new HashSet<String>();
 		List<ServiceOrder> serviceOrders = allOrderService.getServiceTime();
-		for (int i = 0; i < serviceOrders.size(); i++) {
+		/*for (int i = 0; i < serviceOrders.size(); i++) {
 			String timeString = serviceOrders.get(i).getCT().substring(0, 4);
 			setTime.add(timeString);
 		}
+		*/
 		List<String> orderTime = new ArrayList<String>();
 		Iterator<String> it = setTime.iterator();
 		while (it.hasNext()) {
@@ -149,10 +150,11 @@ public class AllOrderController {
 	public Set getServiceTime() {
 		Set<String> setTime = new HashSet<String>();
 		List<ServiceOrder> serviceOrders = allOrderService.getServiceTime();
-		for (int i = 0; i < serviceOrders.size(); i++) {
+		/*for (int i = 0; i < serviceOrders.size(); i++) {
 			String timeString = serviceOrders.get(i).getCT().substring(0, 4);
 			setTime.add(timeString);
 		}
+		*/
 		return setTime;
 	}
 
