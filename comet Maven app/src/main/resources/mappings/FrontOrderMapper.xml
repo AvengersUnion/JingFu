@@ -33,4 +33,28 @@
 		left join service b on a.service_id=b.id
 		where a.order_id=#{orderId}
 	</select>
+	<!-- 根据订单id查询订单所有详情 -->
+	<select id="getOrderInfo" resultType="Map">
+		select 
+			a.order_id orderId,
+			a.money money,
+			DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') createtime,
+			DATE_FORMAT(a.serviceTime,'%Y-%m-%d %H:%i:%s') serviceTime,
+			a.remark remark,
+			a.state state,
+			d.vl stateN,
+			b.service_name serviceName,
+			b.ad_img_path adImgPath,
+			b.PERIOD period,
+			c.community community,
+			c.houseNumber houseNumber,
+			c.uName uName,
+			c.uIphone uIphone
+		from 
+			service_order a
+		LEFT JOIN service b on a.service_id=b.id
+		left join address c on a.address_id = c.id
+		LEFT JOIN dict d on a.state = d.KY
+		where a.order_id=#{orderId}
+	</select>
 </mapper>
