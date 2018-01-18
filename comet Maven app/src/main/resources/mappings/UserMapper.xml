@@ -16,12 +16,12 @@
 		<result property="village" column="village"/>
 	</resultMap>
 	<!-- 查询用户表中有多少用户 -->
-	<select id="userNumber" parameterType="com.app.entity.BackUser" resultType="String">
+	<select id="userNumber" parameterType="com.app.entity.BackUser" resultType="int">
 		SELECT COUNT(DISTINCT consumer.ID)  FROM consumer 
 		LEFT JOIN address ON consumer.ID=address.CUSTOMER_ID
 		<where>
 		    <if test="city != null and city != ''">
-				address.CITY= #{city}
+				address.community like '%${city}%'
 			</if>
 		</where>
 	</select>

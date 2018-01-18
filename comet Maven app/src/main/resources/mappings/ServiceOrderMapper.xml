@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.ServiceOrderDao" >
+	<resultMap type="com.app.entity.ServiceOrder" id="BaseServiceOrderMap">
+		<id  property="id" column="id"/>
+		<result property="orderId" column="order_id"/>
+		<result property="uName" column="uName"/>
+		<result property="uIphone" column="uIphone"/>
+		<result property="serviceId" column="service_Id"/>
+		<result property="customerId" column="CUSTOMER_ID"/>
+		<result property="addressId" column="address_Id"/>
+		
+		<result property="community" column="community"/>
+		<result property="houseNumber" column="houseNumber"/>
+		<result property="serviceName" column="service_name"/>
+		<result property="price" column="PRICE"/>
+		
+		<result property="sc" column="sc"/>
+		<result property="discount" column="discount"/>
+		<result property="createtime" column="createtime"/>
+		<result property="state" column="state"/>
+		<result property="flag" column="flag"/>
+		<result property="money" column="money"/>
+		<result property="serviceTime" column="serviceTime"/>
+		<result property="remark" column="remark"/>
+	</resultMap>
+	<!-- 跟现在的年份查询服务订单 -->
+	<select id="getServiceOrderAll" parameterType="com.app.entity.ServiceOrder" resultMap="BaseServiceOrderMap">
+		SELECT service_order.id,order_id,service.service_name,address.community,address.houseNumber,
+		service.PRICE,uName,uIphone,service_Id,service_order.CUSTOMER_ID,address_Id,sc,
+		service_order.discount,createtime,state,flag,money,serviceTime,remark
+		FROM service_order 
+		LEFT JOIN address ON service_order.ADDRESS_ID=address.ID 
+		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
+		WHERE createtime like "2018%"
+		ORDER BY createtime DESC
+	</select>
+	<!-- 根据条件查询服务订单 -->
+	<select id="getServiceOrderByCondition" parameterType="com.app.entity.ServiceOrder" resultMap="BaseServiceOrderMap">
+		SELECT service_order.id,order_id,service.service_name,address.community,address.houseNumber,
+		service.PRICE,uName,uIphone,service_Id,service_order.CUSTOMER_ID,address_Id,sc,
+		service_order.discount,createtime,state,flag,money,serviceTime,remark
+		FROM service_order 
+		LEFT JOIN address ON service_order.ADDRESS_ID=address.ID 
+		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
+		<where>
+		    <if test="city != null and city != ''">
+				and address.community like '%${city}%'
+			</if>
+			<if test="sc ==1">
+				and sc=1
+			</if>
+			<if test="sc >1">
+				and Sc >1
+			</if>
+			<if test="state != null and state != ''">
+				and state=#{state}
+			</if>
+		</where>
+		order by createtime DESC
+	
+	</select>
+	<!-- 取消支付,根据用户的id,返回的服务订单,这条数据是该用户最新的数据 -->
+	<select id="getServiceOrderByCancel" parameterType="String" resultType="com.app.entity.ServiceOrder">
+		SELECT service_order.id,order_id,service.service_name,address.community,address.houseNumber,
+		service.PRICE,uName,uIphone,service_Id,service_order.CUSTOMER_ID,address_Id,sc,
+		service_order.discount,createtime,state,flag,money,serviceTime,remark
+		FROM service_order 
+		LEFT JOIN address ON service_order.ADDRESS_ID=address.ID 
+		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
+		WHERE service_order.CUSTOMER_ID =#{customerId}
+		ORDER BY createtime DESC
+	</select>
+	<!-- 根据id查询订单 -->
+	<select id="getServiceOrderById" parameterType="int" resultMap="BaseServiceOrderMap">
+		SELECT service_order.id,order_id,service.service_name,address.community,address.houseNumber,
+		service.PRICE,uName,uIphone,service_Id,service_order.CUSTOMER_ID,address_Id,sc,
+		service_order.discount,createtime,state,flag,money,serviceTime,remark
+		FROM service_order 
+		LEFT JOIN address ON service_order.ADDRESS_ID=address.ID 
+		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
+		where service_order.id=#{id}
+	</select>
+	<!-- 查询订单中的所有时间 -->
+	<select id="getServiceOrderTime" resultType="String">
+		SELECT createtime FROM service_order
+	</select>
+	<!-- 更新状态  -->
+	<update id="updateServiceOrderByState" parameterType="com.app.entity.ServiceOrder">
+		UPDATE service_order SET state = #{state} WHERE id = #{id}
+	</update>
+</mapper>

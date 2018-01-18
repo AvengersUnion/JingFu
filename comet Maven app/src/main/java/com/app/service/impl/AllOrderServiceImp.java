@@ -18,11 +18,11 @@ public class AllOrderServiceImp implements AllOrderService {
 
 	@Resource
 	private AllOrderDao allOrderDao;
-	public List<AllOrder> getAllOrdersAll() {
+	public List<ServiceOrder> getAllOrdersAll() {
 		// TODO Auto-generated method stub
 		return allOrderDao.getAllOrdersAll();
 	}
-	public List<AllOrder> getServiceOrder(String id) {
+	public List<ServiceOrder> getServiceOrder(String id) {
 		// TODO Auto-generated method stub
 		return allOrderDao.getServiceOrder(id);
 	}
@@ -42,29 +42,41 @@ public class AllOrderServiceImp implements AllOrderService {
 		// TODO Auto-generated method stub
 		return allOrderDao.getServiceTime();
 	}
-	public List<AllOrder> getServiceOrders(AllOrder allOrder) {
+	/*
+	public List<ServiceOrder> getServiceOrders(ServiceOrder serviceOrder) {
 		// TODO Auto-generated method stub
-		return allOrderDao.getServiceOrders(allOrder);
+		return allOrderDao.getServiceOrders(serviceOrder);
 	}
-	public void updateOrderState(AllOrder id) {
+	*/
+	public void updateOrderState(ServiceOrder id) {
 		// TODO Auto-generated method stub
 		allOrderDao.updateOrderState(id);
 	}
-	public AllOrder getServiceOrderById(String id) {
+	public ServiceOrder getServiceOrderById(String id) {
 		// TODO Auto-generated method stub
 		return allOrderDao.getServiceOrderById(id);
 	}
-	public void updateOrderById(AllOrder allOrder) {
+	public void updateOrderById(ServiceOrder allOrder) {
 		// TODO Auto-generated method stub
 		allOrderDao.updateOrderById(allOrder);
 	}
-	public void updateOrderUserById(AllOrder allOrder) {
+	/*
+	public void updateOrderUserById(ServiceOrder allOrder) {
 		// TODO Auto-generated method stub
 		allOrderDao.updateOrderUserById(allOrder);
 	}
+	*/
 	public void deleteOrderById(String id) {
 		// TODO Auto-generated method stub
 		allOrderDao.deleteOrderById(id);
+	}
+	public List<ServiceOrder> getServiceOrders(ServiceOrder serviceOrder) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	public void updateOrderUserById(ServiceOrder serviceOrder) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
