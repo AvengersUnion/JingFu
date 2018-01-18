@@ -37,6 +37,11 @@ public interface ServiceDao {
     List<Image> loginImage();
     List<Image> advertImage();
     int saveOrder(ServiceOrder serviceOrder);
+    /**
+     * 获取所有的一级服务
+     * @return
+     */
+	List<Map> getFuService();
 	
 	
 }

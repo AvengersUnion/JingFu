@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.dao.ServiceDao" >
 <!-- 控制台接口 -->
+	<!-- 获取所有的一级服务 -->
+	<select id="getFuService" resultType="Map">
+		select 
+			a.id as serviceId,
+			a.service_name as serviceName
+		from 
+			service a 
+		where a.pid = 'FW0000000000'
+	</select>
 	<!-- 获取所有服务列表 -->
 	<select id="getServiceList" resultType="com.app.entity.Service">
 		select
