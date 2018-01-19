@@ -162,7 +162,9 @@ public class BannerController {
 		BaseResult result=new BaseResult();
 		// 实例化banner类
 		Banner banner = new Banner();
-		if (null!=file) {
+		// 1.得到文件名
+		String fileName = file.getOriginalFilename();
+		if (null!=file.getOriginalFilename()&&fileName.contains(".")) {
 			// 上传文件
 			result = UpdateFile.upload(request, file,"banner/");
 			// 判断是否上传成功
@@ -181,9 +183,10 @@ public class BannerController {
 				// 将数据上传到数据库
 				bannerService.updateBanner(banner);
 				//bannerService.addBanner(banner);
+				return BaseResult.ok(filePath);
 			}
-			return result;
-		}else if (null==file&&null!=path)  {
+			return BaseResult.build(500, "操作错误");
+		}else if (null!=path&&!fileName.contains("."))  {
 			// 将路径名上传到数据库
 			// 1.上传路径
 			banner.setImagePath(path);
@@ -195,7 +198,7 @@ public class BannerController {
 			banner.setId(id);
 			// 将数据上传到数据库
 			bannerService.updateBanner(banner);
-			return result;
+			return BaseResult.ok(path);
 		}
 		return BaseResult.build(500, "操作错误");
 	}

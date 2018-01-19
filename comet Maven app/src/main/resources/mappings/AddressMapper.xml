@@ -18,9 +18,9 @@
 		<result property="zp" column="zp"/>
 	</resultMap>
 	<!-- 根据用户的id查询地址的id -->
-	<select id="getIdsAddr" parameterType="String" resultType="String">
+	<select id="getIdsAddr" parameterType="int" resultType="String">
 		SELECT ID FROM address
-		WHERE address.CUSTOMER_ID=#{customer_id}
+		WHERE address.CUSTOMER_ID=#{userId}
 	</select>
 	<!-- 根据id删除用户的地址 -->
 	<delete id="deleteAddrById" parameterType="String">
@@ -28,7 +28,7 @@
 	</delete>
 	
 	<!-- 根据用户的id查询所有的地址 -->
-	<select id="getAddressList" parameterType="String" resultMap="BaseAddrMap">
+	<select id="getAddressList" parameterType="int" resultMap="BaseAddrMap">
 		SELECT address.ID,address.CUSTOMER_ID,consumer.UN,consumer.PN,address.uName,address.uIphone,address.PROVINCE,
 		address.CITY,address.COUNTY,address.VILLAGE,address.community,address.houseNumber 
 		FROM address LEFT JOIN consumer ON 

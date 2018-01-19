@@ -14,7 +14,7 @@ public class AddressServiceImp implements AddressService {
 
 	@Resource
 	private AddressDao addressDao;
-	public List<String> getIdsAddr(String userId) {
+	public List<String> getIdsAddr(Integer userId) {
 		// TODO Auto-generated method stub
 		return addressDao.getIdsAddr(userId);
 	}
@@ -24,7 +24,7 @@ public class AddressServiceImp implements AddressService {
 		addressDao.deleteAddrById(addrId);
 	}
 
-	public List<Address> getAddressList(String userId) {
+	public List<Address> getAddressList(Integer userId) {
 		// TODO Auto-generated method stub
 		return addressDao.getAddressList(userId);
 	}
@@ -43,5 +43,7 @@ public class AddressServiceImp implements AddressService {
 		// TODO Auto-generated method stub
 		return addressDao.getAddressById(id);
 	}
+
+	
 	
 }

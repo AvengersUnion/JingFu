@@ -64,7 +64,9 @@ public class Banner {
 	 * @param bannerTime the bannerTime to set
 	 */
 	public void setBannerTime(String bannerTime) {
-		bannerTime=bannerTime.substring(bannerTime.lastIndexOf("."));
+		if (bannerTime.contains(".")) {
+			bannerTime=bannerTime.substring(0,bannerTime.lastIndexOf("."));
+		}
 		this.bannerTime = bannerTime;
 	}
 	

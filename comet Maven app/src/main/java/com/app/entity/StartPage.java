@@ -42,7 +42,9 @@ public class StartPage {
 	 * @param creatTime the creatTime to set
 	 */
 	public void setCreatTime(String creatTime) {
-		creatTime=creatTime.substring(creatTime.lastIndexOf("."));
+		if (creatTime.contains(".")) {
+			creatTime=creatTime.substring(creatTime.lastIndexOf("."));
+		}
 		this.creatTime = creatTime;
 	}
 	/**

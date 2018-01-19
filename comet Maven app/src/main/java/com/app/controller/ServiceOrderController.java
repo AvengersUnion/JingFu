@@ -111,17 +111,7 @@ public class ServiceOrderController {
 		
 	}
 	
-	/**
-	 * 根据id返回订单
-	 * @param id
-	 * @return
-	 */
-	@RequestMapping("findById.action")
-	@ResponseBody
-	public ServiceOrder getServiceOrderById(int id) {
-		
-		return serviceOrderService.getServiceOrderById(id);
-	}
+	
 	
 	/**
 	 * 查询订单中的时间
@@ -169,6 +159,17 @@ public class ServiceOrderController {
 			return BaseResult.ok();
 		}
 		return BaseResult.build(500, "更新失败");
+	}
+	/**
+	 * 根据id返回订单
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("findByIdPc")
+	@ResponseBody
+	public ServiceOrder getServiceOrderPcById(int id) {
+		
+		return serviceOrderService.getServiceOrderById(id);
 	}
 	/**
 	 * 结算
@@ -244,5 +245,16 @@ public class ServiceOrderController {
 			}
 		}
 		return serviceOrders;
+	}
+	/**
+	 * 根据id返回订单
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("findById.action")
+	@ResponseBody
+	public ServiceOrder getServiceOrderById(int id) {
+		
+		return serviceOrderService.getServiceOrderById(id);
 	}
 }

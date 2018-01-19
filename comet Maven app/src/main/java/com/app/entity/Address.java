@@ -2,7 +2,7 @@ package com.app.entity;
 
 public class Address {
 	private String id;
-	private String customer_id;
+	private Integer customer_id;
 	private String userName;
 	private String userIphone;
 	private String province;
@@ -28,18 +28,7 @@ public class Address {
 	public void setId(String id) {
 		this.id = id;
 	}
-	/**
-	 * @return the customer_id
-	 */
-	public String getCustomer_id() {
-		return customer_id;
-	}
-	/**
-	 * @param customer_id the customer_id to set
-	 */
-	public void setCustomer_id(String customer_id) {
-		this.customer_id = customer_id;
-	}
+	
 	/**
 	 * @return the province
 	 */
@@ -190,5 +179,17 @@ public class Address {
 	 */
 	public void setuIphone(String uIphone) {
 		this.uIphone = uIphone;
+	}
+	/**
+	 * @return the customer_id
+	 */
+	public Integer getCustomer_id() {
+		return customer_id;
+	}
+	/**
+	 * @param customer_id the customer_id to set
+	 */
+	public void setCustomer_id(Integer customer_id) {
+		this.customer_id = customer_id;
 	}
 }

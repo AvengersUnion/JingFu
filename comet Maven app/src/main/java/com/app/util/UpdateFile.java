@@ -32,6 +32,9 @@ public class UpdateFile {
 			// 1.得到文件名
 			String fileName = file.getOriginalFilename();
 			// 2.得到文件的后缀名
+			if (!fileName.contains(".")) {
+				return BaseResult.build(500, "文件上传失败",fileName);
+			}
 			String fileSuffixName = fileName.substring(fileName
 					.lastIndexOf("."));
 			// 3.判断上传的是否是excel

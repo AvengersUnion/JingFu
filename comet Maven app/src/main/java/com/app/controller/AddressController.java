@@ -2,6 +2,7 @@ package com.app.controller;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
@@ -19,6 +20,10 @@ public class AddressController {
 	@Resource(name = "addressService")
 	AddressService addressService;
 
+	/**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = "^((13[0-9])|(15[^4])|(18[0,1,2,3,5-9])|(17[0-8])|(147))\\d{8}$";
 	/**
 	 * 根据地址id删除地址
 	 * 
@@ -44,7 +49,7 @@ public class AddressController {
 	 */
 	@RequestMapping("all.action")
 	@ResponseBody
-	public List<Address> getAddressList(String userId) {
+	public List<Address> getAddressList(Integer userId) {
 
 		return addressService.getAddressList(userId);
 	}
@@ -64,16 +69,19 @@ public class AddressController {
 	@ResponseBody
 	public String addAddress(String customerId,String uName,String uIphone,String community, String houseNumber) {
 		if (null != customerId && null != community && null != houseNumber) {
-			Address address = new Address();
-			UUID uuid = UUID.randomUUID();
-			address.setId(uuid.toString());
-			address.setuName(uName);
-			address.setuIphone(uIphone);
-			address.setCustomer_id(customerId);
-			address.setCommunity(community);
-			address.setHouseNumber(houseNumber);
-			addressService.addAddress(address);
-			return "1";
+			if (Pattern.matches(REGEX_MOBILE, uIphone)) {
+				Address address = new Address();
+				UUID uuid = UUID.randomUUID();
+				address.setId(uuid.toString());
+				address.setuName(uName);
+				address.setuIphone(uIphone);
+				address.setCustomer_id(Integer.parseInt(customerId));
+				address.setCommunity(community);
+				address.setHouseNumber(houseNumber);
+				addressService.addAddress(address);
+				return "1";
+			}
+			return "0";
 		} else {
 			return "0";
 		}
