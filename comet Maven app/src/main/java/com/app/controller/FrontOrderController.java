@@ -59,7 +59,7 @@ public class FrontOrderController {
 	 *
 	 *
 	 */
-	@RequestMapping(value = "/getOrderInfo.do", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@RequestMapping(value = "/getOrderInfo.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String getOrderInfo(HttpServletRequest request, HttpServletResponse response) throws ParseException {
 		JSONObject obj = new JSONObject();

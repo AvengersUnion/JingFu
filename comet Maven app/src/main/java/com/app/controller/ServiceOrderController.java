@@ -8,16 +8,22 @@ import java.util.List;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.app.common.BaseResult;
 import com.app.entity.FrontOrder;
 import com.app.entity.ServiceOrder;
+import com.app.service.AlipayService;
 import com.app.service.ServiceOrderService;
+import com.app.util.AlipayConnectMpay;
 
 @Controller
 @RequestMapping("serviceOrder")
@@ -25,6 +31,56 @@ public class ServiceOrderController {
 
 	@Resource(name="serviceOrderService")
 	private ServiceOrderService serviceOrderService;
+	
+	@Resource(name="alipayService")
+	private AlipayService alipayService;
+	
+	/**
+	 * 用户发起支付接口
+	 * @return
+	 */
+	@RequestMapping(value = "/createOrder.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	@ResponseBody
+	public String createOrder(HttpServletRequest request, HttpServletResponse response) {
+		String type = request.getParameter("type");
+		String orderId = request.getParameter("orderId");
+		ServiceOrder serviceOrder = serviceOrderService.getServiceOrderByOrderId(orderId);
+		if(type != null && "0".equals(type)) {
+			//微信支付
+		}
+		if(type != null && "1".equals(type)) {
+			//支付宝支付
+			AlipayConnectMpay alipayConnectMpay = new AlipayConnectMpay();
+			String resp = alipayConnectMpay.createOrder(serviceOrder);
+			if(resp != null) {
+				JSON jsonObj = JSONObject.parseObject(resp);
+				System.out.println("jsonObj:"+jsonObj);
+			}
+			
+		}
+		
+		return null;
+	}
+	/**
+	 * 支付宝支付回调
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value = "/aliBackUrl.do", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	public void aliBackUrl(HttpServletRequest request, HttpServletResponse response) {
+		String type = request.getParameter("type");
+		String orderId = request.getParameter("orderId");
+		ServiceOrder serviceOrder = serviceOrderService.getServiceOrderByOrderId(orderId);
+		if(type != null && "0".equals(type)) {
+			//微信支付
+		}
+		if(type != null && "1".equals(type)) {
+			//支付宝支付
+			AlipayConnectMpay alipayConnectMpay = new AlipayConnectMpay();
+			String resp = alipayConnectMpay.createOrder(serviceOrder);
+		}
+		
+	}
 	/**
 	 * 查询所有本年的订单
 	 * @return
@@ -55,7 +111,7 @@ public class ServiceOrderController {
 		//实例化订单类
 		ServiceOrder serviceOrder=new ServiceOrder();
 		serviceOrder.setCity(city);
-		if ("已完成".equals(state)) {
+		if ("已完成".equals(state)) { 
 			serviceOrder.setState("1000");
 		}else if("待支付".equals(state)){
 			serviceOrder.setState("1001");

@@ -17,4 +17,6 @@ public interface ServiceOrderDao {
 	List<String> getServiceOrderTime();
 	//根据id修改订单的状态
 	void updateServiceOrderByState(ServiceOrder serviceOrder);
+	//根据订单编号获取订单
+	ServiceOrder getServiceOrderByOrderId(String orderId);
 }

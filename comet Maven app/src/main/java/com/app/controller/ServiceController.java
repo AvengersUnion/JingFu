@@ -568,7 +568,7 @@ public class ServiceController {
 		//备注
 		String remark = request.getParameter("remark");
 		Date date = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Date datetime = sdf.parse(sdf.format(date)); // 订单下达时间
 		serviceOrder.setCreatetime(datetime);
 		serviceOrder.setOrderId(userId+SendMessage.createCode()+date.getTime());

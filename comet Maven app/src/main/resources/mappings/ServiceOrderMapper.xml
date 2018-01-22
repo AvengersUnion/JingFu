@@ -89,4 +89,14 @@
 	<update id="updateServiceOrderByState" parameterType="com.app.entity.ServiceOrder">
 		UPDATE service_order SET state = #{state} WHERE id = #{id}
 	</update>
+	<!-- 根据订单编号查询订单 -->
+	<select id="getServiceOrderByOrderId" parameterType="String" resultMap="BaseServiceOrderMap">
+		SELECT service_order.id,order_id,service.service_name,address.community,address.houseNumber,
+		service.PRICE,uName,uIphone,service_Id,service_order.CUSTOMER_ID,address_Id,sc,
+		service_order.discount,createtime,state,flag,money,serviceTime,remark
+		FROM service_order 
+		LEFT JOIN address ON service_order.ADDRESS_ID=address.ID 
+		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
+		where service_order.order_id=#{orderId}
+	</select>
 </mapper>

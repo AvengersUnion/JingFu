@@ -80,5 +80,12 @@ public class ServiceOrderServiceImpl implements ServiceOrderService{
 		// TODO Auto-generated method stub
 		serviceOrderDao.updateServiceOrderByState(serviceOrder);
 	}
+	/**
+	 * 根据订单编号获取订单
+	 */
+	public ServiceOrder getServiceOrderByOrderId(String orderId) {
+		// TODO Auto-generated method stub
+		return serviceOrderDao.getServiceOrderByOrderId(orderId);
+	}
 
 }
