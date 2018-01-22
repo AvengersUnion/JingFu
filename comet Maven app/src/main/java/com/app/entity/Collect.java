@@ -55,7 +55,9 @@ public class Collect {
 	 * @param collectTime the collectTime to set
 	 */
 	public void setCollectTime(String collectTime) {
-		collectTime=collectTime.substring(collectTime.lastIndexOf("."));
+		if(collectTime.contains(",")){
+			collectTime=collectTime.substring(collectTime.lastIndexOf("."));
+		}
 		this.collectTime = collectTime;
 	}
 	/**

@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,25 @@ public class BannerController {
 		return bannerService.getBannerList();
 	}
 	/**
+	 * 根据状态查询banner，APP端展示
+	 * @return
+	 */
+	@RequestMapping("allApp.do")
+	@ResponseBody
+	public List<Banner> getBannerListApp() {
+		//返回的数据
+		List<Banner> bannerList=new ArrayList<Banner>();
+		//获取的数据
+		List<Banner> banners=bannerService.getBannerList();
+		for (int i = 0; i < banners.size(); i++) {
+			//判断banner的状态是否为启动状态，1为启动、0位不启动
+			if (banners.get(i).getState()==1) {
+				bannerList.add(banners.get(i));
+			}
+		}
+		return bannerList;
+	}
+	/**
 	 * 查询单个banner
 	 * @param id
 	 * @return
@@ -45,6 +65,7 @@ public class BannerController {
 	@RequestMapping("findById.do")
 	@ResponseBody
 	public Banner getBannerById(int id){
+		System.out.println(id);
 		return bannerService.getBannerById(id);
 	}
 	/**
@@ -59,9 +80,11 @@ public class BannerController {
 	@ResponseBody
 	public BaseResult addBanner(@RequestParam("file") MultipartFile file,
 			String title,String content, HttpServletRequest request){
+		/*
 		if (bannerService.getBannerNumber()>10) {
 			return BaseResult.build(500, "超过了10条，请不要在插入数据");
 		}
+		*/
 		// 实例化banner类
 		Banner banner = new Banner();
 		// 上传文件
@@ -83,6 +106,8 @@ public class BannerController {
 			banner.setBannerDetails(content);
 			// 5.上传时间
 			banner.setBannerTime(date);
+			// 6.上传状态
+			banner.setState(0);
 			// 将数据上传到数据库
 			bannerService.addBanner(banner);
 		}
@@ -201,6 +226,89 @@ public class BannerController {
 			return BaseResult.ok(path);
 		}
 		return BaseResult.build(500, "操作错误");
+	}
+	/**
+	 * 根据id修改状态
+	 * @param id
+	 * @param state
+	 * @return
+	 */
+	@RequestMapping(value = "updateStateById", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseResult updateBannerStateById(Integer id,Integer state) {
+		//先判断id是否为空，和他对应的数据是否有
+		if(null==id||null==bannerService.getBannerById(id)){
+			return BaseResult.build(500, "更新失败");
+		}
+		//判断设为前台的轮播图是否超过了10条
+		if (bannerService.getBannerNumber()+1>10) {
+			return BaseResult.build(500, "你的前台轮播图已经超出了");
+		}
+		//判断修改的状态是否正确
+		if(state==1||state==0){
+			Banner banner=new Banner();
+			banner.setId(id);
+			banner.setState(state);
+			bannerService.updateBannerState(banner);
+			return BaseResult.ok();
+		}
+		return BaseResult.build(500, "更新失败");
+	}
+	/**
+	 * 根据id修改多个状态
+	 * @param ids
+	 * @param state
+	 * @return
+	 */
+	@RequestMapping(value = "updateStates", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseResult updateBannerState(String ids, Integer state) {
+		//实例化对象
+		Banner banner=new Banner();
+		//判断前台给出的数据是否为空
+		if (null==ids||ids.equals("")||null==state) {
+			return BaseResult.build(500, "更新失败");
+		}
+		if (state>1||state<0) {
+			return BaseResult.build(500, "更新失败");
+		}
+		//判断ids里面是否包含有，
+		if (!ids.contains(",")) {
+			//判断设为前台的轮播图是否超过了10条
+			if (bannerService.getBannerNumber()+1>10) {
+				return BaseResult.build(500, "你的前台轮播图已经超出了");
+			}
+			//判断这个id是否有对应的数据
+			if (null==bannerService.getBannerById(Integer.parseInt(ids))) {
+				return BaseResult.build(500, "操作错误");
+			}
+			banner.setId(Integer.parseInt(ids));
+			banner.setState(state);
+			bannerService.updateBannerState(banner);
+			return BaseResult.ok();
+		}else {
+			String[] postcode = ids.split(",");
+			//判断设为前台的轮播图是否超过了10条
+			if (bannerService.getBannerNumber()+postcode.length>=10) {
+				return BaseResult.build(500, "你的前台轮播图已经超出了");
+			}
+			//遍历postcode依次获取id
+			for (int i = 0; i < postcode.length; i++) {
+				int id=Integer.parseInt(postcode[i]);
+				//判断这个id是否有对应的数据
+				if (null==bannerService.getBannerById(id)) {
+					return BaseResult.build(500, "操作错误");
+				}
+			}
+			for (int i = 0; i < postcode.length; i++) {
+				int id=Integer.parseInt(postcode[i]);
+				banner.setId(id);
+				banner.setState(state);
+				bannerService.updateBannerState(banner);
+			}
+			return BaseResult.ok();
+		}
+		
 	}
 	/**
 	 * 咨询详情图路径

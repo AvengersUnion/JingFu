@@ -101,4 +101,25 @@ public class CollectController {
 		}
 		return list;
 	}
+	/**
+	 * 判断是否收藏了
+	 * @param userId
+	 * @param advisoryId
+	 * @return
+	 */
+	@RequestMapping(value="findId.action", method = RequestMethod.POST)
+	@ResponseBody
+	public BaseResult getCollectOne(Integer userId, Integer advisoryId) {
+		Collect collect=new Collect();
+		if (null!=userId&&null!=advisoryId) {
+			collect.setUserId(userId);
+			collect.setAdvisoryId(advisoryId);
+			Integer id=collectService.getCollectId(collect);
+			if (null==id) {
+				id=0;
+			}
+			return BaseResult.ok(id);
+		}
+		return BaseResult.build(500, "操作错误",0);
+	}
 }

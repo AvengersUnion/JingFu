@@ -6,6 +6,7 @@ public class Banner {
 	private String imagePath;
 	private String bannerDetails;
 	private String bannerTime;
+	private Integer state;
 	/**
 	 * @return the id
 	 */
@@ -68,6 +69,18 @@ public class Banner {
 			bannerTime=bannerTime.substring(0,bannerTime.lastIndexOf("."));
 		}
 		this.bannerTime = bannerTime;
+	}
+	/**
+	 * @return the state
+	 */
+	public Integer getState() {
+		return state;
+	}
+	/**
+	 * @param state the state to set
+	 */
+	public void setState(Integer state) {
+		this.state = state;
 	}
 	
 }

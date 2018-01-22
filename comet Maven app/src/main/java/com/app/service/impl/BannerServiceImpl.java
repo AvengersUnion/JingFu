@@ -44,4 +44,9 @@ public class BannerServiceImpl implements BannerService {
 		return bannerDao.getBannerNumber();
 	}
 
+	public void updateBannerState(Banner banner) {
+		// TODO Auto-generated method stub
+		bannerDao.updateBannerState(banner);
+	}
+
 }

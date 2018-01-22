@@ -16,6 +16,8 @@ public interface BannerDao {
 	void deleteBannerById(int id);
 	//修改
 	void updateBanner(Banner banner);
+	//修改状态
+	void updateBannerState(Banner banner);
 	//获得banner的条数
 	int getBannerNumber();
 	

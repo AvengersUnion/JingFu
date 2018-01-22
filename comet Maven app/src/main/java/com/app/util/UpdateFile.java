@@ -6,7 +6,6 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.impl.conn.tsccm.WaitingThread;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.common.BaseResult;
@@ -19,6 +18,7 @@ import com.app.common.BaseResult;
  */
 public class UpdateFile {
 
+	private static String SERVICE_URL=Application.serverUrl;
 	/**
 	 * 上传excel文件
 	 * 
@@ -50,7 +50,7 @@ public class UpdateFile {
 				file.transferTo(new File(realPath));
 				// fileUri="/pics/"+fileLastName;
 
-				String fileUri = "http://120.27.247.68:8080/image/" +imagePath + lastFileName;
+				String fileUri = SERVICE_URL +imagePath + lastFileName;
 				return BaseResult.ok(fileUri);
 			}
 		} catch (IOException e) {
