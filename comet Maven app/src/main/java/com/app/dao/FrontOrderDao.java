@@ -10,4 +10,10 @@ public interface FrontOrderDao {
 	List<FrontOrder> getFrontOrdersOnce();
 	List<FrontOrder> getFrontOrdersMore();
 	Map getOrderByOrderId(String orderId);
+	/**
+	 * 获取订单详情
+	 * @param orderId
+	 * @return
+	 */
+	Map<String,String> getOrderInfo(String orderId);
 }

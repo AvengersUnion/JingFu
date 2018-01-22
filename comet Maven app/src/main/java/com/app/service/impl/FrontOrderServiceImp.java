@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.dao.FrontOrderDao;
 import com.app.entity.FrontOrder;
+import com.app.entity.ServiceOrder;
 import com.app.service.FrontOrderService;
 @Service("frontOrderService")
 public class FrontOrderServiceImp implements FrontOrderService{
@@ -24,8 +25,13 @@ public class FrontOrderServiceImp implements FrontOrderService{
 		return frontOrderDao.getFrontOrdersMore();
 	}
 	public Map getOrderByOrderId(String orderId) {
-		// TODO Auto-generated method stub
 		return frontOrderDao.getOrderByOrderId(orderId);
+	}
+	/**
+	 * 获取订单详情
+	 */
+	public Map<String,String> getOrderInfo(String orderId) {
+		return frontOrderDao.getOrderInfo(orderId);
 	}
 
 }
