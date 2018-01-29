@@ -562,7 +562,8 @@ public class ServiceController {
 		//服务id
 		String serviceId = request.getParameter("serviceId");
 		//订单价格
-		String money = request.getParameter("money");
+//		String money = request.getParameter("money");
+		Service ser = serviceService.getServiceDetailById(serviceId);
 		//地址id
 		String addressId = request.getParameter("addressId");
 		//备注
@@ -575,7 +576,7 @@ public class ServiceController {
 		serviceOrder.setCustomerId(userId);
 		serviceOrder.setAddressId(addressId);
 		serviceOrder.setServiceId(serviceId);
-		serviceOrder.setMoney(Double.valueOf(money));
+		serviceOrder.setMoney(ser.getPrepay());
 		serviceOrder.setRemark(remark);
 		int num = serviceService.saveOrder(serviceOrder);
 		Map map = frontOrderService.getOrderByOrderId(serviceOrder.getOrderId());

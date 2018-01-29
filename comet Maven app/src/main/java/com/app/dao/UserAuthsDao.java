@@ -18,7 +18,7 @@ public interface UserAuthsDao {
 	 * @param openid
 	 * @return
 	 */
-	String getPhoneByIdentifier(String openid);
+	UserAuths getPhoneByIdentifier(String openid);
 	/**
 	 * 根据手机号获取userAuths
 	 * @param phone

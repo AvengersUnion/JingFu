@@ -2,9 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.app.dao.UserAuthsDao" >
 	<!-- 根据第三方登录凭证查找手机号 -->
-	<select id="getPhoneByIdentifier" resultType="string">
-		select b.pn as phone from user_auths a 
-		LEFT JOIN consumer b ON a.phone=b.PN
+	<select id="getPhoneByIdentifier" resultType="com.app.entity.UserAuths">
+		select a.id,a.phone as phone,a.identity_type as identityType,a.identifier,a.credential,a.nettime from user_auths a 
 		where a.identifier=#{openid}
 	</select>
 	<!-- 根据手机号查找对象 -->

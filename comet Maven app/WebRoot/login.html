@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="static/bootstrap-3.3.7-dist/css/bootstrap.css" />
+	<style>
+		#root .mol{position: fixed;left: 0;top: 0;width: 100%;height: 100%;background-color:#000000;opacity: 0.1;}
+html,body,#root{height: 100%;}
+body{background-image: url(static/bgc.jpg);background-size: 100% 100%;background-repeat: no-repeat;}
+#root>div .alert{display:none;padding: 6px;position: absolute;top: 20%;width: 70%;}
+#root>div{position: relative;width:30%;background-color:white;padding: 2% 5%;border: 1px solid darkgrey;border-radius: 2%;}
+#root>div h1{font-size: 22px;}
+#root>div .form-group.ss{margin-top: 28%;}
+#root .home{font-size: 1.2em;padding-left: 16%;position: absolute;left: 0;top: 0;display: flex;align-items: center;background-color: #3879D9;width: 100%;height: 15%;}
+#root{display: flex;justify-content: center;align-items: center;}
+@media only screen and (max-width:1200px ) {
+	#root>div{width: 40%;}
+}
+@media only screen and (min-width:768px ) and (max-width:992px) {
+	#root>div{width: 50%;}
+}
+@media only screen and (min-width: 500px) and (max-width: 768px) {
+		#root>div{width: 70%;}
+
+}
+@media only screen and (max-width:500px ) {
+		#root>div{width: 80%;}
+
+}@media only screen and (max-width:400px ) {
+	#root>div .form-group.ss{margin-top: 40%;}
+}
+	</style>
+	<script>
+		!(function(window, document) {
+	function GVerify(options) { //创建一个图形验证码对象，接收options对象为参数
+		this.options = { //默认options参数值
+			id: "", //容器Id
+			canvasId: "verifyCanvas", //canvas的ID
+			width: "100", //默认canvas宽度
+			height: "30", //默认canvas高度
+			type: "blend", //图形验证码默认类型blend:数字字母混合类型、number:纯数字、letter:纯字母
+			code: ""
+		}
+		
+		if(Object.prototype.toString.call(options) == "[object Object]"){//判断传入参数类型
+			for(var i in options) { //根据传入的参数，修改默认参数值
+				this.options[i] = options[i];
+			}
+		}else{
+			this.options.id = options;
+		}
+		
+		this.options.numArr = "0,1,2,3,4,5,6,7,8,9".split(",");
+		this.options.letterArr = getAllLetter();
+
+		this._init();
+		this.refresh();
+	}
+
+	GVerify.prototype = {
+		/**版本号**/
+		version: '1.0.0',
+		
+		/**初始化方法**/
+		_init: function() {
+			var con = document.getElementById(this.options.id);
+			var canvas = document.createElement("canvas");
+			this.options.width = con.offsetWidth > 0 ? con.offsetWidth : "100";
+			this.options.height = con.offsetHeight > 0 ? con.offsetHeight : "30";
+			canvas.id = this.options.canvasId;
+			canvas.width = this.options.width;
+			canvas.height = this.options.height;
+			canvas.style.cursor = "pointer";
+			canvas.innerHTML = "您的浏览器版本不支持canvas";
+			con.appendChild(canvas);
+			var parent = this;
+			canvas.onclick = function(){
+				parent.refresh();
+			}
+		},
+		
+		/**生成验证码**/
+		refresh: function() {
+			var canvas = document.getElementById(this.options.canvasId);
+			if(canvas.getContext) {
+				var ctx = canvas.getContext('2d');
+			}
+			ctx.textBaseline = "middle";
+
+			ctx.fillStyle = randomColor(180, 240);
+			ctx.fillRect(0, 0, this.options.width, this.options.height);
+
+			if(this.options.type == "blend") { //判断验证码类型
+				var txtArr = this.options.numArr.concat(this.options.letterArr);
+			} else if(this.options.type == "number") {
+				var txtArr = this.options.numArr;
+			} else {
+				var txtArr = this.options.letterArr;
+			}
+                          this.options.code = ""
+			for(var i = 1; i <= 4; i++) {
+				var txt = txtArr[randomNum(0, txtArr.length)];
+				this.options.code += txt;
+				ctx.font = randomNum(this.options.height/2, this.options.height) + 'px SimHei'; //随机生成字体大小
+				ctx.fillStyle = randomColor(50, 160); //随机生成字体颜色		
+				ctx.shadowOffsetX = randomNum(-3, 3);
+				ctx.shadowOffsetY = randomNum(-3, 3);
+				ctx.shadowBlur = randomNum(-3, 3);
+				ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+				var x = this.options.width / 5 * i;
+				var y = this.options.height / 2;
+				var deg = randomNum(-30, 30);
+				/**设置旋转角度和坐标原点**/
+				ctx.translate(x, y);
+				ctx.rotate(deg * Math.PI / 180);
+				ctx.fillText(txt, 0, 0);
+				/**恢复旋转角度和坐标原点**/
+				ctx.rotate(-deg * Math.PI / 180);
+				ctx.translate(-x, -y);
+			}
+			/**绘制干扰线**/
+			for(var i = 0; i < 4; i++) {
+				ctx.strokeStyle = randomColor(40, 180);
+				ctx.beginPath();
+				ctx.moveTo(randomNum(0, this.options.width), randomNum(0, this.options.height));
+				ctx.lineTo(randomNum(0, this.options.width), randomNum(0, this.options.height));
+				ctx.stroke();
+			}
+			/**绘制干扰点**/
+			for(var i = 0; i < this.options.width/4; i++) {
+				ctx.fillStyle = randomColor(0, 255);
+				ctx.beginPath();
+				ctx.arc(randomNum(0, this.options.width), randomNum(0, this.options.height), 1, 0, 2 * Math.PI);
+				ctx.fill();
+			}
+		},
+		
+		/**验证验证码**/
+		validate: function(code){
+			var code = code.toLowerCase();
+			var v_code = this.options.code.toLowerCase();
+			if(code == v_code){
+				var username = $("#root .form-group input[type=text]").val()
+				var passw =  $("#root .form-group input[type=password]").val()
+				
+				$.ajax({
+					type:"get",
+					url:host+"manager/login.do",
+					dataType:"json",
+					data:{"uname":username,"passWord":passw},
+					success:function(data){
+					  if(data.code=="1"){
+					  	$("#root>div .alert:nth-child(2)").show()
+					  	localStorage.setItem('myMangerId', data.id);
+					  	window.location = "/comet/index.html"
+					  }
+					  if(data.code=="0"){
+					  	$("#root>div .alert:nth-child(3)").show()
+					  }
+					}
+				});
+                                
+			}else{
+				$("#root .yanz").show()
+				this.refresh()
+			}
+		}
+	}
+	/**生成字母数组**/
+	function getAllLetter() {
+		var letterStr = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z";
+		return letterStr.split(",");
+	}
+	/**生成一个随机数**/
+	function randomNum(min, max) {
+		return Math.floor(Math.random() * (max - min) + min);
+	}
+	/**生成一个随机色**/
+	function randomColor(min, max) {
+		var r = randomNum(min, max);
+		var g = randomNum(min, max);
+		var b = randomNum(min, max);
+		return "rgb(" + r + "," + g + "," + b + ")";
+	}
+	window.GVerify = GVerify;
+})(window, document);
+	</script>
+	</head>
+	<body onkeydown="logins(event)">
+		<div id="root">
+			
+		<div class="mol">
+			
+		</div>
+		<div>
+			<div class="home">家享精服后台登录系统</div>
+			<div class="alert alert-success">
+				登录成功
+			</div>
+			<div class="alert alert-danger">
+				用户名或密码错误
+			</div>
+		<div class="form-group ss" >
+		<p>用户名：<input type="text" class="form-control" onfocus="miss()" placeholder="请输入用户名"></p>
+		</div>
+		<div class="form-group">
+	    <p>密码：<input type="password" class="form-control" onfocus="miss()" placeholder="请输入密码"></p>
+		</div>
+		<div class="row" style="display: flex;align-items: center;">
+			
+				<div class="col-md-6" style="padding-right: 0;">
+			<input type="text" id="code_input" value="" onfocus="hidey()" placeholder="请输入验证码" class="form-control"/>
+			
+			</div>
+			<div class="col-md-6">
+			<div id="v_container" style="width: 100%;height: 40px;margin-bottom: 0px;display: inline-block;"></div>	
+			</div>
+			
+		</div>
+			
+		
+		
+	    <p style="color: red;display: none;" class="yanz">验证码错误</p>
+		
+	    
+		<button class="btn btn-primary" id="my_button" style="margin-top: 15px;">登录</button>
+		</div>
+		
+	
+		</div>
+		<script src="static/jquery.min.js"></script>
+		<script src="static/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+		<script>
+			   var host = "http://www.yehaikeji.com:8080/comet/"
+			   var verifyCode = new GVerify("v_container");
+
+		document.getElementById("my_button").onclick = function(){
+			var res = verifyCode.validate(document.getElementById("code_input").value);
+			
+		}
+			   
+				function logins(event){
+					
+					
+					
+					var username = $("#root .form-group input[type=text]").val()
+				var passw =  $("#root .form-group input[type=password]").val()
+					if(event.which==13){
+						$("#code_input").blur()
+						var res = verifyCode.validate(document.getElementById("code_input").value);
+					}
+					
+				
+				
+				}
+				function hidey(){
+					$("#code_input").val("")
+					$("#root .yanz").hide()
+				}
+		function miss(){
+				$("#root>div .alert:nth-child(3)").hide()
+			}
+		</script>
+	</body>
+</html>

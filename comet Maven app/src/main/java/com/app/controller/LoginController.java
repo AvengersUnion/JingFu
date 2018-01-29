@@ -3,6 +3,7 @@ package com.app.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.app.entity.BackUser;
 import com.app.entity.User;
+import com.app.entity.UserAuths;
 import com.app.service.LoginService;
 import com.app.service.UserAuthsService;
 import com.app.service.UserService;
@@ -12,6 +13,7 @@ import com.app.util.MD5Util;
 import com.app.util.SendMessage;
 
 import org.apache.http.client.ClientProtocolException;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -164,6 +166,7 @@ public class LoginController {
         		return obj.toJSONString();
 			}else {
 				if(openid != null && !"".equals(openid)) {
+					System.out.println(phone+":"+openid);
 					userAuthsService.updatePhone(phone,openid);
 				}
 				String token = MD5Util.MD5(phone+code+new Date().getTime());
@@ -176,6 +179,7 @@ public class LoginController {
         		obj.put("phone", phone);
         		obj.put("id", String.valueOf(user.getId()));
         		obj.put("token", token);
+        		System.out.println("登陆信息："+obj.toJSONString());
         		return obj.toJSONString();
 			}
 		}
@@ -185,20 +189,57 @@ public class LoginController {
      * @return
      * @throws UnsupportedEncodingException 
      */
-    @RequestMapping(value="/loginByWX.do")
-    public void loginByWX(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
-    	String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+Application.wxAPPID
-    			+ "&redirect_uri="+URLEncoder.encode(Application.wxBackUrl,"UTF-8")
-    			+ "&response_type=code"
-    			+ "&scope=snsapi_userinfo"
-    			+ "&state=STATE#wechat_redirect";
-    	try {
-			response.sendRedirect(url);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	System.out.println(URLEncoder.encode(Application.wxBackUrl,"UTF-8"));
+    @RequestMapping(value="/loginByWX.do",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+    @ResponseBody
+    public String loginByWX(HttpServletRequest request,HttpServletResponse response) throws UnsupportedEncodingException {
+//    	String url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+Application.wxAPPID
+//    			+ "&redirect_uri="+URLEncoder.encode(Application.wxBackUrl,"UTF-8")
+//    			+ "&response_type=code"
+//    			+ "&scope=snsapi_userinfo"
+//    			+ "&state=STATE#wechat_redirect";
+//    	try {
+//			response.sendRedirect(url);
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	System.out.println(URLEncoder.encode(Application.wxBackUrl,"UTF-8"));
+    	JSONObject result = new JSONObject();
+    	String openid = request.getParameter("openid");
+        if(openid == null || "".equals(openid)) {
+        	result.put("type", "1");
+        	result.put("mes", "openid不能为空！");
+    		return result.toJSONString();
+        }
+      //将微信与当前系统手机号进行绑定
+        UserAuths userAuths = null;
+        userAuths = userAuthsService.getPhonebyIdentifier(openid);
+        System.out.println(userAuths);
+        if(userAuths == null) {
+        	//未绑定的
+    		userAuthsService.saveOpenid("WX",openid);
+    		result.put("type", "1");
+    		result.put("mes", "未绑定手机号！");
+    		result.put("openid",openid);
+        }else {
+	    	if(userAuths.getPhone() != null && !userAuths.getPhone().equals("")) {
+	    		//已经绑定的
+	    		BackUser user = userService.getUserByPhone(userAuths.getPhone());
+	    		HttpSession session = request.getSession();
+	            session.setAttribute("user", user);
+	            result.put("type", "0");
+	    		result.put("mes", "登陆成功！");
+	    		result.put("phone",userAuths.getPhone());
+	    		result.put("id", user.getId());
+	    		result.put("token", user.getToken());
+	    	}else {
+	    		//未绑定的
+	    		result.put("type", "1");
+	    		result.put("mes", "未绑定手机号！");
+	    		result.put("openid",openid);
+	    	}
+        }
+    	return result.toString();
     }
     /**
      * 微信回调方法
@@ -225,24 +266,32 @@ public class LoginController {
     	JSONObject userInfo = AuthUtil.doGetJson(infoUrl);
     	System.out.println(userInfo.toString());
     	//将微信与当前系统手机号进行绑定
-    	String phone = userAuthsService.getPhonebyIdentifier(openid);
-    	if(phone != null && !phone.equals("")) {
-    		//已经绑定的
-    		BackUser user = userService.getUserByPhone(phone);
-    		HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            result.put("type", "0");
-    		result.put("mes", "登陆成功！");
-    		result.put("phone",phone);
-    		result.put("id", user.getId());
-    		result.put("token", user.getToken());
-    	}else {
+    	UserAuths userAuths = null;
+    	userAuths = userAuthsService.getPhonebyIdentifier(openid);
+    	if(userAuths == null) {
     		//未绑定的
     		userAuthsService.saveOpenid("WX",openid);
     		result.put("type", "1");
     		result.put("mes", "未绑定手机号！");
     		result.put("openid",openid);
-    	}
+        }else {
+	    	if(userAuths.getPhone() != null && !userAuths.getPhone().equals("")) {
+	    		//已经绑定的
+	    		BackUser user = userService.getUserByPhone(userAuths.getPhone());
+	    		HttpSession session = request.getSession();
+	            session.setAttribute("user", user);
+	            result.put("type", "0");
+	    		result.put("mes", "登陆成功！");
+	    		result.put("phone",userAuths.getPhone());
+	    		result.put("id", user.getId());
+	    		result.put("token", user.getToken());
+	    	}else {
+	    		//未绑定的
+	    		result.put("type", "1");
+	    		result.put("mes", "未绑定手机号！");
+	    		result.put("openid",openid);
+	    	}
+        }
     	return result.toString();
     }
     
@@ -262,24 +311,33 @@ public class LoginController {
     		return result.toJSONString();
         }
       //将QQ与当前系统手机号进行绑定
-    	String phone = userAuthsService.getPhonebyIdentifier(openid);
-    	if(phone != null && !phone.equals("")) {
-    		//已经绑定的
-    		BackUser user = userService.getUserByPhone(phone);
-    		HttpSession session = request.getSession();
-            session.setAttribute("user", user);
-            result.put("type", "0");
-    		result.put("mes", "登陆成功！");
-    		result.put("phone",phone);
-    		result.put("id", user.getId());
-    		result.put("token", user.getToken());
-    	}else {
-    		//未绑定的
+        UserAuths userAuths = null;
+        userAuths = userAuthsService.getPhonebyIdentifier(openid);
+        System.out.println(userAuths);
+        if(userAuths == null) {
+        	//未绑定的
     		userAuthsService.saveOpenid("QQ",openid);
     		result.put("type", "1");
     		result.put("mes", "未绑定手机号！");
     		result.put("openid",openid);
-    	}
+        }else {
+	    	if(userAuths.getPhone() != null && !userAuths.getPhone().equals("")) {
+	    		//已经绑定的
+	    		BackUser user = userService.getUserByPhone(userAuths.getPhone());
+	    		HttpSession session = request.getSession();
+	            session.setAttribute("user", user);
+	            result.put("type", "0");
+	    		result.put("mes", "登陆成功！");
+	    		result.put("phone",userAuths.getPhone());
+	    		result.put("id", user.getId());
+	    		result.put("token", user.getToken());
+	    	}else {
+	    		//未绑定的
+	    		result.put("type", "1");
+	    		result.put("mes", "未绑定手机号！");
+	    		result.put("openid",openid);
+	    	}
+        }
     	return result.toString();
     }
 

@@ -1,13 +1,19 @@
 package com.app.controller;
 
+import java.math.BigDecimal;
+import java.net.URLDecoder;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -16,14 +22,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.app.common.BaseResult;
-import com.app.entity.FrontOrder;
+import com.app.entity.Alipay;
 import com.app.entity.ServiceOrder;
 import com.app.service.AlipayService;
 import com.app.service.ServiceOrderService;
-import com.app.util.AlipayConnectMpay;
+import com.app.util.Application;
+import com.app.util.pay.bean.PayOrder;
+import com.app.util.wxpay.api.WxPayConfigStorage;
+import com.app.util.wxpay.api.WxPayService;
+import com.app.util.wxpay.bean.WxTransactionType;
+
+
 
 @Controller
 @RequestMapping("serviceOrder")
@@ -36,53 +47,75 @@ public class ServiceOrderController {
 	private AlipayService alipayService;
 	
 	/**
-	 * 用户发起支付接口
+	 * 创建支付订单
 	 * @return
+	 * @throws Exception 
 	 */
 	@RequestMapping(value = "/createOrder.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
-	public String createOrder(HttpServletRequest request, HttpServletResponse response) {
+	public String createOrder(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String type = request.getParameter("type");
 		String orderId = request.getParameter("orderId");
 		ServiceOrder serviceOrder = serviceOrderService.getServiceOrderByOrderId(orderId);
 		if(type != null && "0".equals(type)) {
-			//微信支付
+//			WxConnectMpay wxConnectMpay = new WxConnectMpay();
+//			String resp = wxConnectMpay.createWXOrder(serviceOrder);
+//			System.out.println("resp:"+resp);
+			
+			WxPayConfigStorage wxPayConfigStorage = new WxPayConfigStorage();
+	        wxPayConfigStorage.setMchId(Application.wxmchid);
+	        wxPayConfigStorage.setAppid(Application.wxAPPID);
+	        wxPayConfigStorage.setKeyPublic(Application.wxpayKey);
+	        wxPayConfigStorage.setKeyPrivate(Application.wxpayKey);
+	        wxPayConfigStorage.setNotifyUrl(Application.wxBackUrl);
+	        wxPayConfigStorage.setSignType("MD5");
+	        wxPayConfigStorage.setInputCharset("utf-8");
+
+	        WxPayService wxpayservice =  new WxPayService(wxPayConfigStorage);
+	        PayOrder payOrder = new PayOrder(serviceOrder.getServiceName(), "",  new BigDecimal(0.01) , serviceOrder.getOrderId());
+	        payOrder.setTransactionType(WxTransactionType.APP);
+	        JSONObject jsonobj = wxpayservice.unifiedOrder(payOrder);
+	        System.out.println(jsonobj);
 		}
 		if(type != null && "1".equals(type)) {
 			//支付宝支付
-			AlipayConnectMpay alipayConnectMpay = new AlipayConnectMpay();
-			String resp = alipayConnectMpay.createOrder(serviceOrder);
+//			AlipayConnectMpay alipayConnectMpay = new AlipayConnectMpay();
+			AlipayController alipayController = new AlipayController();
+			String resp = alipayController.createOrder(serviceOrder);
 			if(resp != null) {
-				JSON jsonObj = JSONObject.parseObject(resp);
-				System.out.println("jsonObj:"+jsonObj);
+				try {
+					String orderStr = URLDecoder.decode(resp,"UTF-8");
+					System.out.println("orderStr"+orderStr);
+					String[] a = orderStr.split("&");
+					Map<String, String> m = new HashMap<String, String>();
+					for(String s:a){
+						String[] ms = s.split("=");
+						m.put(ms[0], ms[1]);
+					}
+					String bizContent = m.get("biz_content");
+					JSONObject jsonObj = JSONObject.parseObject(bizContent);
+					Alipay alipay = new Alipay();
+					alipay.setConsumerid(serviceOrder.getCustomerId());
+					alipay.setInsertdatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(m.get("timestamp")));
+					alipay.setOuttradeno(jsonObj.getString("out_trade_no"));
+					alipay.setTotalAmount(jsonObj.getString("total_amount"));
+					alipay.setSubject(jsonObj.getString("subject"));
+					alipay.setTimeoutExpress(jsonObj.getString("timeout_express"));
+					alipay.setMoneyType("start");
+					alipayService.createOrder(alipay);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return resp;
 			}
 			
 		}
 		
 		return null;
 	}
+	
 	/**
-	 * 支付宝支付回调
-	 * @param request
-	 * @param response
-	 */
-	@RequestMapping(value = "/aliBackUrl.do", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
-	public void aliBackUrl(HttpServletRequest request, HttpServletResponse response) {
-		String type = request.getParameter("type");
-		String orderId = request.getParameter("orderId");
-		ServiceOrder serviceOrder = serviceOrderService.getServiceOrderByOrderId(orderId);
-		if(type != null && "0".equals(type)) {
-			//微信支付
-		}
-		if(type != null && "1".equals(type)) {
-			//支付宝支付
-			AlipayConnectMpay alipayConnectMpay = new AlipayConnectMpay();
-			String resp = alipayConnectMpay.createOrder(serviceOrder);
-		}
-		
-	}
-	/**
-	 * 查询所有本年的订单
+	 * 
 	 * @return
 	 */
 	@RequestMapping("all")

@@ -26,7 +26,7 @@ public class UserAuthsServiceImpl implements UserAuthsService{
 	/**
 	 * 通过第三方登陆名获取绑定手机号
 	 */
-	public String getPhonebyIdentifier(String openid) {
+	public UserAuths getPhonebyIdentifier(String openid) {
 		
 		return userAuthsDao.getPhoneByIdentifier(openid);
 	}

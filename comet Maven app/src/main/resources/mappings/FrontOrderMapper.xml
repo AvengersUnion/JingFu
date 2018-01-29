@@ -27,7 +27,8 @@
 			a.order_id as orderId,
 			b.service_name as serviceName,
 			b.ad_img_path as adImgPath,
-			a.money,
+			b.price,
+			a.money as prepay,
 			a.sc
 		from service_order a
 		left join service b on a.service_id=b.id
@@ -37,7 +38,7 @@
 	<select id="getOrderInfo" resultType="Map">
 		select 
 			a.order_id orderId,
-			a.money money,
+			a.money prepay,
 			DATE_FORMAT(a.createtime,'%Y-%m-%d %H:%i:%s') createtime,
 			DATE_FORMAT(a.serviceTime,'%Y-%m-%d %H:%i:%s') serviceTime,
 			a.remark remark,
@@ -46,6 +47,7 @@
 			b.service_name serviceName,
 			b.ad_img_path adImgPath,
 			b.PERIOD period,
+			b.price price,
 			c.community community,
 			c.houseNumber houseNumber,
 			c.uName uName,

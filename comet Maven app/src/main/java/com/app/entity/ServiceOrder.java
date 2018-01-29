@@ -38,20 +38,22 @@ public class ServiceOrder {
     private String discount;
     //服务名字
     private String serviceName;
-    //价格
-    private double price;
     //订单创建时间
     private Date createtime;
     //订单状态
     private String state;
     //支付类型
     private Integer flag;
-    //支付金额
+    //定金
     private Double money;
+    //尾款
+    private Double endMoney;
     //服务时间
     private Date serviceTime;
     //用户备注
     private String remark;
+    
+    private Double price;	//备用
 	public Integer getId() {
 		return id;
 	}
@@ -247,16 +249,18 @@ public class ServiceOrder {
 	public void setServiceName(String serviceName) {
 		this.serviceName = serviceName;
 	}
-	/**
-	 * @return the price
-	 */
-	public double getPrice() {
+	public Double getEndMoney() {
+		return endMoney;
+	}
+	public void setEndMoney(Double endMoney) {
+		this.endMoney = endMoney;
+	}
+	public Double getPrice() {
 		return price;
 	}
-	/**
-	 * @param price the price to set
-	 */
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
+
+	
 }

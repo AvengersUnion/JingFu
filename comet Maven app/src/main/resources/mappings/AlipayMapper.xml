@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.AlipayDao" >
+	
+	<!-- 创建订单 -->
+	<insert id="createOrder" parameterType="com.app.entity.Alipay">
+		insert into alipaylistinfo(
+			consumerid,
+			INSERTDATETIME,
+			OUT_TRADE_NO,
+			money_type,
+			TOTAL_AMOUNT,
+			SUBJECT,
+			TIMEOUT_EXPRESS)
+		values(
+			#{consumerid},
+			#{insertdatetime},
+			#{outtradeno},
+			#{moneyType},
+			#{totalAmount},
+			#{subject},
+			#{timeoutExpress}
+		)
+	</insert>
+	
+	<!-- 更新订单通知状态 -->
+	<update id="updateNotify" parameterType="com.app.entity.Alipay">
+		update alipaylistinfo set
+			notify_time=#{notifyTime},
+			sign=#{sign},
+			trade_no=#{tradeNo},
+			BUYER_USER_ID=#{buyerUserId},
+			buyer_logon_id=#{buyerLogonId},
+			trade_status=#{tradeStatus},
+			total_amount=#{totalAmount},
+			subject=#{subject},
+			gmt_payment=#{gmtPayment}
+		where 
+			out_trade_no=#{outtradeno}
+		and
+			money_type=#{moneyType}
+	</update>
+</mapper>

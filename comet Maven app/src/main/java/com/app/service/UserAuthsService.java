@@ -14,7 +14,7 @@ public interface UserAuthsService {
 	 * @param openid
 	 * @return
 	 */
-	public String getPhonebyIdentifier(String openid);
+	public UserAuths getPhonebyIdentifier(String openid);
 	/**
 	 * 根据手机号获取userAuths对象
 	 * @param phone
