@@ -30,12 +30,12 @@ public class PayException implements PayError {
     private String errorMsg;
     private String content;
 
-    @Override
+    
     public String getErrorCode() {
         return errorCode;
     }
 
-    @Override
+    
     public String getErrorMsg() {
         return errorMsg;
     }
@@ -51,7 +51,7 @@ public class PayException implements PayError {
         this.content = content;
     }
 
-    @Override
+    
     public String getString() {
         return "支付错误: errcode=" + errorCode + ", errmsg=" + errorMsg + (null == content ? "" : "\n content:" + content);
     }

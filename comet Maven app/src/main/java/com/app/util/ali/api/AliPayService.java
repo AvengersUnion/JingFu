@@ -68,7 +68,7 @@ public class AliPayService extends BasePayService {
      * @param params 回调回来的参数集
      * @return 签名校验 true通过
      */
-    @Override
+    
     public boolean verify(Map<String, Object> params) {
 
 
@@ -87,7 +87,7 @@ public class AliPayService extends BasePayService {
      * @param sign 比对的签名结果
      * @return 生成的签名结果
      */
-    @Override
+    
     public boolean signVerify(Map<String, Object> params, String sign) {
 
         if (params instanceof JSONObject){
@@ -96,7 +96,7 @@ public class AliPayService extends BasePayService {
                     continue;
                 }
                 TreeMap response = new TreeMap((Map) params.get(key));
-                LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<>();
+                LinkedHashMap<Object, Object> linkedHashMap = new LinkedHashMap<Object, Object>();
                 linkedHashMap.put("code", response.remove("code") );
                 linkedHashMap.put("msg", response.remove("msg") );
                 linkedHashMap.putAll(response);
@@ -118,7 +118,7 @@ public class AliPayService extends BasePayService {
      * @param id 业务id, 数据的真实性.
      * @return true通过
      */
-    @Override
+    
     public boolean verifySource(String id) {
 
 //        return "true".equals(requestTemplate.getForObject( getHttpsVerifyUrl() + "partner=" + payConfigStorage.getPid() + "&notify_id=" + id, String.class));
@@ -147,7 +147,7 @@ public class AliPayService extends BasePayService {
      * @return 订单信息
      * @see PayOrder 支付订单信息
      */
-    @Override
+    
     public Map<String, Object> orderInfo(PayOrder order) {
 
         return setSign(getOrder(order));
@@ -171,7 +171,7 @@ public class AliPayService extends BasePayService {
         orderInfo.put("format", "json");
 
 
-        Map<String, Object> bizContent = new TreeMap<>();
+        Map<String, Object> bizContent = new TreeMap<String, Object>();
         bizContent.put("body", order.getBody());
         bizContent.put("seller_id", payConfigStorage.getSeller());
         bizContent.put("subject", order.getSubject());
@@ -208,7 +208,7 @@ public class AliPayService extends BasePayService {
      * @return 放回公共请求参数
      */
     private Map<String, Object> getPublicParameters(TransactionType transactionType ){
-        Map<String, Object> orderInfo = new TreeMap<>();
+        Map<String, Object> orderInfo = new TreeMap<String, Object>();
         orderInfo.put("app_id", payConfigStorage.getAppid());
         orderInfo.put("method", transactionType.getMethod());
         orderInfo.put("charset", payConfigStorage.getInputCharset());
@@ -227,7 +227,7 @@ public class AliPayService extends BasePayService {
      * @param message 消息
      * @return 返回输出消息
      */
-    @Override
+    
     public PayOutMessage getPayOutMessage(String code, String message) {
         return PayOutMessage.TEXT().content(code.toLowerCase()).build();
     }
@@ -238,7 +238,7 @@ public class AliPayService extends BasePayService {
      * @param payMessage 支付回调消息
      * @return 返回输出消息
      */
-    @Override
+    
     public PayOutMessage successPayOutMessage(PayMessage payMessage) {
         return PayOutMessage.TEXT().content("success").build();
     }
@@ -249,7 +249,7 @@ public class AliPayService extends BasePayService {
      * @param method    请求方式  "post" "get",
      * @return  获取输出消息，用户返回给支付端, 针对于web端
      */
-    @Override
+    
     public String buildRequest(Map<String, Object> orderInfo, MethodType method) {
         StringBuffer formHtml = new StringBuffer();
         formHtml.append("<form id=\"_alipaysubmit_\" name=\"alipaysubmit\" action=\"");
@@ -268,7 +268,7 @@ public class AliPayService extends BasePayService {
      * @param order 发起支付的订单信息
      * @return 返回图片信息，支付时需要的
      */
-    @Override
+    
     public BufferedImage genQrPay(PayOrder order) {
 
         Map<String, Object> orderInfo = orderInfo(order);
@@ -289,7 +289,7 @@ public class AliPayService extends BasePayService {
      * @param order 发起支付的订单信息
      * @return 支付结果
      */
-    @Override
+    
     public Map<String, Object> microPay(PayOrder order) {
         Map<String, Object> orderInfo = orderInfo(order);
 
@@ -310,11 +310,11 @@ public class AliPayService extends BasePayService {
      * @param outTradeNo 商户单号
      * @return 返回查询回来的结果集，支付方原值返回
      */
-    @Override
+    
     public Map<String, Object> query(String tradeNo, String outTradeNo) {
 
         return  query(tradeNo, outTradeNo, new Callback<Map<String, Object>>() {
-            @Override
+            
             public Map<String, Object> perform(Map<String, Object> map) {
                 return map;
             }
@@ -330,7 +330,7 @@ public class AliPayService extends BasePayService {
      * @param <T> 返回类型
      * @return  返回查询回来的结果集
      */
-    @Override
+    
     public <T> T query(String tradeNo, String outTradeNo, Callback<T> callback) {
 
         return secondaryInterface(tradeNo, outTradeNo, AliTransactionType.QUERY, callback);
@@ -343,11 +343,11 @@ public class AliPayService extends BasePayService {
      * @param outTradeNo 商户单号
      * @return 返回支付方交易关闭后的结果
      */
-    @Override
+    
     public Map<String, Object> close(String tradeNo, String outTradeNo) {
 
         return  close(tradeNo, outTradeNo, new Callback<Map<String, Object>>() {
-            @Override
+            
             public Map<String, Object> perform(Map<String, Object> map) {
                 return map;
             }
@@ -362,7 +362,7 @@ public class AliPayService extends BasePayService {
      * @param <T> 返回类型
      * @return 返回支付方交易关闭后的结果
      */
-    @Override
+    
     public <T> T close(String tradeNo, String outTradeNo, Callback<T> callback) {
         return  secondaryInterface(tradeNo, outTradeNo, AliTransactionType.CLOSE, callback);
     }
@@ -377,11 +377,11 @@ public class AliPayService extends BasePayService {
      * @see #refund(RefundOrder, Callback)
      */
     @Deprecated
-    @Override
+    
     public Map<String, Object> refund(String tradeNo, String outTradeNo, BigDecimal refundAmount, BigDecimal totalAmount) {
 
         return  refund(tradeNo, outTradeNo, refundAmount, totalAmount, new Callback<Map<String, Object>>() {
-            @Override
+            
             public Map<String, Object> perform(Map<String, Object> map) {
                 return map;
             }
@@ -400,7 +400,7 @@ public class AliPayService extends BasePayService {
      * @see #refund(RefundOrder, Callback)
      */
     @Deprecated
-    @Override
+    
     public <T> T refund(String tradeNo, String outTradeNo, BigDecimal refundAmount, BigDecimal totalAmount, Callback<T> callback) {
 
         return refund(new RefundOrder(tradeNo, outTradeNo, refundAmount, totalAmount), callback);
@@ -412,10 +412,10 @@ public class AliPayService extends BasePayService {
      * @param refundOrder   退款订单信息
      * @return 返回支付方申请退款后的结果
      */
-    @Override
+    
     public Map<String, Object> refund(RefundOrder refundOrder) {
         return  refund(refundOrder, new Callback<Map<String, Object>>() {
-            @Override
+            
             public Map<String, Object> perform(Map<String, Object> map) {
                 return map;
             }
@@ -430,7 +430,7 @@ public class AliPayService extends BasePayService {
      * @param <T> 返回类型
      * @return 返回支付方申请退款后的结果
      */
-    @Override
+    
     public <T> T refund(RefundOrder refundOrder, Callback<T> callback) {
         //获取公共参数
         Map<String, Object> parameters = getPublicParameters(AliTransactionType.REFUND);
@@ -453,10 +453,10 @@ public class AliPayService extends BasePayService {
      * @param outTradeNo 商户单号
      * @return 返回支付方查询退款后的结果
      */
-    @Override
+    
     public Map<String, Object> refundquery(String tradeNo, String outTradeNo) {
         return  refundquery(tradeNo, outTradeNo, new Callback<Map<String, Object>>() {
-            @Override
+            
             public Map<String, Object> perform(Map<String, Object> map) {
                 return map;
             }
@@ -471,7 +471,7 @@ public class AliPayService extends BasePayService {
      * @param <T> 返回类型
      * @return 返回支付方查询退款后的结果
      */
-    @Override
+    
     public <T> T refundquery(String tradeNo, String outTradeNo, Callback<T> callback) {
         return secondaryInterface(tradeNo, outTradeNo, AliTransactionType.REFUNDQUERY, callback);
     }
@@ -482,10 +482,10 @@ public class AliPayService extends BasePayService {
      * @param billType 账单时间：日账单格式为yyyy-MM-dd，月账单格式为yyyy-MM。
      * @return 返回支付方下载对账单的结果
      */
-    @Override
+    
     public Map<String, Object> downloadbill(Date billDate, String billType) {
         return  downloadbill(billDate, billType, new Callback<Map<String, Object>>() {
-            @Override
+            
             public Map<String, Object> perform(Map<String, Object> map) {
                 return map;
             }
@@ -500,13 +500,13 @@ public class AliPayService extends BasePayService {
      * @param <T> 返回类型
      * @return 返回支付方下载对账单的结果
      */
-    @Override
+    
     public <T> T downloadbill(Date billDate, String billType, Callback<T> callback) {
 
         //获取公共参数
         Map<String, Object> parameters = getPublicParameters(AliTransactionType.DOWNLOADBILL);
 
-        Map<String, Object> bizContent = new TreeMap<>();
+        Map<String, Object> bizContent = new TreeMap<String, Object>();
         bizContent.put("bill_type", billType);
         //目前只支持日账单
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -529,7 +529,7 @@ public class AliPayService extends BasePayService {
      * @param <T> 返回类型
      * @return 返回支付方对应接口的结果
      */
-    @Override
+    
     public <T> T secondaryInterface(Object tradeNoOrBillDate, String outTradeNoBillType, TransactionType transactionType, Callback<T> callback) {
 
         if (transactionType == AliTransactionType.REFUND){
@@ -566,7 +566,7 @@ public class AliPayService extends BasePayService {
      */
     private  Map<String, Object> getBizContent(String tradeNo, String outTradeNo,  Map<String, Object> bizContent){
         if (null == bizContent){
-           bizContent = new TreeMap<>();
+           bizContent = new TreeMap<String, Object>();
         }
         if (null != outTradeNo){
             bizContent.put("out_trade_no", outTradeNo);

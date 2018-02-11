@@ -31,13 +31,11 @@ public class AliPayConfigStorage extends BasePayConfigStorage {
         this.appId = appId;
     }
 
-    @Override
     public String getAppid() {
         return appId;
     }
 
 
-    @Override
     public String getPid() {
         return pid;
     }
@@ -46,7 +44,6 @@ public class AliPayConfigStorage extends BasePayConfigStorage {
         this.pid = pid;
     }
 
-    @Override
     public String getSeller() {
         return seller;
     }

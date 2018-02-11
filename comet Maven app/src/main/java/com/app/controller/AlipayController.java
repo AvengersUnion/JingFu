@@ -10,6 +10,8 @@ import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -46,7 +48,7 @@ public class AlipayController {
 	
 	@Resource(name="alipayService")
 	private AlipayService alipayService;
-	
+	public Logger logger = LoggerFactory.getLogger("alipay");
 	private String appid = Application.aliAppid;
 	private String notifyUrl = Application.aliNotifyUrl;
 	private String privatekey = Application.aliPrivateKey;
@@ -75,12 +77,18 @@ public class AlipayController {
 		try {
 //			logger.trace("创建订单："+request.toString());
 			// 这里和普通的接口调用不同，使用的是sdkExecute
+			System.out.println(logger);
+			logger.trace("支付宝创建订单，请求内容：OutTradeNo："+model.getOutTradeNo()+",subject:"+model.getSubject()+",getTimeoutExpress:"+model.getTimeoutExpress()+
+						",getTotalAmount:"+model.getTotalAmount()+",getProductCode:"+model.getProductCode());
 			AlipayTradeAppPayResponse response = alipayClient.sdkExecute(request);
+			logger.trace("支付宝创建订单，返回内容："+response.getBody());
 			System.out.println(response.getBody());// 就是orderString 可以直接给客户端请求，无需再做处理。
 //			logger.trace("创建订单返回："+response.getBody());
 			return response.getBody();
 		} catch (AlipayApiException e) {
 			e.printStackTrace();
+			logger.error("支付宝创建订单，请求失败，请求内容：OutTradeNo："+model.getOutTradeNo()+",subject:"+model.getSubject()+",getTimeoutExpress:"+model.getTimeoutExpress()+
+						",getTotalAmount:"+model.getTotalAmount()+",getProductCode:"+model.getProductCode());
 			return null;
 		}
 

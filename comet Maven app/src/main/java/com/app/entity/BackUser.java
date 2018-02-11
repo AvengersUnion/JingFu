@@ -11,6 +11,7 @@ public class BackUser {
 	private String passWord;
 	private Date nettime;
 	private String token;
+	private String portrait;
 	//address表中的country，province，city，county，village
 	private String community;
 	private String houseNumber;
@@ -180,12 +181,21 @@ public class BackUser {
 	public void setToken(String token) {
 		this.token = token;
 	}
+	
+	public String getPortrait() {
+		return portrait;
+	}
+	public void setPortrait(String portrait) {
+		this.portrait = portrait;
+	}
 	@Override
 	public String toString() {
 		return "BackUser [id=" + id + ", uName=" + uName + ", userIphone=" + userIphone + ", passWord=" + passWord
-				+ ", nettime=" + nettime + ", token=" + token + ", community=" + community + ", houseNumber="
-				+ houseNumber + ", province=" + province + ", city=" + city + ", county=" + county + ", village="
-				+ village + ", address=" + address + ", backUserList=" + backUserList + ", wxAuths=" + wxAuths + "]";
+				+ ", nettime=" + nettime + ", token=" + token + ", portrait=" + portrait + ", community=" + community
+				+ ", houseNumber=" + houseNumber + ", province=" + province + ", city=" + city + ", county=" + county
+				+ ", village=" + village + ", address=" + address + ", backUserList=" + backUserList + ", wxAuths="
+				+ wxAuths + "]";
 	}
+	
 	
 }

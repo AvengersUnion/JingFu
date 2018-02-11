@@ -145,7 +145,6 @@ public class PayMessageRouter {
       if(rule.isAsync()) {
         futures.add(
             executorService.submit(new Runnable() {
-              @Override
               public void run() {
                 rule.service(payMessage, payService, exceptionHandler);
               }
@@ -160,7 +159,6 @@ public class PayMessageRouter {
 
     if (futures.size() > 0) {
       executorService.submit(new Runnable() {
-        @Override
         public void run() {
           for (Future future : futures) {
             try {

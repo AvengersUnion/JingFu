@@ -51,7 +51,7 @@
 	</select>
 	<!-- 根据用户的id查询用户 -->
 	<select id="getUserById" parameterType="Integer" resultMap="BaseUserMap">
-		SELECT ID,UN,PN,PROVINCE,CITY,COUNTY FROM consumer
+		SELECT ID,UN,PN,PROVINCE,CITY,COUNTY,portrait FROM consumer
 		where id=#{id}
 	</select>
 	<!-- 添加用户 -->
@@ -71,6 +71,9 @@
       	<if test="county !=null and county != ''">county=#{county}</if>
       	</set>
       	where id=#{id}
+	</update>
+	<update id="updateNickNameById">
+		update consumer set un=#{1} where id=#{0}
 	</update>
 	<!-- 删除用户 -->
 	<delete id="deleteUser" parameterType="Integer">

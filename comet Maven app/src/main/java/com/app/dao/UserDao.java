@@ -46,4 +46,11 @@ public interface UserDao {
 	 * @return
 	 */
 	BackUser getUserByToken(String token);
+	/**
+	 * 修改昵称
+	 * @param userId
+	 * @param nickName
+	 * @return
+	 */
+	int updateNickNameById(String userId, String nickName);
 }

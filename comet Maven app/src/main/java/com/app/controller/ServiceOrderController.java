@@ -22,13 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.app.common.BaseResult;
 import com.app.entity.Alipay;
 import com.app.entity.ServiceOrder;
+import com.app.entity.Wxpay;
 import com.app.service.AlipayService;
 import com.app.service.ServiceOrderService;
+import com.app.service.WxpayService;
 import com.app.util.Application;
+import com.app.util.pay.api.PayService;
 import com.app.util.pay.bean.PayOrder;
 import com.app.util.wxpay.api.WxPayConfigStorage;
 import com.app.util.wxpay.api.WxPayService;
@@ -46,6 +50,9 @@ public class ServiceOrderController {
 	@Resource(name="alipayService")
 	private AlipayService alipayService;
 	
+	@Resource(name="wxpayService")
+	private WxpayService wxpayService;
+	
 	/**
 	 * 创建支付订单
 	 * @return
@@ -58,24 +65,20 @@ public class ServiceOrderController {
 		String orderId = request.getParameter("orderId");
 		ServiceOrder serviceOrder = serviceOrderService.getServiceOrderByOrderId(orderId);
 		if(type != null && "0".equals(type)) {
-//			WxConnectMpay wxConnectMpay = new WxConnectMpay();
-//			String resp = wxConnectMpay.createWXOrder(serviceOrder);
-//			System.out.println("resp:"+resp);
-			
-			WxPayConfigStorage wxPayConfigStorage = new WxPayConfigStorage();
-	        wxPayConfigStorage.setMchId(Application.wxmchid);
-	        wxPayConfigStorage.setAppid(Application.wxAPPID);
-	        wxPayConfigStorage.setKeyPublic(Application.wxpayKey);
-	        wxPayConfigStorage.setKeyPrivate(Application.wxpayKey);
-	        wxPayConfigStorage.setNotifyUrl(Application.wxBackUrl);
-	        wxPayConfigStorage.setSignType("MD5");
-	        wxPayConfigStorage.setInputCharset("utf-8");
-
-	        WxPayService wxpayservice =  new WxPayService(wxPayConfigStorage);
-	        PayOrder payOrder = new PayOrder(serviceOrder.getServiceName(), "",  new BigDecimal(0.01) , serviceOrder.getOrderId());
-	        payOrder.setTransactionType(WxTransactionType.APP);
-	        JSONObject jsonobj = wxpayservice.unifiedOrder(payOrder);
-	        System.out.println(jsonobj);
+			WxpayController wxpayController = new WxpayController();
+			Map<String,Object> jsonMap = wxpayController.createOrder(serviceOrder);
+			String jsonStr = JSON.toJSONString(jsonMap);
+	        System.out.println(jsonStr);
+	        //保存微信支付订单
+	        Wxpay wxpay = new Wxpay();
+	        wxpay.setConsumerid(serviceOrder.getCustomerId());
+	        wxpay.setMoneyType("start");
+	        wxpay.setOuttradeno(orderId);
+	        wxpay.setPrepayid(jsonMap.get("prepayid").toString());
+	        wxpay.setSubject(serviceOrder.getServiceName());
+	        wxpay.setTotalFee("0.01");
+	        wxpayService.createOrder(wxpay);
+	        return jsonStr;
 		}
 		if(type != null && "1".equals(type)) {
 			//支付宝支付
@@ -96,7 +99,6 @@ public class ServiceOrderController {
 					JSONObject jsonObj = JSONObject.parseObject(bizContent);
 					Alipay alipay = new Alipay();
 					alipay.setConsumerid(serviceOrder.getCustomerId());
-					alipay.setInsertdatetime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(m.get("timestamp")));
 					alipay.setOuttradeno(jsonObj.getString("out_trade_no"));
 					alipay.setTotalAmount(jsonObj.getString("total_amount"));
 					alipay.setSubject(jsonObj.getString("subject"));

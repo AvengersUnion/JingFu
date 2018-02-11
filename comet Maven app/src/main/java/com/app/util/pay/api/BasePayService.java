@@ -31,17 +31,17 @@ public abstract class BasePayService implements PayService {
      * 设置支付配置
      * @param payConfigStorage 支付配置
      */
-    @Override
+    
     public BasePayService setPayConfigStorage(PayConfigStorage payConfigStorage) {
         this.payConfigStorage = payConfigStorage;
         return this;
     }
 
-    @Override
+    
     public PayConfigStorage getPayConfigStorage() {
         return payConfigStorage;
     }
-    @Override
+    
     public HttpRequestTemplate getHttpRequestTemplate() {
         return requestTemplate;
     }
@@ -51,7 +51,7 @@ public abstract class BasePayService implements PayService {
      * @param configStorage http请求配置
      * @return 支付服务
      */
-    @Override
+    
     public BasePayService setRequestTemplateConfigStorage(HttpConfigStorage configStorage) {
         this.requestTemplate = new HttpRequestTemplate(configStorage);
         return this;
@@ -73,7 +73,7 @@ public abstract class BasePayService implements PayService {
      * @param characterEncoding 字符编码
      * @return 签名
      */
-    @Override
+    
     public String createSign(String content, String characterEncoding) {
 
         return  SignUtils.valueOf(payConfigStorage.getSignType()).createSign(content, payConfigStorage.getKeyPrivate(),characterEncoding);
@@ -85,7 +85,7 @@ public abstract class BasePayService implements PayService {
      * @param characterEncoding 字符编码
      * @return 签名
      */
-    @Override
+    
     public String createSign(Map<String, Object> content, String characterEncoding) {
         return  SignUtils.valueOf(payConfigStorage.getSignType()).sign(content, payConfigStorage.getKeyPrivate(),characterEncoding);
     }
@@ -97,7 +97,7 @@ public abstract class BasePayService implements PayService {
      * @param is           请求流
      * @return 获得回调的请求参数
      */
-    @Override
+    
     public Map<String, Object> getParameter2Map (Map<String, String[]> parameterMap, InputStream is) {
 
         Map<String, Object> params = new TreeMap<String,Object>();

@@ -20,7 +20,7 @@
 		<param-value>classpath:spring/spring-*.xml</param-value>
 	</context-param>
 
-<filter>  
+	<filter>  
         <filter-name>characterEncodingFilter</filter-name>  
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>  
         <init-param>  
@@ -36,6 +36,14 @@
         <filter-name>characterEncodingFilter</filter-name>  
         <url-pattern>/*</url-pattern>  
     </filter-mapping>  
+    <filter>
+    	<filter-name>contextFilter</filter-name>
+    	<filter-class>com.app.filter.SimpleCORSFilter</filter-class>
+    </filter>
+    <filter-mapping>
+    	<filter-name>contextFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+    </filter-mapping>
 	<servlet>
 		<servlet-name>mvc</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
@@ -59,6 +67,14 @@
 		<url-pattern>/static/images/*</url-pattern>
 		<url-pattern>/static/*</url-pattern>
 	</servlet-mapping>
-
+	
+	<context-param>
+		<param-name>logbackConfigLocation</param-name>
+		<param-value>classpath:logback.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>ch.qos.logback.ext.spring.web.LogbackConfigListener</listener-class>
+	</listener>
+	
 
 </web-app>

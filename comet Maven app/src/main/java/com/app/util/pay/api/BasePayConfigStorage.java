@@ -86,7 +86,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
      */
     private boolean isCertSign = false;
 
-    @Override
+    
     public CertDescriptor getCertDescriptor() {
         if (!isCertSign){
            throw new PayErrorException(new PayException("certDescriptor fail", "isCertSign is false"));
@@ -97,7 +97,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         return certDescriptor;
     }
 
-    @Override
+    
     public String getKeyPrivate() {
         return keyPrivate;
     }
@@ -105,7 +105,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
     public void setKeyPrivate(String keyPrivate) {
         this.keyPrivate = keyPrivate;
     }
-    @Override
+    
     public String getKeyPrivateCertPwd() {
         return keyPrivateCertPwd;
     }
@@ -114,7 +114,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.keyPrivateCertPwd = keyPrivateCertPwd;
     }
 
-    @Override
+    
     public String getKeyPublic() {
         return keyPublic;
     }
@@ -123,7 +123,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.keyPublic = keyPublic;
     }
 
-    @Override
+    
     public String getNotifyUrl() {
         return notifyUrl;
     }
@@ -133,7 +133,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
     }
 
 
-    @Override
+    
     public String getReturnUrl() {
         return returnUrl;
     }
@@ -142,7 +142,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.returnUrl = returnUrl;
     }
 
-    @Override
+    
     public String getSignType() {
         return signType;
     }
@@ -151,7 +151,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.signType = signType;
     }
 
-    @Override
+    
     public String getInputCharset() {
         return inputCharset;
     }
@@ -160,7 +160,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.inputCharset = inputCharset;
     }
 
-    @Override
+    
     public String getPayType() {
         return payType;
     }
@@ -169,7 +169,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.payType = payType;
     }
 
-    @Override
+    
     public MsgType getMsgType() {
         return msgType;
     }
@@ -178,45 +178,45 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.msgType = msgType;
     }
 
-    @Override
+    
     public String getAccessToken() {
         return this.accessToken;
     }
 
-    @Override
+    
     public Lock getAccessTokenLock() {
         return this.accessTokenLock;
     }
 
-    @Override
+    
     public long getExpiresTime() {
         return expiresTime;
     }
 
-    @Override
+    
     public boolean isAccessTokenExpired() {
         return System.currentTimeMillis() > this.expiresTime;
     }
 
 
-    @Override
+    
     public synchronized void updateAccessToken(String accessToken, int expiresInSeconds) {
         this.accessToken = accessToken;
         this.expiresTime = System.currentTimeMillis() + (expiresInSeconds - 600) * 1000L;
     }
 
-    @Override
+    
     public synchronized void updateAccessToken(String accessToken, long expiresTime) {
         this.accessToken = accessToken;
         this.expiresTime = expiresTime;
     }
 
-    @Override
+    
     public void expireAccessToken() {
         this.expiresTime = 0;
     }
 
-    @Override
+    
     public String getToken() {
         return null;
     }
@@ -233,7 +233,7 @@ public abstract class BasePayConfigStorage implements PayConfigStorage{
         this.accessTokenLock = accessTokenLock;
     }
 
-    @Override
+    
     public boolean isTest() {
         return isTest;
     }

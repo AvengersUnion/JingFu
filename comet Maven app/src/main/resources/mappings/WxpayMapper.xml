@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.app.dao.AlipayDao" >
+<mapper namespace="com.app.dao.WxpayDao" >
 	
 	<!-- 创建订单 -->
-	<insert id="createOrder" parameterType="com.app.entity.Alipay">
-		insert into alipaylistinfo(
+	<insert id="createOrder" parameterType="com.app.entity.Wxpay">
+		insert into wxpaylistinfo(
 			consumerid,
-			OUT_TRADE_NO,
+			OUTTRADENO,
 			money_type,
-			TOTAL_AMOUNT,
+			total_fee,
 			SUBJECT,
-			TIMEOUT_EXPRESS)
+			prepayid)
 		values(
 			#{consumerid},
 			#{outtradeno},
 			#{moneyType},
-			#{totalAmount},
+			#{totalFee},
 			#{subject},
-			#{timeoutExpress}
+			#{prepayid}
 		)
 	</insert>
 	

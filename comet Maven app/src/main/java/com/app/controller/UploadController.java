@@ -81,7 +81,8 @@ public class UploadController {
 
 			// return kindEditorResult.ok(HTTP_FRONT_PATH + save_back_path +
 			// newFileName);
-			return kindEditorResult.ok("http://www.yehaikeji.com:8080/comet/static/images/zixun/"
+			return kindEditorResult.ok("/comet/static/images/zixun/"
+//			return kindEditorResult.ok("http://www.yehaikeji.com:8080/comet/static/images/zixun/"
 					+ newFileName);
 		}
 

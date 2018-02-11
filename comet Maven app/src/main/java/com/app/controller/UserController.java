@@ -7,12 +7,15 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSONObject;
 import com.app.entity.Address;
 import com.app.entity.BackUser;
 import com.app.service.UserService;
@@ -23,6 +26,79 @@ import com.app.util.PagingUtils;
 public class UserController {
 	@Resource(name="userService")
 	private UserService userService;
+	
+	
+	
+	/**
+	 * 修改昵称
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	 @RequestMapping(value="/updateNickName.action",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+	 @ResponseBody
+	 public String updateNickName(HttpServletRequest request,HttpServletResponse response) {
+		 JSONObject obj = new JSONObject();
+		 String userId = request.getParameter("userId");
+		 String nickName = request.getParameter("userName");
+		 if(userId == null || "".equals(userId)) {
+			 obj.put("code", "1");
+			 obj.put("msg", "请输入用户id！");
+			 return obj.toJSONString();
+		 }
+		 if(nickName == null || "".equals(nickName)) {
+			 obj.put("code", "2");
+			 obj.put("msg", "请输入用户昵称！");
+			 return obj.toJSONString();
+		 }
+		 int num = userService.updateNickNameById(userId,nickName);
+		 if(num==0) {
+			 obj.put("code", "3");
+			 obj.put("msg", "没有此用户！");
+			 return obj.toJSONString(); 
+		 }
+		 if(num == 1) {
+			 obj.put("code", "0");
+			 obj.put("msg", "修改成功！");
+			 obj.put("userId", userId);
+			 obj.put("userName", nickName);
+			 return obj.toJSONString(); 
+		 }
+		 return null;
+	 }
+	 /**
+		 * 获取用户信息
+		 * @param request
+		 * @param response
+		 * @return
+		 */
+		 @RequestMapping(value="/getUserById.action",produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
+		 @ResponseBody
+		 public String getUserById(HttpServletRequest request,HttpServletResponse response) {
+			 JSONObject obj = new JSONObject();
+			 String userId = request.getParameter("userId");
+			 if(userId == null || "".equals(userId)) {
+				 obj.put("code", "1");
+				 obj.put("msg", "请输入用户id！");
+				 return obj.toJSONString();
+			 }
+			 BackUser user =null;
+			user = userService.getUserById(Integer.parseInt(userId));
+			 if(user==null) {
+				 obj.put("code", "2");
+				 obj.put("msg", "没有此用户！");
+				 return obj.toJSONString(); 
+			 }else {
+				 obj.put("code", "0");
+				 obj.put("msg", "查询成功！");
+				 obj.put("userId", String.valueOf(user.getId()));
+				 obj.put("userName", user.getuName());
+				 obj.put("phone", user.getUserIphone());
+				 obj.put("portrait", user.getPortrait());
+				 return obj.toJSONString(); 
+			 }
+		 }
+	 
 	/**
 	 * 返回所有的用户
 	 * @param pageNumber

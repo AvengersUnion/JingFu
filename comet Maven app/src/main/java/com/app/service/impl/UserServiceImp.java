@@ -101,4 +101,12 @@ public class UserServiceImp implements UserService{
 		return userDao.getUserByToken(token);
 	}
 
+	/**
+	 * 修改昵称
+	 */
+	public int updateNickNameById(String userId, String nickName) {
+		
+		return userDao.updateNickNameById(userId,nickName);
+	}
+
 }

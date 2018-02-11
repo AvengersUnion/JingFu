@@ -217,7 +217,6 @@ public class WxPayService extends BasePayService {
 
         ////统一下单
         JSONObject result = unifiedOrder(order);
-
         //如果是扫码支付或者刷卡付无需处理，直接返回
         if (WxTransactionType.NATIVE == order.getTransactionType() || WxTransactionType.MICROPAY == order.getTransactionType() || WxTransactionType.MWEB == order.getTransactionType()) {
             return result;

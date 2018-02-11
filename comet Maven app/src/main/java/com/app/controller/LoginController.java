@@ -225,13 +225,16 @@ public class LoginController {
 	    	if(userAuths.getPhone() != null && !userAuths.getPhone().equals("")) {
 	    		//已经绑定的
 	    		BackUser user = userService.getUserByPhone(userAuths.getPhone());
+	    		String token = MD5Util.MD5(userAuths.getPhone()+SendMessage.createCode()+new Date().getTime());
+				userService.updateToken(token,userAuths.getPhone());
+				user.setToken(token);
 	    		HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
 	            result.put("type", "0");
 	    		result.put("mes", "登陆成功！");
 	    		result.put("phone",userAuths.getPhone());
-	    		result.put("id", user.getId());
-	    		result.put("token", user.getToken());
+	    		result.put("id", String.valueOf(user.getId()));
+	    		result.put("token", token);
 	    	}else {
 	    		//未绑定的
 	    		result.put("type", "1");
@@ -283,7 +286,7 @@ public class LoginController {
 	            result.put("type", "0");
 	    		result.put("mes", "登陆成功！");
 	    		result.put("phone",userAuths.getPhone());
-	    		result.put("id", user.getId());
+	    		result.put("id", String.valueOf(user.getId()));
 	    		result.put("token", user.getToken());
 	    	}else {
 	    		//未绑定的
@@ -324,13 +327,16 @@ public class LoginController {
 	    	if(userAuths.getPhone() != null && !userAuths.getPhone().equals("")) {
 	    		//已经绑定的
 	    		BackUser user = userService.getUserByPhone(userAuths.getPhone());
+	    		String token = MD5Util.MD5(userAuths.getPhone()+SendMessage.createCode()+new Date().getTime());
+				userService.updateToken(token,userAuths.getPhone());
+				user.setToken(token);
 	    		HttpSession session = request.getSession();
 	            session.setAttribute("user", user);
 	            result.put("type", "0");
 	    		result.put("mes", "登陆成功！");
 	    		result.put("phone",userAuths.getPhone());
-	    		result.put("id", user.getId());
-	    		result.put("token", user.getToken());
+	    		result.put("id", String.valueOf(user.getId()));
+	    		result.put("token", token);
 	    	}else {
 	    		//未绑定的
 	    		result.put("type", "1");

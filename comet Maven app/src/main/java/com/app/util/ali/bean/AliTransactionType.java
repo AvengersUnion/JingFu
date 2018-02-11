@@ -76,7 +76,7 @@ public enum  AliTransactionType implements TransactionType {
         this.method = method;
     }
 
-    @Override
+    
     public String getType() {
         return this.name();
     }
@@ -85,7 +85,7 @@ public enum  AliTransactionType implements TransactionType {
      * 获取接口名称
      * @return 接口名称
      */
-    @Override
+    
     public String getMethod() {
         return this.method;
     }
