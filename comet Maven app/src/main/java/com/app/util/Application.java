@@ -32,6 +32,10 @@ public class Application {
     public static String aliNotifyUrl = get("aliNotifyUrl");
     public static String aliPayTradeUrl = get("aliPayTradeUrl");
     
+    //mob支付
+    public static String mobappkey = get("mobappkey");
+    public static String mobpreparepay = get("mobpreparepay");
+    public static String mobprivatekey = get("mobprivatekey");
     private static Properties props;
 
     private static String get(String key) {

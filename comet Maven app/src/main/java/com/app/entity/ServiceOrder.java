@@ -54,6 +54,18 @@ public class ServiceOrder {
     private String remark;
     
     private Double price;	//备用
+    //支付成功返回信息
+    private String orderIdW;//尾款订单号
+    private String appkey;
+    private String amount;
+    private String result;
+    private String ticketId;
+    private String payAt;
+    private String nonce_str;
+    private String msg;
+    private String channel;
+    private String sign;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -121,13 +133,6 @@ public class ServiceOrder {
 	}
 	public void setFlag(Integer flag) {
 		this.flag = flag;
-	}
-	@Override
-	public String toString() {
-		return "ServiceOrder [id=" + id + ", orderId=" + orderId + ", serviceId=" + serviceId + ", customerId="
-				+ customerId + ", addressId=" + addressId + ", sc=" + sc + ", discount=" + discount + ", createtime="
-				+ createtime + ", state=" + state + ", flag=" + flag + ", money=" + money + ", serviceTime="
-				+ serviceTime + ", remark=" + remark + "]";
 	}
 	/**
 	 * @return the uName
@@ -261,6 +266,79 @@ public class ServiceOrder {
 	public void setPrice(Double price) {
 		this.price = price;
 	}
-
+	public String getOrderIdW() {
+		return orderIdW;
+	}
+	public void setOrderIdW(String orderIdW) {
+		this.orderIdW = orderIdW;
+	}
+	public String getAppkey() {
+		return appkey;
+	}
+	public void setAppkey(String appkey) {
+		this.appkey = appkey;
+	}
+	public String getAmount() {
+		return amount;
+	}
+	public void setAmount(String amount) {
+		this.amount = amount;
+	}
+	public String getResult() {
+		return result;
+	}
+	public void setResult(String result) {
+		this.result = result;
+	}
+	public String getTicketId() {
+		return ticketId;
+	}
+	public void setTicketId(String ticketId) {
+		this.ticketId = ticketId;
+	}
+	public String getPayAt() {
+		return payAt;
+	}
+	public void setPayAt(String payAt) {
+		this.payAt = payAt;
+	}
+	public String getNonce_str() {
+		return nonce_str;
+	}
+	public void setNonce_str(String nonce_str) {
+		this.nonce_str = nonce_str;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
+	public String getChannel() {
+		return channel;
+	}
+	public void setChannel(String channel) {
+		this.channel = channel;
+	}
+	public String getSign() {
+		return sign;
+	}
+	public void setSign(String sign) {
+		this.sign = sign;
+	}
+	@Override
+	public String toString() {
+		return "ServiceOrder [id=" + id + ", orderId=" + orderId + ", uName=" + uName + ", uIphone=" + uIphone
+				+ ", serviceId=" + serviceId + ", toyear=" + toyear + ", serviceType=" + serviceType + ", community="
+				+ community + ", houseNumber=" + houseNumber + ", city=" + city + ", customerId=" + customerId
+				+ ", addressId=" + addressId + ", sc=" + sc + ", discount=" + discount + ", serviceName=" + serviceName
+				+ ", createtime=" + createtime + ", state=" + state + ", flag=" + flag + ", money=" + money
+				+ ", endMoney=" + endMoney + ", serviceTime=" + serviceTime + ", remark=" + remark + ", price=" + price
+				+ ", orderIdW=" + orderIdW + ", appkey=" + appkey + ", amount=" + amount + ", result=" + result
+				+ ", ticketId=" + ticketId + ", payAt=" + payAt + ", nonce_str=" + nonce_str + ", msg=" + msg
+				+ ", channel=" + channel + ", sign=" + sign + "]";
+	}
+	
+	
 	
 }

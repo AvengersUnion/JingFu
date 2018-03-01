@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.app.dao.MobpayDao" >
+	<!-- 保存订单信息 -->
+	<insert id="save" parameterType="com.app.entity.Mobpay">
+		insert into mobpay(
+			appkey,order_id,order_id_se,order_type,app_user_id,app_user_nickname,amount,subject,body,description,
+			metadata,pay_channel,client_ip,plat,repeat_pay_auto_refund,timeout,sign,nonce_str,code,msg,ticket_id,
+			nonce_str_back,sign_back,pay_at,result,trade_msg)
+		values(
+			appkey,orderId,orderIdSe,OrderType,appUserId,appUserNickname,amount,subject,body,description,
+			metadata,payChannel,clientIp,plat,repeatPayAutoRefund,timeout,sign,nonceStr,code,msg,ticketId,
+			nonceStrBack,signBack,payAt,result,tradeMsg
+		)
+	</insert>
+</mapper>

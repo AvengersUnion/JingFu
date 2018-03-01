@@ -99,4 +99,48 @@
 		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
 		where service_order.order_id=#{orderId}
 	</select>
+	<!-- 支付成功更新订单表 -->
+	<update id="savePayBack" parameterType="com.app.entity.ServiceOrder">
+		update service_order set
+			appkey=#{appkey},
+			amount=#{amount},
+			result=#{result},
+			ticketId=#{ticketId},
+			payAt=#{payAt},
+			nonce_str=#{nonce_str},
+			msg=#{msg},
+			channel=#{channel},
+			sign=#{sign},
+			state=#{state}
+		where 
+			order_id=#{orderId}
+	</update>
+	<!-- 尾款支付成功通知 -->
+	<insert id="savePayBackW" parameterType="com.app.entity.ServiceOrder">
+		insert into order_end(
+			orderId,
+			orderIdW,
+			appkey,
+			amount,
+			result,
+			ticketId,
+			payAt,
+			nonce_str,
+			msg,
+			channel,
+			sign
+		)values(
+			orderId,
+			orderIdW,
+			appkey,
+			amount,
+			result,
+			ticketId,
+			payAt,
+			nonce_str,
+			msg,
+			channel,
+			sign
+		)
+	</insert>
 </mapper>

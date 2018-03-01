@@ -19,4 +19,6 @@ public interface ServiceOrderDao {
 	void updateServiceOrderByState(ServiceOrder serviceOrder);
 	//根据订单编号获取订单
 	ServiceOrder getServiceOrderByOrderId(String orderId);
+	void savePayBackW(ServiceOrder serviceOrder);
+	void savePayBack(ServiceOrder serviceOrder);
 }

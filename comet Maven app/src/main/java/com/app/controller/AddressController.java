@@ -6,6 +6,8 @@ import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,6 +19,8 @@ import com.app.service.AddressService;
 @Controller
 @RequestMapping("/address/")
 public class AddressController {
+	
+	Logger logger = LoggerFactory.getLogger(AddressController.class);
 	@Resource(name = "addressService")
 	AddressService addressService;
 
@@ -33,6 +37,7 @@ public class AddressController {
 	@RequestMapping("delete.action")
 	@ResponseBody
 	public String deleteAddrById(String id) {
+		System.out.println("删除地址：id:"+id);
 		if (null != id && null != addressService.getAddressById(id)) {
 			addressService.deleteAddrById(id);
 			return "1";
@@ -50,7 +55,7 @@ public class AddressController {
 	@RequestMapping("all.action")
 	@ResponseBody
 	public List<Address> getAddressList(Integer userId) {
-
+		System.out.println("获取所有地址");
 		return addressService.getAddressList(userId);
 	}
 
@@ -68,6 +73,8 @@ public class AddressController {
 	@RequestMapping(value = "add.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String addAddress(String customerId,String uName,String uIphone,String community, String houseNumber) {
+		logger.info("添加地址：customerId:"+customerId+",uName:"+uName+",uIphone:"+uIphone+",community:"+community+",houseNumber:"+houseNumber);
+		System.out.println("添加地址：customerId:"+customerId+",uName:"+uName+",uIphone:"+uIphone+",community:"+community+",houseNumber:"+houseNumber);
 		if (null != customerId && null != community && null != houseNumber) {
 			if (Pattern.matches(REGEX_MOBILE, uIphone)) {
 				Address address = new Address();
@@ -101,6 +108,7 @@ public class AddressController {
 	@RequestMapping(value = "update.action", produces = "text/html;charset=UTF-8", method = RequestMethod.POST)
 	@ResponseBody
 	public String updateAddr(String id,String uName,String uIphone,String community, String houseNumber) {
+		System.out.println("更新地址：id："+id+",uName:"+uName+",uIphone:"+uIphone+",community:"+community+",houseNumber:"+houseNumber);
 		if (null != id && null != addressService.getAddressById(id)) {
 			Address address = new Address();
 			address.setId(id);
@@ -124,7 +132,7 @@ public class AddressController {
 	@RequestMapping("find.action")
 	@ResponseBody
 	public Address getAddressById(String id) {
-
+		System.out.println("查询单个地址：id:"+id);
 		return addressService.getAddressById(id);
 	}
 }

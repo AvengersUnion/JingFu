@@ -19,4 +19,8 @@ public interface ServiceOrderService {
 	void updateServiceOrderByState(ServiceOrder serviceOrder);
 	//根据订单编号查询订单
 	ServiceOrder getServiceOrderByOrderId(String orderId);
+	//保存尾款支付通知
+	void savePayBackW(ServiceOrder serviceOrder);
+	//保存支付通知
+	void savePayBack(ServiceOrder serviceOrder);
 }

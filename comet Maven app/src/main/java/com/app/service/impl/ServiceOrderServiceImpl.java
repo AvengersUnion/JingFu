@@ -88,4 +88,16 @@ public class ServiceOrderServiceImpl implements ServiceOrderService{
 		return serviceOrderDao.getServiceOrderByOrderId(orderId);
 	}
 
+	@Override
+	public void savePayBackW(ServiceOrder serviceOrder) {
+		serviceOrderDao.savePayBackW(serviceOrder);
+		
+	}
+
+	@Override
+	public void savePayBack(ServiceOrder serviceOrder) {
+		serviceOrderDao.savePayBack(serviceOrder);
+		
+	}
+
 }
