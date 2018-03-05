@@ -62,13 +62,13 @@
 	</select>
 	<!-- 取消支付,根据用户的id,返回的服务订单,这条数据是该用户最新的数据 -->
 	<select id="getServiceOrderByCancel" parameterType="String" resultType="com.app.entity.ServiceOrder">
-		SELECT service_order.id,order_id,service.service_name,address.community,address.houseNumber,
-		service.PRICE,uName,uIphone,service_Id,service_order.CUSTOMER_ID,address_Id,sc,
-		service_order.discount,createtime,state,flag,money,serviceTime,remark
-		FROM service_order 
-		LEFT JOIN address ON service_order.ADDRESS_ID=address.ID 
-		LEFT JOIN service ON service.ID=service_order.SERVICE_ID
-		WHERE service_order.CUSTOMER_ID =#{customerId}
+		SELECT a.id id,a.order_id orderId,c.service_name serviceName,b.community community,b.houseNumber houseNumber,
+		c.PRICE price,b.uName uName,b.uIphone uIphone,a.service_Id serviceId,a.CUSTOMER_ID customerId,a.address_Id addressId,a.sc sc,
+		a.discount discount,date_format(a.createtime,'%Y-%m-%d %H:%i:%s') as createtime,a.state state,a.flag flag,a.money,a.serviceTime serviceTime,a.remark remark
+		FROM service_order a
+		LEFT JOIN address b ON a.ADDRESS_ID=b.ID 
+		LEFT JOIN service c ON c.ID=a.SERVICE_ID
+		WHERE a.CUSTOMER_ID =#{customerId}
 		ORDER BY createtime DESC
 	</select>
 	<!-- 根据id查询订单 -->

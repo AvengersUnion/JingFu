@@ -19,12 +19,13 @@
 	</resultMap>
 	<!-- 根据用户的id查询地址的id -->
 	<select id="getIdsAddr" parameterType="int" resultType="String">
-		SELECT ID FROM address
-		WHERE address.CUSTOMER_ID=#{userId}
+		SELECT ID FROM address a
+		WHERE a.status='0' and a.CUSTOMER_ID=#{userId}
 	</select>
 	<!-- 根据id删除用户的地址 -->
 	<delete id="deleteAddrById" parameterType="String">
-		DELETE FROM address WHERE address.ID=#{id}
+		<!-- DELETE FROM address WHERE address.ID=#{id} -->
+		update address a set a.status='1' where a.id=#{id} 
 	</delete>
 	
 	<!-- 根据用户的id查询所有的地址 -->
@@ -33,7 +34,7 @@
 		address.CITY,address.COUNTY,address.VILLAGE,address.community,address.houseNumber 
 		FROM address LEFT JOIN consumer ON 
 		consumer.ID=address.CUSTOMER_ID
-		WHERE consumer.ID=#{userId}
+		WHERE address.status='0' and consumer.ID=#{userId}
 	</select>
 	
 	<!-- 添加地址 -->

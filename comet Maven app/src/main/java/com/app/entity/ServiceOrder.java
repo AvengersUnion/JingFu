@@ -1,6 +1,5 @@
 package com.app.entity;
 
-import java.util.Date;
 
 /**
  * 服务订单
@@ -39,7 +38,7 @@ public class ServiceOrder {
     //服务名字
     private String serviceName;
     //订单创建时间
-    private Date createtime;
+    private String createtime;
     //订单状态
     private String state;
     //支付类型
@@ -49,7 +48,7 @@ public class ServiceOrder {
     //尾款
     private Double endMoney;
     //服务时间
-    private Date serviceTime;
+    private String serviceTime;
     //用户备注
     private String remark;
     
@@ -116,10 +115,10 @@ public class ServiceOrder {
 	public void setMoney(Double money) {
 		this.money = money;
 	}
-	public Date getServiceTime() {
+	public String getServiceTime() {
 		return serviceTime;
 	}
-	public void setServiceTime(Date serviceTime) {
+	public void setServiceTime(String serviceTime) {
 		this.serviceTime = serviceTime;
 	}
 	public String getRemark() {
@@ -197,13 +196,13 @@ public class ServiceOrder {
 	/**
 	 * @return the createtime
 	 */
-	public Date getCreatetime() {
+	public String getCreatetime() {
 		return createtime;
 	}
 	/**
 	 * @param createtime the createtime to set
 	 */
-	public void setCreatetime(Date createtime) {
+	public void setCreatetime(String createtime) {
 		this.createtime = createtime;
 	}
 	/**
